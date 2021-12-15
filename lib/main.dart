@@ -1,7 +1,11 @@
+import 'package:adhan/adhan.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 import 'package:taukeet/bloc/timer_bloc.dart';
+import 'package:taukeet/cubit/prayer_cubit.dart';
 import 'package:taukeet/cubit/salah_cubit.dart';
+import 'package:taukeet/services/prayer_service.dart';
 import 'package:taukeet/ticker.dart';
 
 void main() {
@@ -26,14 +30,11 @@ class MyApp extends StatelessWidget {
 class Home extends StatelessWidget {
   Home({Key? key}) : super(key: key);
 
-  final salah = [
-    "FAJR",
-    "SUNRISE",
-    "DHUHR",
-    "ASR",
-    "MAGHRIB",
-    "ISHA",
-  ];
+  final prayerService = PrayerService(
+    coordinates: Coordinates(21.1458, 79.0882),
+    params: CalculationMethod.karachi.getParameters(),
+    madhab: Madhab.hanafi,
+  );
 
   final cardTimeStyle = const TextStyle(
     fontSize: 12,
@@ -50,12 +51,15 @@ class Home extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider<SalahCubit>(
-          create: (context) => SalahCubit(),
-        ),
         BlocProvider<TimerBloc>(
-          create: (context) => TimerBloc(ticker: const Ticker())
-            ..add(TimerStarted(duration: 7200)),
+          create: (context) =>
+              TimerBloc(ticker: const Ticker(), prayerService: prayerService)
+                ..add(const TimerStarted()),
+        ),
+        BlocProvider<PrayerCubit>(
+          create: (context) => PrayerCubit(
+            prayerService: prayerService,
+          )..initialize(),
         ),
       ],
       child: Scaffold(
@@ -85,10 +89,10 @@ class Home extends StatelessWidget {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    BlocBuilder<SalahCubit, SalahState>(
+                    BlocBuilder<PrayerCubit, PrayerState>(
                       builder: (context, state) {
                         return Text(
-                          state.currentSalah,
+                          state.currentPrayer?.prayer.toUpperCase() ?? "none",
                           style: const TextStyle(
                             fontSize: 32,
                             fontWeight: FontWeight.bold,
@@ -98,20 +102,7 @@ class Home extends StatelessWidget {
                         );
                       },
                     ),
-                    TimerText(),
-                    // BlocBuilder<TimerBloc, TimerState>(
-                    //   builder: (context, state) {
-                    //     return Text(
-                    //       "${state.duration}",
-                    //       style: const TextStyle(
-                    //         fontSize: 14,
-                    //         fontWeight: FontWeight.w300,
-                    //         letterSpacing: 8,
-                    //         color: Color(0xffF0E7D8),
-                    //       ),
-                    //     );
-                    //   },
-                    // ),
+                    const TimerText(),
                   ],
                 ),
               ),
@@ -124,13 +115,13 @@ class Home extends StatelessWidget {
               child: SingleChildScrollView(
                 child: Padding(
                   padding: const EdgeInsets.only(top: 196),
-                  child: BlocBuilder<SalahCubit, SalahState>(
+                  child: BlocBuilder<PrayerCubit, PrayerState>(
                     builder: (context, state) {
                       return Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: state.salahList
+                        children: state.prayerTimes
                             .map(
-                              (item) => Padding(
+                              (prayer) => Padding(
                                 padding: const EdgeInsets.only(
                                   top: 2,
                                   left: 10,
@@ -146,7 +137,7 @@ class Home extends StatelessWidget {
                                     child: Column(
                                       children: [
                                         Text(
-                                          item,
+                                          prayer.prayer.toUpperCase(),
                                           style: const TextStyle(
                                             fontSize: 20,
                                             fontWeight: FontWeight.bold,
@@ -170,7 +161,8 @@ class Home extends StatelessWidget {
                                                   style: cardTimeLabelStyle,
                                                 ),
                                                 Text(
-                                                  "05:30 AM",
+                                                  DateFormat("HH:mm a")
+                                                      .format(prayer.startTime),
                                                   style: cardTimeStyle,
                                                 ),
                                               ],
@@ -184,7 +176,8 @@ class Home extends StatelessWidget {
                                                   style: cardTimeLabelStyle,
                                                 ),
                                                 Text(
-                                                  "05:30 AM",
+                                                  DateFormat("HH:mm a")
+                                                      .format(prayer.endTime),
                                                   style: cardTimeStyle,
                                                 ),
                                               ],

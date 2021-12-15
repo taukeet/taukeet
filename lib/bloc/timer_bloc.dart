@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:taukeet/services/prayer_service.dart';
 import 'package:taukeet/ticker.dart';
 
 part 'timer_event.dart';
@@ -8,13 +9,15 @@ part 'timer_state.dart';
 
 class TimerBloc extends Bloc<TimerEvent, TimerState> {
   final Ticker _ticker;
+  final PrayerService _prayerService;
   static const int _duration = 60;
 
   StreamSubscription<int>? _tickerSubscription;
 
-  TimerBloc({required Ticker ticker})
+  TimerBloc({required Ticker ticker, required PrayerService prayerService})
       : _ticker = ticker,
-        super(TimerInitial(_duration)) {
+        _prayerService = prayerService,
+        super(const TimerInitial(_duration)) {
     on<TimerStarted>(_onStarted);
     on<TimerPaused>(_onPaused);
     on<TimerResumed>(_onResumed);
@@ -29,10 +32,15 @@ class TimerBloc extends Bloc<TimerEvent, TimerState> {
   }
 
   void _onStarted(TimerStarted event, Emitter<TimerState> emit) {
-    emit(TimerRunInProgress(event.duration));
+    final int duration = _prayerService
+        .getCurrentPrayer()
+        .endTime
+        .difference(DateTime.now())
+        .inSeconds;
+    emit(TimerRunInProgress(duration));
     _tickerSubscription?.cancel();
     _tickerSubscription = _ticker
-        .tick(ticks: event.duration)
+        .tick(ticks: duration)
         .listen((duration) => add(TimerTicked(duration: duration)));
   }
 

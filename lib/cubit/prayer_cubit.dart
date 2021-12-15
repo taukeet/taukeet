@@ -1,0 +1,25 @@
+import 'package:bloc/bloc.dart';
+import 'package:equatable/equatable.dart';
+import 'package:taukeet/services/prayer_service.dart';
+
+part 'prayer_state.dart';
+
+class PrayerCubit extends Cubit<PrayerState> {
+  PrayerCubit({
+    required PrayerService prayerService,
+  })  : _prayerService = prayerService,
+        super(
+          const PrayerState(),
+        );
+
+  final PrayerService _prayerService;
+
+  void initialize() {
+    emit(
+      state.copyWith(
+        prayerTimes: _prayerService.getPrayerTimes(),
+        currentPrayer: _prayerService.getCurrentPrayer(),
+      ),
+    );
+  }
+}

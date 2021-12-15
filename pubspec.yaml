@@ -27,16 +27,17 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
+  adhan:
+    git:
+      url: https://github.com/iamriajul/adhan-dart.git
+      ref: v2
   bloc: ^8.0.1
   cupertino_icons: ^1.0.2
   equatable: ^2.0.3
   flutter:
     sdk: flutter
   flutter_bloc: ^8.0.0
-  adhan:
-    git: 
-      url: "https://github.com/iamriajul/adhan-dart.git"
-      ref: "v2" 
+  intl: ^0.17.0
 
 dev_dependencies:
   flutter_lints: ^1.0.0
