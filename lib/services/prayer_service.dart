@@ -1,5 +1,4 @@
 import 'package:adhan/adhan.dart';
-import 'package:intl/intl.dart';
 
 class PrayerTime {
   final String prayer;
@@ -50,13 +49,13 @@ class PrayerService {
 
   PrayerTime getNextPrayer() {
     Prayer prayer = prayerTimes.nextPrayer();
-    DateTime prayerStartTime = prayerTimes.timeForPrayer(prayer)!;
+    // DateTime prayerStartTime = prayerTimes.timeForPrayer(prayer)!;
 
     if (prayer == Prayer.none && prayerTimes.currentPrayer() == Prayer.isha) {
       prayer = Prayer.fajr;
 
       var today = DateTime.now();
-      var tomorrow = today.add(Duration(days: 1));
+      // var tomorrow = today.add(Duration(days: 1));
     }
 
     return PrayerTime(
