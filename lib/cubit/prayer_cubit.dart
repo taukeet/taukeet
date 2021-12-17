@@ -17,6 +17,7 @@ class PrayerCubit extends Cubit<PrayerState> {
   void initialize() {
     emit(
       state.copyWith(
+        nextPrayer: _prayerService.getNextPrayer(),
         prayerTimes: _prayerService.getPrayerTimes(),
         currentPrayer: _prayerService.getCurrentPrayer(),
       ),
