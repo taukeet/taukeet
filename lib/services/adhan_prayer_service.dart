@@ -1,4 +1,5 @@
 import 'package:adhan/adhan.dart';
+import 'package:taukeet/contracts/prayer_service.dart';
 
 class PrayerTime {
   final String prayer;
@@ -14,13 +15,13 @@ class PrayerTime {
   });
 }
 
-class PrayerService {
+class AdhanPrayerService extends PrayerService {
   final Coordinates coordinates;
   final CalculationParameters params;
   final Madhab madhab;
   late PrayerTimes prayerTimes;
 
-  PrayerService({
+  AdhanPrayerService({
     required this.coordinates,
     required this.params,
     required this.madhab,

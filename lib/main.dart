@@ -5,7 +5,7 @@ import 'package:intl/intl.dart';
 import 'package:taukeet/bloc/timer_bloc.dart';
 import 'package:taukeet/cubit/prayer_cubit.dart';
 import 'package:taukeet/intro.dart';
-import 'package:taukeet/services/prayer_service.dart';
+import 'package:taukeet/services/adhan_prayer_service.dart';
 import 'package:taukeet/ticker.dart';
 
 void main() {
@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
 class Home extends StatelessWidget {
   Home({Key? key}) : super(key: key);
 
-  final prayerService = PrayerService(
+  final prayerService = AdhanPrayerService(
     coordinates: Coordinates(21.1458, 79.0882),
     params: CalculationMethod.karachi.getParameters(),
     madhab: Madhab.hanafi,

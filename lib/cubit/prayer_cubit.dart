@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:taukeet/services/prayer_service.dart';
+import 'package:taukeet/contracts/prayer_service.dart';
+import 'package:taukeet/services/adhan_prayer_service.dart';
 
 part 'prayer_state.dart';
 
