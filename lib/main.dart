@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:taukeet/bloc/timer_bloc.dart';
 import 'package:taukeet/cubit/prayer_cubit.dart';
+import 'package:taukeet/intro.dart';
 import 'package:taukeet/services/prayer_service.dart';
 import 'package:taukeet/ticker.dart';
 
@@ -21,7 +22,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: Home(),
+      home: const Intro(),
     );
   }
 }
