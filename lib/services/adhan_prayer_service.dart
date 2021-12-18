@@ -31,6 +31,7 @@ class AdhanPrayerService extends PrayerService {
   }
 
   /// Return current prayer and ending time
+  @override
   PrayerTime getCurrentPrayer() {
     Prayer prayer = prayerTimes.currentPrayer();
     Prayer nextPrayer = prayerTimes.nextPrayer() == Prayer.none
@@ -48,6 +49,7 @@ class AdhanPrayerService extends PrayerService {
     );
   }
 
+  @override
   PrayerTime getNextPrayer() {
     Prayer prayer = prayerTimes.nextPrayer();
     // DateTime prayerStartTime = prayerTimes.timeForPrayer(prayer)!;
@@ -67,6 +69,7 @@ class AdhanPrayerService extends PrayerService {
   }
 
   /// Return the list of PrayerTime Object
+  @override
   List<PrayerTime> getPrayerTimes() {
     List<PrayerTime> times = [];
 
@@ -127,6 +130,9 @@ class AdhanPrayerService extends PrayerService {
 
     return times;
   }
+
+  @override
+  List<CalculationMethod> get calculationMethods => CalculationMethod.values;
 
   /// return the strring name of prayer
   String _getPrayerName(Prayer prayer) {

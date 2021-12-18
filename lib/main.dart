@@ -5,10 +5,12 @@ import 'package:intl/intl.dart';
 import 'package:taukeet/bloc/timer_bloc.dart';
 import 'package:taukeet/cubit/prayer_cubit.dart';
 import 'package:taukeet/intro.dart';
+import 'package:taukeet/service_locator.dart';
 import 'package:taukeet/services/adhan_prayer_service.dart';
 import 'package:taukeet/ticker.dart';
 
 void main() {
+  setupServiceLocator();
   runApp(const MyApp());
 }
 
