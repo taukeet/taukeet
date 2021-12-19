@@ -12,6 +12,7 @@ class IntroState extends Equatable {
   final bool isAddressFetched;
   final bool isDataSaving;
   final bool isDataSaved;
+  final bool hasValidationError;
 
   const IntroState({
     this.calculationMethods = const [],
@@ -24,6 +25,7 @@ class IntroState extends Equatable {
     this.isAddressFetched = false,
     this.isDataSaving = false,
     this.isDataSaved = false,
+    this.hasValidationError = false,
   });
 
   IntroState copyWith({
@@ -37,6 +39,7 @@ class IntroState extends Equatable {
     bool? isAddressFetched,
     bool? isDataSaving,
     bool? isDataSaved,
+    bool? hasValidationError,
   }) {
     return IntroState(
       calculationMethods: calculationMethods ?? this.calculationMethods,
@@ -49,6 +52,7 @@ class IntroState extends Equatable {
       isAddressFetched: isAddressFetched ?? this.isAddressFetched,
       isDataSaving: isDataSaving ?? this.isDataSaving,
       isDataSaved: isDataSaved ?? this.isDataSaved,
+      hasValidationError: hasValidationError ?? this.hasValidationError,
     );
   }
 
@@ -64,5 +68,6 @@ class IntroState extends Equatable {
         isAddressFetched,
         isDataSaving,
         isDataSaved,
+        hasValidationError,
       ];
 }

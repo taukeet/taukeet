@@ -68,7 +68,20 @@ class IntroCubit extends Cubit<IntroState> {
         ),
       );
 
+  void removeHasValidationError() => emit(
+        state.copyWith(
+          hasValidationError: false,
+        ),
+      );
+
   void saveSettingsData() async {
+    if (state.latitude == 0 && state.longitude == 0) {
+      emit(state.copyWith(
+        hasValidationError: true,
+      ));
+      return;
+    }
+
     emit(state.copyWith(
       isDataSaving: true,
     ));

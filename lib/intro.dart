@@ -26,7 +26,20 @@ class _IntroState extends State<Intro> {
       )..initialize(),
       child: IntroSlider(
         showSkipBtn: false,
-        renderDoneBtn: BlocBuilder<IntroCubit, IntroState>(
+        renderDoneBtn: BlocConsumer<IntroCubit, IntroState>(
+          listener: (context, state) {
+            const snackBar = SnackBar(
+              content: Text('Please select the location'),
+            );
+            if (state.hasValidationError) {
+              ScaffoldMessenger.of(context)
+                  .showSnackBar(snackBar)
+                  .closed
+                  .then((_) {
+                BlocProvider.of<IntroCubit>(context).removeHasValidationError();
+              });
+            }
+          },
           builder: (context, state) {
             if (state.isDataSaving) {
               return const SizedBox(
