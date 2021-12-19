@@ -1,12 +1,9 @@
-import 'dart:ffi';
-
 import 'package:adhan/adhan.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:geocoding/geocoding.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:taukeet/contracts/location_service.dart';
 import 'package:taukeet/contracts/prayer_service.dart';
+import 'package:taukeet/contracts/storage_service.dart';
 
 part 'intro_state.dart';
 
@@ -14,12 +11,15 @@ class IntroCubit extends Cubit<IntroState> {
   IntroCubit({
     required PrayerService prayerService,
     required LocationService locationService,
+    required StorageService storageService,
   })  : _prayerService = prayerService,
         _locationService = locationService,
+        _storageService = storageService,
         super(const IntroState());
 
   final PrayerService _prayerService;
   final LocationService _locationService;
+  final StorageService _storageService;
 
   void initialize() {
     emit(
@@ -67,4 +67,21 @@ class IntroCubit extends Cubit<IntroState> {
           madhab: madhab,
         ),
       );
+
+  void saveSettingsData() async {
+    emit(state.copyWith(
+      isDataSaving: true,
+    ));
+
+    await _storageService.setString("madhab", state.madhab);
+    await _storageService.setString(
+        "calculationMethod", state.calculationMethod);
+    await _storageService.setDouble("latitude", state.latitude);
+    await _storageService.setDouble("longitude", state.longitude);
+
+    emit(state.copyWith(
+      isDataSaving: false,
+      isDataSaved: true,
+    ));
+  }
 }

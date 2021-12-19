@@ -2,7 +2,6 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:taukeet/contracts/prayer_service.dart';
-import 'package:taukeet/services/adhan_prayer_service.dart';
 import 'package:taukeet/ticker.dart';
 
 part 'timer_event.dart';
@@ -61,14 +60,14 @@ class TimerBloc extends Bloc<TimerEvent, TimerState> {
 
   void _onReset(TimerReset event, Emitter<TimerState> emit) {
     _tickerSubscription?.cancel();
-    emit(TimerInitial(_duration));
+    emit(const TimerInitial(_duration));
   }
 
   void _onTicked(TimerTicked event, Emitter<TimerState> emit) {
     emit(
       event.duration > 0
           ? TimerRunInProgress(event.duration)
-          : TimerRunComplete(),
+          : const TimerRunComplete(),
     );
   }
 }

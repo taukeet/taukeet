@@ -1,10 +1,10 @@
-import 'package:adhan/adhan.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intro_slider/intro_slider.dart';
 import 'package:intro_slider/slide_object.dart';
 import 'package:taukeet/contracts/location_service.dart';
 import 'package:taukeet/contracts/prayer_service.dart';
+import 'package:taukeet/contracts/storage_service.dart';
 import 'package:taukeet/cubit/intro_cubit.dart';
 import 'package:taukeet/service_locator.dart';
 
@@ -22,204 +22,228 @@ class _IntroState extends State<Intro> {
       create: (context) => IntroCubit(
         prayerService: getIt<PrayerService>(),
         locationService: getIt<LocationService>(),
+        storageService: getIt<StorageService>(),
       )..initialize(),
-      child: Container(
-        child: IntroSlider(
-          showSkipBtn: false,
-          slides: [
-            Slide(
-              widgetDescription: Center(
-                child: BlocBuilder<IntroCubit, IntroState>(
-                  builder: (context, state) {
-                    return Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        const Icon(
-                          Icons.location_on,
+      child: IntroSlider(
+        showSkipBtn: false,
+        renderDoneBtn: BlocBuilder<IntroCubit, IntroState>(
+          builder: (context, state) {
+            if (state.isDataSaving) {
+              return const SizedBox(
+                width: 20,
+                height: 20,
+                child: CircularProgressIndicator(
+                  color: Color(0xffF0E7D8),
+                  strokeWidth: 2,
+                ),
+              );
+            }
+
+            return TextButton(
+              onPressed: () =>
+                  BlocProvider.of<IntroCubit>(context).saveSettingsData(),
+              child: const Text(
+                "DONE",
+                style: TextStyle(
+                  color: Colors.white,
+                ),
+              ),
+            );
+          },
+        ),
+        slides: [
+          Slide(
+            widgetDescription: Center(
+              child: BlocBuilder<IntroCubit, IntroState>(
+                builder: (context, state) {
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      const Icon(
+                        Icons.location_on,
+                        color: Color(0xffF0E7D8),
+                        size: 60,
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      const Text(
+                        "We need your location to calculate the prayer times",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
                           color: Color(0xffF0E7D8),
-                          size: 60,
+                          fontSize: 14,
                         ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        const Text(
-                          "We need your location to calculate the prayer times",
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            color: Color(0xffF0E7D8),
-                            fontSize: 14,
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        BlocBuilder<IntroCubit, IntroState>(
-                          builder: (context, state) {
-                            if (state.isAddressFetching) {
-                              return const Padding(
-                                padding: EdgeInsets.symmetric(vertical: 10.0),
-                                child: SizedBox(
-                                  height: 20,
-                                  width: 20,
-                                  child: CircularProgressIndicator(
-                                    color: Color(0xffF0E7D8),
-                                    strokeWidth: 2,
-                                  ),
-                                ),
-                              );
-                            }
-
-                            if (state.isAddressFetched) {
-                              return Text(
-                                state.address,
-                                textAlign: TextAlign.center,
-                                style: const TextStyle(
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      BlocBuilder<IntroCubit, IntroState>(
+                        builder: (context, state) {
+                          if (state.isAddressFetching) {
+                            return const Padding(
+                              padding: EdgeInsets.symmetric(vertical: 10.0),
+                              child: SizedBox(
+                                height: 20,
+                                width: 20,
+                                child: CircularProgressIndicator(
                                   color: Color(0xffF0E7D8),
-                                  fontSize: 14,
-                                ),
-                              );
-                            }
-
-                            return ElevatedButton(
-                              onPressed: () =>
-                                  BlocProvider.of<IntroCubit>(context)
-                                      .locateUser(),
-                              style: ElevatedButton.styleFrom(
-                                primary: const Color(0xffF0E7D8),
-                                shadowColor: const Color(0xffF0E7D8),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(20),
-                                ),
-                              ),
-                              child: const Text(
-                                "Locate",
-                                style: TextStyle(
-                                  color: Color(0xff191923),
+                                  strokeWidth: 2,
                                 ),
                               ),
                             );
-                          },
-                        )
-                      ],
-                    );
-                  },
-                ),
-              ),
-              backgroundColor: const Color(0xff191923),
-            ),
-            Slide(
-              widgetDescription: Center(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    const Icon(
-                      Icons.lock_clock,
-                      color: Color(0xffF0E7D8),
-                      size: 60,
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    const Text(
-                      "Please select the madhab, Asr time depends on it",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        color: Color(0xffF0E7D8),
-                        fontSize: 14,
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    BlocBuilder<IntroCubit, IntroState>(
-                      builder: (context, state) {
-                        return DropdownButton(
-                          hint: const Text("Select Madhab"),
-                          dropdownColor: const Color(0xff191923),
-                          style: const TextStyle(
-                            color: Color(0xffF0E7D8),
-                          ),
-                          value: state.madhab,
-                          items: const [
-                            DropdownMenuItem(
-                              child: Text("HANFI"),
-                              value: "hanfi",
+                          }
+
+                          if (state.isAddressFetched) {
+                            return Text(
+                              state.address,
+                              textAlign: TextAlign.center,
+                              style: const TextStyle(
+                                color: Color(0xffF0E7D8),
+                                fontSize: 14,
+                              ),
+                            );
+                          }
+
+                          return ElevatedButton(
+                            onPressed: () =>
+                                BlocProvider.of<IntroCubit>(context)
+                                    .locateUser(),
+                            style: ElevatedButton.styleFrom(
+                              primary: const Color(0xffF0E7D8),
+                              shadowColor: const Color(0xffF0E7D8),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(20),
+                              ),
                             ),
-                            DropdownMenuItem(
-                              child: Text("OTHER"),
-                              value: "other",
+                            child: const Text(
+                              "Locate",
+                              style: TextStyle(
+                                color: Color(0xff191923),
+                              ),
                             ),
-                          ],
-                          onChanged: (value) =>
-                              BlocProvider.of<IntroCubit>(context).changeMadhab(
-                            value.toString(),
-                          ),
-                        );
-                      },
-                    ),
-                  ],
-                ),
+                          );
+                        },
+                      )
+                    ],
+                  );
+                },
               ),
-              backgroundColor: const Color(0xff191923),
             ),
-            Slide(
-              widgetDescription: Center(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    const Icon(
-                      Icons.calculate,
+            backgroundColor: const Color(0xff191923),
+          ),
+          Slide(
+            widgetDescription: Center(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  const Icon(
+                    Icons.lock_clock,
+                    color: Color(0xffF0E7D8),
+                    size: 60,
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  const Text(
+                    "Please select the madhab, Asr time depends on it",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
                       color: Color(0xffF0E7D8),
-                      size: 60,
+                      fontSize: 14,
                     ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    const Text(
-                      "Please select the calulation method",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        color: Color(0xffF0E7D8),
-                        fontSize: 14,
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    BlocBuilder<IntroCubit, IntroState>(
-                      builder: (context, state) {
-                        return DropdownButton(
-                          hint: const Text("Select Calculation Method"),
-                          dropdownColor: const Color(0xff191923),
-                          style: const TextStyle(
-                            color: Color(0xffF0E7D8),
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  BlocBuilder<IntroCubit, IntroState>(
+                    builder: (context, state) {
+                      return DropdownButton(
+                        hint: const Text("Select Madhab"),
+                        dropdownColor: const Color(0xff191923),
+                        style: const TextStyle(
+                          color: Color(0xffF0E7D8),
+                        ),
+                        value: state.madhab,
+                        items: const [
+                          DropdownMenuItem(
+                            child: Text("HANFI"),
+                            value: "hanfi",
                           ),
-                          value: state.calculationMethod,
-                          items: state.calculationMethods
-                              .map(
-                                (e) => DropdownMenuItem(
-                                  child: Text(
-                                    e.name.replaceAll("_", " ").toUpperCase(),
-                                  ),
-                                  value: e.name,
+                          DropdownMenuItem(
+                            child: Text("OTHER"),
+                            value: "other",
+                          ),
+                        ],
+                        onChanged: (value) =>
+                            BlocProvider.of<IntroCubit>(context).changeMadhab(
+                          value.toString(),
+                        ),
+                      );
+                    },
+                  ),
+                ],
+              ),
+            ),
+            backgroundColor: const Color(0xff191923),
+          ),
+          Slide(
+            widgetDescription: Center(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  const Icon(
+                    Icons.calculate,
+                    color: Color(0xffF0E7D8),
+                    size: 60,
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  const Text(
+                    "Please select the calulation method",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: Color(0xffF0E7D8),
+                      fontSize: 14,
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  BlocBuilder<IntroCubit, IntroState>(
+                    builder: (context, state) {
+                      return DropdownButton(
+                        hint: const Text("Select Calculation Method"),
+                        dropdownColor: const Color(0xff191923),
+                        style: const TextStyle(
+                          color: Color(0xffF0E7D8),
+                        ),
+                        value: state.calculationMethod,
+                        items: state.calculationMethods
+                            .map(
+                              (e) => DropdownMenuItem(
+                                child: Text(
+                                  e.name.replaceAll("_", " ").toUpperCase(),
                                 ),
-                              )
-                              .toList(),
-                          onChanged: (value) =>
-                              BlocProvider.of<IntroCubit>(context)
-                                  .changeCalculationMethod(
-                            value.toString(),
-                          ),
-                        );
-                      },
-                    ),
-                  ],
-                ),
+                                value: e.name,
+                              ),
+                            )
+                            .toList(),
+                        onChanged: (value) =>
+                            BlocProvider.of<IntroCubit>(context)
+                                .changeCalculationMethod(
+                          value.toString(),
+                        ),
+                      );
+                    },
+                  ),
+                ],
               ),
-              backgroundColor: const Color(0xff191923),
             ),
-          ],
-        ),
+            backgroundColor: const Color(0xff191923),
+          ),
+        ],
       ),
     );
   }

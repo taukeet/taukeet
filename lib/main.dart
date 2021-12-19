@@ -9,8 +9,9 @@ import 'package:taukeet/service_locator.dart';
 import 'package:taukeet/services/adhan_prayer_service.dart';
 import 'package:taukeet/ticker.dart';
 
-void main() {
-  setupServiceLocator();
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await setupServiceLocator();
   runApp(const MyApp());
 }
 
