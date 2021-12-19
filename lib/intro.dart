@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intro_slider/intro_slider.dart';
 import 'package:intro_slider/slide_object.dart';
+import 'package:taukeet/contracts/location_service.dart';
 import 'package:taukeet/contracts/prayer_service.dart';
 import 'package:taukeet/cubit/intro_cubit.dart';
 import 'package:taukeet/service_locator.dart';
@@ -17,10 +18,10 @@ class Intro extends StatefulWidget {
 class _IntroState extends State<Intro> {
   @override
   Widget build(BuildContext context) {
-    String? selectedCalculationMethod = null;
     return BlocProvider(
       create: (context) => IntroCubit(
         prayerService: getIt<PrayerService>(),
+        locationService: getIt<LocationService>(),
       )..initialize(),
       child: Container(
         child: IntroSlider(
