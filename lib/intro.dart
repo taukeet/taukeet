@@ -6,6 +6,7 @@ import 'package:taukeet/contracts/location_service.dart';
 import 'package:taukeet/contracts/prayer_service.dart';
 import 'package:taukeet/contracts/storage_service.dart';
 import 'package:taukeet/cubit/intro_cubit.dart';
+import 'package:taukeet/home.dart';
 import 'package:taukeet/service_locator.dart';
 
 class Intro extends StatefulWidget {
@@ -38,6 +39,14 @@ class _IntroState extends State<Intro> {
                   .then((_) {
                 BlocProvider.of<IntroCubit>(context).removeHasValidationError();
               });
+            }
+            if (state.isDataSaved) {
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => Home(),
+                ),
+              );
             }
           },
           builder: (context, state) {
