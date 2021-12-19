@@ -1,3 +1,4 @@
+import 'package:adhan/adhan.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intro_slider/intro_slider.dart';
@@ -6,11 +7,17 @@ import 'package:taukeet/contracts/prayer_service.dart';
 import 'package:taukeet/cubit/intro_cubit.dart';
 import 'package:taukeet/service_locator.dart';
 
-class Intro extends StatelessWidget {
+class Intro extends StatefulWidget {
   const Intro({Key? key}) : super(key: key);
 
   @override
+  _IntroState createState() => _IntroState();
+}
+
+class _IntroState extends State<Intro> {
+  @override
   Widget build(BuildContext context) {
+    String? selectedCalculationMethod = null;
     return BlocProvider(
       create: (context) => IntroCubit(
         prayerService: getIt<PrayerService>(),
@@ -88,24 +95,31 @@ class Intro extends StatelessWidget {
                     const SizedBox(
                       height: 10,
                     ),
-                    DropdownButton(
-                      hint: const Text("Select Madhab"),
-                      dropdownColor: const Color(0xff191923),
-                      style: const TextStyle(
-                        color: Color(0xffF0E7D8),
-                      ),
-                      value: "hanfi",
-                      items: const [
-                        DropdownMenuItem(
-                          child: Text("HANFI"),
-                          value: "hanfi",
-                        ),
-                        DropdownMenuItem(
-                          child: Text("OTHER"),
-                          value: "other",
-                        ),
-                      ],
-                      onChanged: (value) {},
+                    BlocBuilder<IntroCubit, IntroState>(
+                      builder: (context, state) {
+                        return DropdownButton(
+                          hint: const Text("Select Madhab"),
+                          dropdownColor: const Color(0xff191923),
+                          style: const TextStyle(
+                            color: Color(0xffF0E7D8),
+                          ),
+                          value: state.madhab,
+                          items: const [
+                            DropdownMenuItem(
+                              child: Text("HANFI"),
+                              value: "hanfi",
+                            ),
+                            DropdownMenuItem(
+                              child: Text("OTHER"),
+                              value: "other",
+                            ),
+                          ],
+                          onChanged: (value) =>
+                              BlocProvider.of<IntroCubit>(context).changeMadhab(
+                            value.toString(),
+                          ),
+                        );
+                      },
                     ),
                   ],
                 ),
@@ -144,6 +158,7 @@ class Intro extends StatelessWidget {
                           style: const TextStyle(
                             color: Color(0xffF0E7D8),
                           ),
+                          value: state.calculationMethod,
                           items: state.calculationMethods
                               .map(
                                 (e) => DropdownMenuItem(
@@ -154,7 +169,11 @@ class Intro extends StatelessWidget {
                                 ),
                               )
                               .toList(),
-                          onChanged: (value) {},
+                          onChanged: (value) =>
+                              BlocProvider.of<IntroCubit>(context)
+                                  .changeCalculationMethod(
+                            value.toString(),
+                          ),
                         );
                       },
                     ),

@@ -20,4 +20,16 @@ class IntroCubit extends Cubit<IntroState> {
       ),
     );
   }
+
+  void changeCalculationMethod(String method) => emit(
+        state.copyWith(
+          calculationMethod: method,
+        ),
+      );
+
+  void changeMadhab(String madhab) => emit(
+        state.copyWith(
+          madhab: madhab,
+        ),
+      );
 }
