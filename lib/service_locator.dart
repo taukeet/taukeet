@@ -14,11 +14,5 @@ setupServiceLocator() async {
   getIt.registerSingleton<LocationService>(GeoLocationService());
   getIt.registerSingleton<StorageService>(
       PrefsStorageService(prefs: await SharedPreferences.getInstance()));
-  getIt.registerSingleton<PrayerService>(
-    AdhanPrayerService(
-      coordinates: Coordinates(21.1458, 79.0882),
-      params: CalculationMethod.karachi.getParameters(),
-      madhab: Madhab.hanafi,
-    ),
-  );
+  getIt.registerSingleton<PrayerService>(AdhanPrayerService());
 }

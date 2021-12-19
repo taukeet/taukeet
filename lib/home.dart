@@ -3,18 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:taukeet/bloc/timer_bloc.dart';
+import 'package:taukeet/contracts/prayer_service.dart';
+import 'package:taukeet/contracts/storage_service.dart';
 import 'package:taukeet/cubit/prayer_cubit.dart';
-import 'package:taukeet/services/adhan_prayer_service.dart';
+import 'package:taukeet/service_locator.dart';
 import 'package:taukeet/ticker.dart';
 
 class Home extends StatelessWidget {
-  Home({Key? key}) : super(key: key);
-
-  final prayerService = AdhanPrayerService(
-    coordinates: Coordinates(21.1458, 79.0882),
-    params: CalculationMethod.karachi.getParameters(),
-    madhab: Madhab.hanafi,
-  );
+  final prayerService = getIt<PrayerService>();
+  final storageService = getIt<StorageService>();
 
   final cardTimeStyle = const TextStyle(
     fontSize: 12,
@@ -26,6 +23,22 @@ class Home extends StatelessWidget {
     fontSize: 8,
     color: Color(0xff191923),
   );
+
+  Home({Key? key}) : super(key: key) {
+    Madhab madhab = storageService.getString("madhab") == "hanfi"
+        ? Madhab.hanafi
+        : Madhab.shafi;
+
+    CalculationMethod method = CalculationMethod.values.byName(
+        storageService.getString("calculationMethod") ?? 'muslim_world_league');
+
+    prayerService.initialize(
+      Coordinates(storageService.getDouble('lattitude') ?? 24.5247,
+          storageService.getDouble('longitude') ?? 39.5692),
+      madhab,
+      method.getParameters(),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {

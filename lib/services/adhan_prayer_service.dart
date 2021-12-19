@@ -16,17 +16,20 @@ class PrayerTime {
 }
 
 class AdhanPrayerService extends PrayerService {
-  final Coordinates coordinates;
-  final CalculationParameters params;
-  final Madhab madhab;
+  late Coordinates coordinates;
+  late CalculationParameters params;
+  late Madhab madhab;
   late PrayerTimes prayerTimes;
 
-  AdhanPrayerService({
-    required this.coordinates,
-    required this.params,
-    required this.madhab,
-  }) {
-    params.madhab = madhab;
+  @override
+  void initialize(
+    Coordinates coordinates,
+    Madhab madhab,
+    CalculationParameters params,
+  ) {
+    this.coordinates = coordinates;
+    this.madhab = madhab;
+    this.params = params;
     prayerTimes = _getPrayerTimes(DateTime.now());
   }
 
