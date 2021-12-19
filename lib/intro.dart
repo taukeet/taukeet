@@ -28,45 +28,80 @@ class _IntroState extends State<Intro> {
           slides: [
             Slide(
               widgetDescription: Center(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    const Icon(
-                      Icons.location_on,
-                      color: Color(0xffF0E7D8),
-                      size: 60,
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    const Text(
-                      "We need your location to calculate the prayer times",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        color: Color(0xffF0E7D8),
-                        fontSize: 14,
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    ElevatedButton(
-                      onPressed: () => {},
-                      style: ElevatedButton.styleFrom(
-                        primary: const Color(0xffF0E7D8),
-                        shadowColor: const Color(0xffF0E7D8),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20),
+                child: BlocBuilder<IntroCubit, IntroState>(
+                  builder: (context, state) {
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        const Icon(
+                          Icons.location_on,
+                          color: Color(0xffF0E7D8),
+                          size: 60,
                         ),
-                      ),
-                      child: const Text(
-                        "Locate",
-                        style: TextStyle(
-                          color: Color(0xff191923),
+                        const SizedBox(
+                          height: 10,
                         ),
-                      ),
-                    )
-                  ],
+                        const Text(
+                          "We need your location to calculate the prayer times",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            color: Color(0xffF0E7D8),
+                            fontSize: 14,
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        BlocBuilder<IntroCubit, IntroState>(
+                          builder: (context, state) {
+                            if (state.isAddressFetching) {
+                              return const Padding(
+                                padding: EdgeInsets.symmetric(vertical: 10.0),
+                                child: SizedBox(
+                                  height: 20,
+                                  width: 20,
+                                  child: CircularProgressIndicator(
+                                    color: Color(0xffF0E7D8),
+                                    strokeWidth: 2,
+                                  ),
+                                ),
+                              );
+                            }
+
+                            if (state.isAddressFetched) {
+                              return Text(
+                                state.address,
+                                textAlign: TextAlign.center,
+                                style: const TextStyle(
+                                  color: Color(0xffF0E7D8),
+                                  fontSize: 14,
+                                ),
+                              );
+                            }
+
+                            return ElevatedButton(
+                              onPressed: () =>
+                                  BlocProvider.of<IntroCubit>(context)
+                                      .locateUser(),
+                              style: ElevatedButton.styleFrom(
+                                primary: const Color(0xffF0E7D8),
+                                shadowColor: const Color(0xffF0E7D8),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(20),
+                                ),
+                              ),
+                              child: const Text(
+                                "Locate",
+                                style: TextStyle(
+                                  color: Color(0xff191923),
+                                ),
+                              ),
+                            );
+                          },
+                        )
+                      ],
+                    );
+                  },
                 ),
               ),
               backgroundColor: const Color(0xff191923),
