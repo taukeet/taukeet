@@ -1,3 +1,4 @@
+import 'package:adhan/adhan.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_settings_ui/flutter_settings_ui.dart';
@@ -31,56 +32,64 @@ class Settings extends StatelessWidget {
             color: Color(0xffF0E7D8),
           ),
         ),
-        body: SettingsList(
-          contentPadding: const EdgeInsets.symmetric(vertical: 10),
-          backgroundColor: const Color(0xffF0E7D8),
-          sections: [
-            SettingsSection(
-              titleTextStyle: const TextStyle(
-                color: Color(0xff191923),
-                fontWeight: FontWeight.w900,
-              ),
-              title: 'General',
-              tiles: [
-                SettingsTile(
-                  title: 'Location',
-                  leading: const Icon(Icons.location_on),
-                  subtitle: "Change your location",
-                  onPressed: (BuildContext context) {
-                    print("herre");
-                  },
-                ),
-                SettingsTile(
-                  title: 'Madhab',
-                  leading: const Icon(Icons.lock_clock),
-                  subtitleWidget: BlocBuilder<SettingsCubit, SettingsState>(
-                    builder: (context, state) {
-                      return Text(state.madhab);
-                    },
+        body: BlocBuilder<SettingsCubit, SettingsState>(
+          builder: (context, state) {
+            return SettingsList(
+              contentPadding: const EdgeInsets.symmetric(vertical: 10),
+              backgroundColor: const Color(0xffF0E7D8),
+              sections: [
+                SettingsSection(
+                  titleTextStyle: const TextStyle(
+                    color: Color(0xff191923),
+                    fontWeight: FontWeight.w900,
                   ),
-                  onPressed: (BuildContext context) {
-                    showMadhabtDialog(context);
-                  },
-                ),
-                SettingsTile(
-                  title: 'Calculation Method',
-                  leading: const Icon(Icons.calculate),
-                  subtitle: "Hanfi",
-                  onPressed: (BuildContext context) {
-                    print("herre");
-                  },
-                ),
+                  title: 'General',
+                  tiles: [
+                    SettingsTile(
+                      title: 'Location',
+                      leading: const Icon(Icons.location_on),
+                      subtitle: "Change your location",
+                      onPressed: (BuildContext context) {
+                        print("herre");
+                      },
+                    ),
+                    SettingsTile(
+                      title: 'Madhab',
+                      leading: const Icon(Icons.lock_clock),
+                      subtitleWidget: BlocBuilder<SettingsCubit, SettingsState>(
+                        builder: (context, state) {
+                          return Text(state.madhab);
+                        },
+                      ),
+                      onPressed: (BuildContext context) {
+                        showMadhabDialog(context);
+                      },
+                    ),
+                    SettingsTile(
+                      title: 'Calculation Method',
+                      leading: const Icon(Icons.calculate),
+                      subtitleWidget: BlocBuilder<SettingsCubit, SettingsState>(
+                        builder: (context, state) {
+                          return Text(
+                              state.calculationMethod.replaceAll("_", " "));
+                        },
+                      ),
+                      onPressed: (BuildContext context) {
+                        showCalculationDialog(
+                            context, state.calculationMethods);
+                      },
+                    ),
+                  ],
+                )
               ],
-            )
-          ],
+            );
+          },
         ),
       ),
     );
   }
 
-  // show the dialog
-  // replace this function with the examples above
-  showMadhabtDialog(BuildContext context) {
+  showMadhabDialog(BuildContext context) {
     // set up the list options
     Widget hanfi = SimpleDialogOption(
       child: const Text(
@@ -130,4 +139,41 @@ class Settings extends StatelessWidget {
       },
     );
   }
+}
+
+showCalculationDialog(
+    BuildContext context, List<CalculationMethod> calculationMethods) {
+  // set up the SimpleDialog
+  SimpleDialog dialog = SimpleDialog(
+    title: const Text(
+      'Choose Calculation Method',
+      style: TextStyle(
+        color: Color(0xffF0E7D8),
+      ),
+    ),
+    backgroundColor: const Color(0xff191923),
+    children: calculationMethods
+        .map((CalculationMethod method) => SimpleDialogOption(
+              child: Text(
+                method.name.replaceAll("_", " "),
+                style: const TextStyle(
+                  color: Color(0xffF0E7D8),
+                ),
+              ),
+              onPressed: () {
+                BlocProvider.of<SettingsCubit>(context)
+                    .changeCalculationMethod(method.name);
+                Navigator.of(context).pop();
+              },
+            ))
+        .toList(),
+  );
+
+  // show the dialog
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return dialog;
+    },
+  );
 }
