@@ -1,16 +1,8 @@
-# taukeet
+# Taukeet - Salah Timing App
 
-A new Flutter project.
+Taukeet is an open-source project that aims to provide the Salah timings. We are using [Adhan Dart](https://github.com/iamriajul/adhan-dart) package by [Riajul Islam](https://github.com/iamriajul) for calculating Salah times.
 
-## Getting Started
+1. CONTRIBUTIONS IN ANY WAY ARE MOST WELCOME!
+2. YOU CAN START A DISCUSSION [HERE](https://github.com/f24aalam/taukeet/discussions)
+3. FOUND A BUG? PLEASE REPORT IT [HERE](https://github.com/f24aalam/taukeet/issues)
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
