@@ -7,6 +7,7 @@ import 'package:taukeet/contracts/prayer_service.dart';
 import 'package:taukeet/contracts/storage_service.dart';
 import 'package:taukeet/cubit/prayer_cubit.dart';
 import 'package:taukeet/service_locator.dart';
+import 'package:taukeet/settings.dart';
 import 'package:taukeet/ticker.dart';
 
 class Home extends StatelessWidget {
@@ -59,20 +60,6 @@ class Home extends StatelessWidget {
         backgroundColor: const Color(0xff191923),
         body: Stack(
           children: [
-            Positioned(
-              top: 30,
-              right: 10,
-              child: IconButton(
-                onPressed: () {
-                  print("clicked");
-                },
-                iconSize: 26,
-                icon: const Icon(
-                  Icons.settings,
-                  color: Color(0xffF0E7D8),
-                ),
-              ),
-            ),
             Positioned(
               top: 0,
               left: 0,
@@ -187,6 +174,25 @@ class Home extends StatelessWidget {
                       );
                     },
                   ),
+                ),
+              ),
+            ),
+            Positioned(
+              top: 30,
+              right: 10,
+              child: IconButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const Settings(),
+                    ),
+                  );
+                },
+                iconSize: 26,
+                icon: const Icon(
+                  Icons.settings,
+                  color: Color(0xffF0E7D8),
                 ),
               ),
             ),
