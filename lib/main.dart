@@ -21,6 +21,8 @@ class MyApp extends StatelessWidget {
   MyApp({Key? key}) : super(key: key);
 
   final StorageService storageService = getIt<StorageService>();
+  final PrayerService prayerService = getIt<PrayerService>();
+  final LocationService locationService = getIt<LocationService>();
 
   @override
   Widget build(BuildContext context) {
@@ -28,21 +30,21 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider<SettingsCubit>(
           create: (context) => SettingsCubit(
-            prayerService: getIt<PrayerService>(),
-            locationService: getIt<LocationService>(),
-            storageService: getIt<StorageService>(),
+            prayerService: prayerService,
+            locationService: locationService,
+            storageService: storageService,
           )..initialize(),
         ),
         BlocProvider<TimerBloc>(
           create: (context) => TimerBloc(
             ticker: const Ticker(),
-            prayerService: getIt<PrayerService>(),
+            prayerService: prayerService,
             settingsCubit: BlocProvider.of<SettingsCubit>(context),
           )..add(const TimerStarted()),
         ),
         BlocProvider<PrayerCubit>(
           create: (context) => PrayerCubit(
-            prayerService: getIt<PrayerService>(),
+            prayerService: prayerService,
             settingsCubit: BlocProvider.of<SettingsCubit>(context),
           )..initialize(),
         ),

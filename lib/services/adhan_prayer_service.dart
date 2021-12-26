@@ -43,41 +43,55 @@ class AdhanPrayerService extends PrayerService {
   @override
   PrayerTime getCurrentPrayer() {
     Prayer prayer = prayerTimes.currentPrayer();
-    print("Here");
-    print(prayer);
     Prayer nextPrayer = prayerTimes.nextPrayer() == Prayer.none
         ? Prayer.fajr
         : prayerTimes.nextPrayer();
 
+    DateTime? endTime;
+
     if (prayer == Prayer.none && prayerTimes.nextPrayer() == Prayer.fajr) {
       prayer = Prayer.isha;
-    }
-
-    return PrayerTime(
-      prayer: _getPrayerName(prayer),
-      startTime: prayerTimes.timeForPrayer(prayer)!,
-      endTime: prayerTimes.timeForPrayer(nextPrayer)!,
-    );
-  }
-
-  @override
-  PrayerTime getNextPrayer() {
-    Prayer prayer = prayerTimes.nextPrayer();
-    // DateTime prayerStartTime = prayerTimes.timeForPrayer(prayer)!;
-
-    if (prayer == Prayer.none && prayerTimes.currentPrayer() == Prayer.isha) {
-      prayer = Prayer.fajr;
-
+      endTime = prayerTimes.timeForPrayer(nextPrayer);
+    } else {
       var today = DateTime.now();
-      // var tomorrow = today.add(Duration(days: 1));
+      var tomorrow = today.add(const Duration(days: 1));
+      var tomorrowPareyerTimes = _getPrayerTimes(tomorrow);
+      endTime = tomorrowPareyerTimes.timeForPrayer(Prayer.fajr);
     }
 
     return PrayerTime(
       prayer: _getPrayerName(prayer),
       startTime: prayerTimes.timeForPrayer(prayer)!,
-      endTime: DateTime.now(), //prayerTimes.timeForPrayer(nextPrayer)!,
+      endTime: endTime!,
     );
   }
+
+  // @override
+  // PrayerTime getNextPrayer() {
+  //   Prayer prayer = prayerTimes.nextPrayer();
+  //   DateTime? startTime =
+  //       prayerTimes.timeForPrayer(prayerTimes.currentPrayer());
+  //   DateTime? endTime;
+
+  //   if (prayer == Prayer.none && prayerTimes.currentPrayer() == Prayer.isha) {
+  //     prayer = Prayer.fajr;
+
+  //     var today = DateTime.now();
+  //     var tomorrow = today.add(const Duration(days: 1));
+  //     var tomorrowPareyerTimes = _getPrayerTimes(tomorrow);
+  //     endTime = tomorrowPareyerTimes.timeForPrayer(Prayer.fajr)!;
+  //   } else {
+  //     endTime = prayerTimes.timeForPrayer(prayer)!;
+  //   }
+
+  //   print("Next Prayer");
+
+  //   return PrayerTime(
+  //     prayer: _getPrayerName(prayer),
+  //     startTime: startTime!,
+  //     endTime: endTime, //prayerTimes.timeForPrayer(nextPrayer)!,
+  //   );
+  // }
 
   /// Return the list of PrayerTime Object
   @override
