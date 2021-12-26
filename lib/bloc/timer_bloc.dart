@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:taukeet/contracts/prayer_service.dart';
+import 'package:taukeet/cubit/settings_cubit.dart';
 import 'package:taukeet/ticker.dart';
 
 part 'timer_event.dart';
@@ -14,8 +15,11 @@ class TimerBloc extends Bloc<TimerEvent, TimerState> {
 
   StreamSubscription<int>? _tickerSubscription;
 
-  TimerBloc({required Ticker ticker, required PrayerService prayerService})
-      : _ticker = ticker,
+  TimerBloc({
+    required Ticker ticker,
+    required PrayerService prayerService,
+    required SettingsCubit settingsCubit,
+  })  : _ticker = ticker,
         _prayerService = prayerService,
         super(const TimerInitial(_duration)) {
     on<TimerStarted>(_onStarted);
@@ -23,6 +27,10 @@ class TimerBloc extends Bloc<TimerEvent, TimerState> {
     on<TimerResumed>(_onResumed);
     on<TimerReset>(_onReset);
     on<TimerTicked>(_onTicked);
+
+    settingsCubit.stream.listen((state) {
+      add(const TimerStarted());
+    });
   }
 
   @override

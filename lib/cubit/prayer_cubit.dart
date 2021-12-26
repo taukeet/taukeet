@@ -15,9 +15,7 @@ class PrayerCubit extends Cubit<PrayerState> {
           const PrayerState(),
         ) {
     settingsCubit.stream.listen((state) {
-      if (state.isAddressFetching) {
-        print("object");
-      }
+      initialize();
     });
   }
 

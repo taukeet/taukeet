@@ -1,7 +1,6 @@
 import 'package:adhan/adhan.dart';
 import 'package:taukeet/contracts/prayer_service.dart';
 import 'package:taukeet/contracts/storage_service.dart';
-import 'package:taukeet/service_locator.dart';
 
 class PrayerTime {
   final String prayer;
