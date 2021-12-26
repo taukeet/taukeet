@@ -5,7 +5,7 @@ import 'package:intro_slider/slide_object.dart';
 import 'package:taukeet/contracts/location_service.dart';
 import 'package:taukeet/contracts/prayer_service.dart';
 import 'package:taukeet/contracts/storage_service.dart';
-import 'package:taukeet/cubit/intro_cubit.dart';
+import 'package:taukeet/cubit/settings_cubit.dart';
 import 'package:taukeet/home.dart';
 import 'package:taukeet/service_locator.dart';
 
@@ -27,14 +27,14 @@ class _IntroState extends State<Intro> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => IntroCubit(
+      create: (context) => SettingsCubit(
         prayerService: getIt<PrayerService>(),
         locationService: getIt<LocationService>(),
         storageService: storageService,
       )..initialize(),
       child: IntroSlider(
         showSkipBtn: false,
-        renderDoneBtn: BlocConsumer<IntroCubit, IntroState>(
+        renderDoneBtn: BlocConsumer<SettingsCubit, SettingsState>(
           listener: (context, state) {
             const snackBar = SnackBar(
               content: Text('Please select the location'),
@@ -44,7 +44,8 @@ class _IntroState extends State<Intro> {
                   .showSnackBar(snackBar)
                   .closed
                   .then((_) {
-                BlocProvider.of<IntroCubit>(context).removeHasValidationError();
+                BlocProvider.of<SettingsCubit>(context)
+                    .removeHasValidationError();
               });
             }
             if (state.isDataSaved) {
@@ -70,7 +71,7 @@ class _IntroState extends State<Intro> {
 
             return TextButton(
               onPressed: () =>
-                  BlocProvider.of<IntroCubit>(context).saveSettingsData(),
+                  BlocProvider.of<SettingsCubit>(context).saveSettingsData(),
               child: const Text(
                 "DONE",
                 style: TextStyle(
@@ -83,7 +84,7 @@ class _IntroState extends State<Intro> {
         slides: [
           Slide(
             widgetDescription: Center(
-              child: BlocBuilder<IntroCubit, IntroState>(
+              child: BlocBuilder<SettingsCubit, SettingsState>(
                 builder: (context, state) {
                   return Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -107,7 +108,7 @@ class _IntroState extends State<Intro> {
                       const SizedBox(
                         height: 10,
                       ),
-                      BlocBuilder<IntroCubit, IntroState>(
+                      BlocBuilder<SettingsCubit, SettingsState>(
                         builder: (context, state) {
                           if (state.isAddressFetching) {
                             return const Padding(
@@ -136,7 +137,7 @@ class _IntroState extends State<Intro> {
 
                           return ElevatedButton(
                             onPressed: () =>
-                                BlocProvider.of<IntroCubit>(context)
+                                BlocProvider.of<SettingsCubit>(context)
                                     .locateUser(),
                             style: ElevatedButton.styleFrom(
                               primary: const Color(0xffF0E7D8),
@@ -185,7 +186,7 @@ class _IntroState extends State<Intro> {
                   const SizedBox(
                     height: 10,
                   ),
-                  BlocBuilder<IntroCubit, IntroState>(
+                  BlocBuilder<SettingsCubit, SettingsState>(
                     builder: (context, state) {
                       return DropdownButton(
                         hint: const Text("Select Madhab"),
@@ -205,7 +206,8 @@ class _IntroState extends State<Intro> {
                           ),
                         ],
                         onChanged: (value) =>
-                            BlocProvider.of<IntroCubit>(context).changeMadhab(
+                            BlocProvider.of<SettingsCubit>(context)
+                                .changeMadhab(
                           value.toString(),
                         ),
                       );
@@ -240,7 +242,7 @@ class _IntroState extends State<Intro> {
                   const SizedBox(
                     height: 10,
                   ),
-                  BlocBuilder<IntroCubit, IntroState>(
+                  BlocBuilder<SettingsCubit, SettingsState>(
                     builder: (context, state) {
                       return DropdownButton(
                         hint: const Text("Select Calculation Method"),
@@ -260,7 +262,7 @@ class _IntroState extends State<Intro> {
                             )
                             .toList(),
                         onChanged: (value) =>
-                            BlocProvider.of<IntroCubit>(context)
+                            BlocProvider.of<SettingsCubit>(context)
                                 .changeCalculationMethod(
                           value.toString(),
                         ),

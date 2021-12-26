@@ -5,17 +5,17 @@ import 'package:taukeet/contracts/location_service.dart';
 import 'package:taukeet/contracts/prayer_service.dart';
 import 'package:taukeet/contracts/storage_service.dart';
 
-part 'intro_state.dart';
+part 'settings_state.dart';
 
-class IntroCubit extends Cubit<IntroState> {
-  IntroCubit({
+class SettingsCubit extends Cubit<SettingsState> {
+  SettingsCubit({
     required PrayerService prayerService,
     required LocationService locationService,
     required StorageService storageService,
   })  : _prayerService = prayerService,
         _locationService = locationService,
         _storageService = storageService,
-        super(const IntroState());
+        super(const SettingsState());
 
   final PrayerService _prayerService;
   final LocationService _locationService;

@@ -1,6 +1,6 @@
-part of 'intro_cubit.dart';
+part of 'settings_cubit.dart';
 
-class IntroState extends Equatable {
+class SettingsState extends Equatable {
   final List<CalculationMethod> calculationMethods;
   final String calculationMethod;
   final String madhab;
@@ -14,7 +14,7 @@ class IntroState extends Equatable {
   final bool isDataSaved;
   final bool hasValidationError;
 
-  const IntroState({
+  const SettingsState({
     this.calculationMethods = const [],
     this.calculationMethod = "muslim_world_league",
     this.madhab = "hanfi",
@@ -28,7 +28,7 @@ class IntroState extends Equatable {
     this.hasValidationError = false,
   });
 
-  IntroState copyWith({
+  SettingsState copyWith({
     List<CalculationMethod>? calculationMethods,
     String? calculationMethod,
     String? madhab,
@@ -41,7 +41,7 @@ class IntroState extends Equatable {
     bool? isDataSaved,
     bool? hasValidationError,
   }) {
-    return IntroState(
+    return SettingsState(
       calculationMethods: calculationMethods ?? this.calculationMethods,
       calculationMethod: calculationMethod ?? this.calculationMethod,
       madhab: madhab ?? this.madhab,
