@@ -25,24 +25,11 @@ class Home extends StatelessWidget {
     color: Color(0xff191923),
   );
 
-  Home({Key? key}) : super(key: key) {
-    Madhab madhab = storageService.getString("madhab") == "hanfi"
-        ? Madhab.hanafi
-        : Madhab.shafi;
-
-    CalculationMethod method = CalculationMethod.values.byName(
-        storageService.getString("calculationMethod") ?? 'muslim_world_league');
-
-    prayerService.initialize(
-      Coordinates(storageService.getDouble('lattitude') ?? 24.5247,
-          storageService.getDouble('longitude') ?? 39.5692),
-      madhab,
-      method.getParameters(),
-    );
-  }
+  Home({Key? key}) : super(key: key) {}
 
   @override
   Widget build(BuildContext context) {
+    prayerService.refreshTimes(storageService);
     return MultiBlocProvider(
       providers: [
         BlocProvider<TimerBloc>(

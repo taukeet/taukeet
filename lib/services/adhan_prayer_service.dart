@@ -1,5 +1,7 @@
 import 'package:adhan/adhan.dart';
 import 'package:taukeet/contracts/prayer_service.dart';
+import 'package:taukeet/contracts/storage_service.dart';
+import 'package:taukeet/service_locator.dart';
 
 class PrayerTime {
   final String prayer;
@@ -22,14 +24,19 @@ class AdhanPrayerService extends PrayerService {
   late PrayerTimes prayerTimes;
 
   @override
-  void initialize(
-    Coordinates coordinates,
-    Madhab madhab,
-    CalculationParameters params,
-  ) {
-    this.coordinates = coordinates;
-    this.madhab = madhab;
-    this.params = params;
+  void refreshTimes(StorageService storageService) {
+    CalculationMethod method = CalculationMethod.values.byName(
+        storageService.getString("calculationMethod") ?? 'muslim_world_league');
+
+    coordinates = Coordinates(storageService.getDouble('lattitude') ?? 24.5247,
+        storageService.getDouble('longitude') ?? 39.5692);
+    madhab = storageService.getString("madhab") == "hanfi"
+        ? Madhab.hanafi
+        : Madhab.shafi;
+
+    params = method.getParameters();
+    params.madhab = madhab;
+
     prayerTimes = _getPrayerTimes(DateTime.now());
   }
 
