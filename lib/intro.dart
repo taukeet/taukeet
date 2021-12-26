@@ -17,13 +17,20 @@ class Intro extends StatefulWidget {
 }
 
 class _IntroState extends State<Intro> {
+  final StorageService storageService = getIt<StorageService>();
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => IntroCubit(
         prayerService: getIt<PrayerService>(),
         locationService: getIt<LocationService>(),
-        storageService: getIt<StorageService>(),
+        storageService: storageService,
       )..initialize(),
       child: IntroSlider(
         showSkipBtn: false,
