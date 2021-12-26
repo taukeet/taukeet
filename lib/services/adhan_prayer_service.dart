@@ -66,33 +66,6 @@ class AdhanPrayerService extends PrayerService {
     );
   }
 
-  // @override
-  // PrayerTime getNextPrayer() {
-  //   Prayer prayer = prayerTimes.nextPrayer();
-  //   DateTime? startTime =
-  //       prayerTimes.timeForPrayer(prayerTimes.currentPrayer());
-  //   DateTime? endTime;
-
-  //   if (prayer == Prayer.none && prayerTimes.currentPrayer() == Prayer.isha) {
-  //     prayer = Prayer.fajr;
-
-  //     var today = DateTime.now();
-  //     var tomorrow = today.add(const Duration(days: 1));
-  //     var tomorrowPareyerTimes = _getPrayerTimes(tomorrow);
-  //     endTime = tomorrowPareyerTimes.timeForPrayer(Prayer.fajr)!;
-  //   } else {
-  //     endTime = prayerTimes.timeForPrayer(prayer)!;
-  //   }
-
-  //   print("Next Prayer");
-
-  //   return PrayerTime(
-  //     prayer: _getPrayerName(prayer),
-  //     startTime: startTime!,
-  //     endTime: endTime, //prayerTimes.timeForPrayer(nextPrayer)!,
-  //   );
-  // }
-
   /// Return the list of PrayerTime Object
   @override
   List<PrayerTime> getPrayerTimes() {

@@ -5,7 +5,6 @@ import 'package:taukeet/services/adhan_prayer_service.dart';
 abstract class PrayerService {
   void refreshTimes(StorageService storageService);
   PrayerTime getCurrentPrayer();
-  // PrayerTime getNextPrayer();
   List<PrayerTime> getPrayerTimes();
   List<CalculationMethod> get calculationMethods;
 }
