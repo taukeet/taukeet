@@ -39,12 +39,14 @@ class MyApp extends StatelessWidget {
           create: (context) => TimerBloc(
             ticker: const Ticker(),
             prayerService: prayerService,
+            storageService: storageService,
             settingsCubit: BlocProvider.of<SettingsCubit>(context),
           )..add(const TimerStarted()),
         ),
         BlocProvider<PrayerCubit>(
           create: (context) => PrayerCubit(
             prayerService: prayerService,
+            storageService: storageService,
             settingsCubit: BlocProvider.of<SettingsCubit>(context),
           )..initialize(),
         ),

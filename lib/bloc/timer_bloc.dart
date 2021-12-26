@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:taukeet/contracts/prayer_service.dart';
+import 'package:taukeet/contracts/storage_service.dart';
 import 'package:taukeet/cubit/settings_cubit.dart';
 import 'package:taukeet/ticker.dart';
 
@@ -19,6 +20,7 @@ class TimerBloc extends Bloc<TimerEvent, TimerState> {
     required Ticker ticker,
     required PrayerService prayerService,
     required SettingsCubit settingsCubit,
+    required StorageService storageService,
   })  : _ticker = ticker,
         _prayerService = prayerService,
         super(const TimerInitial(_duration)) {
@@ -29,6 +31,7 @@ class TimerBloc extends Bloc<TimerEvent, TimerState> {
     on<TimerTicked>(_onTicked);
 
     settingsCubit.stream.listen((state) {
+      _prayerService.refreshTimes(storageService);
       add(const TimerStarted());
     });
   }
