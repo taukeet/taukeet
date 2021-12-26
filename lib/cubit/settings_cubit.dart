@@ -15,13 +15,7 @@ class SettingsCubit extends Cubit<SettingsState> {
   })  : _prayerService = prayerService,
         _locationService = locationService,
         _storageService = storageService,
-        super(const SettingsState()) {
-    emit(state.copyWith(
-      madhab: _storageService.getString("madhab"),
-      calculationMethod: _storageService.getString("calculationMethod"),
-      address: _storageService.getString("address"),
-    ));
-  }
+        super(const SettingsState());
 
   final PrayerService _prayerService;
   final LocationService _locationService;
@@ -30,6 +24,9 @@ class SettingsCubit extends Cubit<SettingsState> {
   void initialize() {
     emit(
       state.copyWith(
+        madhab: _storageService.getString("madhab"),
+        calculationMethod: _storageService.getString("calculationMethod"),
+        address: _storageService.getString("address"),
         calculationMethods: _prayerService.calculationMethods,
       ),
     );
@@ -53,6 +50,10 @@ class SettingsCubit extends Cubit<SettingsState> {
         ? address
         : result.latitude.toString() + ", " + result.longitude.toString();
 
+    await _storageService.setString("address", address);
+    await _storageService.setDouble("latitude", result.latitude);
+    await _storageService.setDouble("longitude", result.longitude);
+
     emit(state.copyWith(
       isAddressFetching: false,
       isAddressFetched: true,
@@ -62,17 +63,23 @@ class SettingsCubit extends Cubit<SettingsState> {
     ));
   }
 
-  void changeCalculationMethod(String method) => emit(
-        state.copyWith(
-          calculationMethod: method,
-        ),
-      );
+  void changeCalculationMethod(String method) async {
+    await _storageService.setString("calculationMethod", method);
+    emit(
+      state.copyWith(
+        calculationMethod: method,
+      ),
+    );
+  }
 
-  void changeMadhab(String madhab) => emit(
-        state.copyWith(
-          madhab: madhab,
-        ),
-      );
+  void changeMadhab(String madhab) async {
+    await _storageService.setString("madhab", madhab);
+    emit(
+      state.copyWith(
+        madhab: madhab,
+      ),
+    );
+  }
 
   void removeHasValidationError() => emit(
         state.copyWith(
@@ -91,13 +98,6 @@ class SettingsCubit extends Cubit<SettingsState> {
     emit(state.copyWith(
       isDataSaving: true,
     ));
-
-    await _storageService.setString("madhab", state.madhab);
-    await _storageService.setString(
-        "calculationMethod", state.calculationMethod);
-    await _storageService.setString("address", state.address);
-    await _storageService.setDouble("latitude", state.latitude);
-    await _storageService.setDouble("longitude", state.longitude);
 
     emit(state.copyWith(
       isDataSaving: false,
