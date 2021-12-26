@@ -15,7 +15,13 @@ class SettingsCubit extends Cubit<SettingsState> {
   })  : _prayerService = prayerService,
         _locationService = locationService,
         _storageService = storageService,
-        super(const SettingsState());
+        super(const SettingsState()) {
+    emit(state.copyWith(
+      madhab: _storageService.getString("madhab"),
+      calculationMethod: _storageService.getString("calculationMethod"),
+      address: _storageService.getString("address"),
+    ));
+  }
 
   final PrayerService _prayerService;
   final LocationService _locationService;
