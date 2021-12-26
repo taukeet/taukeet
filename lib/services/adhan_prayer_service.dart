@@ -43,6 +43,8 @@ class AdhanPrayerService extends PrayerService {
   @override
   PrayerTime getCurrentPrayer() {
     Prayer prayer = prayerTimes.currentPrayer();
+    print("Here");
+    print(prayer);
     Prayer nextPrayer = prayerTimes.nextPrayer() == Prayer.none
         ? Prayer.fajr
         : prayerTimes.nextPrayer();
