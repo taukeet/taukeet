@@ -89,6 +89,7 @@ class SettingsCubit extends Cubit<SettingsState> {
     await _storageService.setString("madhab", state.madhab);
     await _storageService.setString(
         "calculationMethod", state.calculationMethod);
+    await _storageService.setString("address", state.address);
     await _storageService.setDouble("latitude", state.latitude);
     await _storageService.setDouble("longitude", state.longitude);
 

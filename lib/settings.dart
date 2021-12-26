@@ -48,19 +48,20 @@ class Settings extends StatelessWidget {
                     SettingsTile(
                       title: 'Location',
                       leading: const Icon(Icons.location_on),
-                      subtitle: "Change your location",
-                      onPressed: (BuildContext context) {
-                        print("herre");
-                      },
+                      subtitle: state.isAddressFetching
+                          ? "Fetching Address..."
+                          : state.address,
+                      onPressed: state.isAddressFetching
+                          ? null
+                          : (BuildContext context) {
+                              BlocProvider.of<SettingsCubit>(context)
+                                  .locateUser();
+                            },
                     ),
                     SettingsTile(
                       title: 'Madhab',
                       leading: const Icon(Icons.lock_clock),
-                      subtitleWidget: BlocBuilder<SettingsCubit, SettingsState>(
-                        builder: (context, state) {
-                          return Text(state.madhab);
-                        },
-                      ),
+                      subtitle: state.madhab,
                       onPressed: (BuildContext context) {
                         showMadhabDialog(context);
                       },
@@ -68,12 +69,7 @@ class Settings extends StatelessWidget {
                     SettingsTile(
                       title: 'Calculation Method',
                       leading: const Icon(Icons.calculate),
-                      subtitleWidget: BlocBuilder<SettingsCubit, SettingsState>(
-                        builder: (context, state) {
-                          return Text(
-                              state.calculationMethod.replaceAll("_", " "));
-                        },
-                      ),
+                      subtitle: state.calculationMethod.replaceAll("_", " "),
                       onPressed: (BuildContext context) {
                         showCalculationDialog(
                             context, state.calculationMethods);
