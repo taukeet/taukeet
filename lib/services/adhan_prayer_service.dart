@@ -51,12 +51,12 @@ class AdhanPrayerService extends PrayerService {
 
     if (prayer == Prayer.none && prayerTimes.nextPrayer() == Prayer.fajr) {
       prayer = Prayer.isha;
-      endTime = prayerTimes.timeForPrayer(nextPrayer);
-    } else {
       var today = DateTime.now();
       var tomorrow = today.add(const Duration(days: 1));
       var tomorrowPareyerTimes = _getPrayerTimes(tomorrow);
       endTime = tomorrowPareyerTimes.timeForPrayer(Prayer.fajr);
+    } else {
+      endTime = prayerTimes.timeForPrayer(nextPrayer);
     }
 
     return PrayerTime(
