@@ -47,22 +47,41 @@ class AdhanPrayerService extends PrayerService {
         ? Prayer.fajr
         : prayerTimes.nextPrayer();
 
-    DateTime? endTime;
+    DateTime endTime;
+    DateTime startTime;
 
-    if (prayer == Prayer.none && prayerTimes.nextPrayer() == Prayer.fajr) {
-      prayer = Prayer.isha;
-      endTime = prayerTimes.timeForPrayer(nextPrayer);
-    } else {
+    if (prayer == Prayer.isha && prayerTimes.nextPrayer() == Prayer.none) {
+      // it's end of the day and we don't have next prayer,
+      // so we need to get fajar end time for tomorrow
+
       var today = DateTime.now();
       var tomorrow = today.add(const Duration(days: 1));
       var tomorrowPareyerTimes = _getPrayerTimes(tomorrow);
-      endTime = tomorrowPareyerTimes.timeForPrayer(Prayer.fajr);
+
+      startTime = prayerTimes.timeForPrayer(prayer)!;
+      endTime = tomorrowPareyerTimes.timeForPrayer(Prayer.fajr)!;
+    } else if (prayer == Prayer.none &&
+        prayerTimes.nextPrayer() == Prayer.fajr) {
+      // it's start of the day and we don't have current prayer,
+      // so we need to get isha start time for yesterday.
+
+      prayer = Prayer.isha;
+
+      var today = DateTime.now();
+      var yesterday = today.subtract(const Duration(days: 1));
+      var yesterdayPareyerTimes = _getPrayerTimes(yesterday);
+
+      startTime = yesterdayPareyerTimes.timeForPrayer(Prayer.isha)!;
+      endTime = prayerTimes.timeForPrayer(nextPrayer)!;
+    } else {
+      startTime = prayerTimes.timeForPrayer(prayer)!;
+      endTime = prayerTimes.timeForPrayer(nextPrayer)!;
     }
 
     return PrayerTime(
       prayer: _getPrayerName(prayer),
-      startTime: prayerTimes.timeForPrayer(prayer)!,
-      endTime: endTime!,
+      startTime: startTime,
+      endTime: endTime,
     );
   }
 
