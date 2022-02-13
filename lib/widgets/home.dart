@@ -6,7 +6,7 @@ import 'package:taukeet/contracts/prayer_service.dart';
 import 'package:taukeet/contracts/storage_service.dart';
 import 'package:taukeet/cubit/prayer_cubit.dart';
 import 'package:taukeet/service_locator.dart';
-import 'package:taukeet/settings.dart';
+import 'package:taukeet/widgets/settings.dart';
 
 class Home extends StatelessWidget {
   final prayerService = getIt<PrayerService>();

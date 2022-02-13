@@ -6,7 +6,7 @@ import 'package:taukeet/contracts/location_service.dart';
 import 'package:taukeet/contracts/prayer_service.dart';
 import 'package:taukeet/contracts/storage_service.dart';
 import 'package:taukeet/cubit/settings_cubit.dart';
-import 'package:taukeet/home.dart';
+import 'package:taukeet/widgets/home.dart';
 import 'package:taukeet/service_locator.dart';
 
 class Intro extends StatefulWidget {
