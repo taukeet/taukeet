@@ -50,4 +50,9 @@ class GeoLocationService extends LocationService {
 
     return placemarks.first;
   }
+
+  @override
+  Future<bool> openLocationSettings() async {
+    return await Geolocator.openLocationSettings();
+  }
 }

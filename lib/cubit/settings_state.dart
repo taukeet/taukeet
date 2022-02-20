@@ -8,6 +8,7 @@ class SettingsState extends Equatable {
   final double longitude;
   final String address;
 
+  final bool isLocationEnabled;
   final bool isAddressFetching;
   final bool isAddressFetched;
   final bool isDataSaving;
@@ -21,6 +22,7 @@ class SettingsState extends Equatable {
     this.latitude = 0,
     this.longitude = 0,
     this.address = "",
+    this.isLocationEnabled = true,
     this.isAddressFetching = false,
     this.isAddressFetched = false,
     this.isDataSaving = false,
@@ -35,6 +37,7 @@ class SettingsState extends Equatable {
     double? latitude,
     double? longitude,
     String? address,
+    bool? isLocationEnabled,
     bool? isAddressFetching,
     bool? isAddressFetched,
     bool? isDataSaving,
@@ -48,6 +51,7 @@ class SettingsState extends Equatable {
       latitude: latitude ?? this.latitude,
       longitude: longitude ?? this.longitude,
       address: address ?? this.address,
+      isLocationEnabled: isLocationEnabled ?? this.isLocationEnabled,
       isAddressFetching: isAddressFetching ?? this.isAddressFetching,
       isAddressFetched: isAddressFetched ?? this.isAddressFetched,
       isDataSaving: isDataSaving ?? this.isDataSaving,
@@ -64,6 +68,7 @@ class SettingsState extends Equatable {
         latitude,
         longitude,
         address,
+        isLocationEnabled,
         isAddressFetching,
         isAddressFetched,
         isDataSaving,

@@ -22,7 +22,29 @@ class Settings extends StatelessWidget {
           color: Color(0xffF0E7D8),
         ),
       ),
-      body: BlocBuilder<SettingsCubit, SettingsState>(
+      body: BlocConsumer<SettingsCubit, SettingsState>(
+        listener: (context, state) {
+          if (!state.isLocationEnabled) {
+            showDialog(
+              context: context,
+              builder: (context) => AlertDialog(
+                title: const Text("Location Disabled"),
+                content:
+                    const Text("Please enable location to fetch the address."),
+                actions: <Widget>[
+                  TextButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                      BlocProvider.of<SettingsCubit>(context)
+                          .openLocationSettings();
+                    },
+                    child: const Text("Open Settings"),
+                  ),
+                ],
+              ),
+            );
+          }
+        },
         builder: (context, state) {
           return SettingsList(
             contentPadding: const EdgeInsets.symmetric(vertical: 10),
