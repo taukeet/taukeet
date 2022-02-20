@@ -26,6 +26,28 @@ class _IntroState extends State<Intro> {
           const snackBar = SnackBar(
             content: Text('Please select the location'),
           );
+
+          if (!state.isLocationEnabled) {
+            showDialog(
+              context: context,
+              builder: (context) => AlertDialog(
+                title: const Text("Location Disabled"),
+                content:
+                    const Text("Please enable location to fetch the address."),
+                actions: <Widget>[
+                  TextButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                      BlocProvider.of<SettingsCubit>(context)
+                          .openLocationSettings();
+                    },
+                    child: const Text("Open Settings"),
+                  ),
+                ],
+              ),
+            );
+          }
+
           if (state.hasValidationError) {
             ScaffoldMessenger.of(context)
                 .showSnackBar(snackBar)
@@ -35,6 +57,7 @@ class _IntroState extends State<Intro> {
                   .removeHasValidationError();
             });
           }
+
           if (state.isDataSaved) {
             Navigator.pushReplacement(
               context,

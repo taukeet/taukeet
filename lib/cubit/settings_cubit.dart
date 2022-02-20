@@ -32,35 +32,48 @@ class SettingsCubit extends Cubit<SettingsState> {
     );
   }
 
+  void openLocationSettings() async {
+    await _locationService.openLocationSettings();
+  }
+
   void locateUser() async {
     emit(state.copyWith(
       isAddressFetching: true,
+      isLocationEnabled: true,
     ));
 
-    final result = await _locationService.currentPosition();
-    final placemark = await _locationService.positionAddress(
-      result.latitude,
-      result.longitude,
-    );
+    try {
+      final result = await _locationService.currentPosition();
+      final placemark = await _locationService.positionAddress(
+        result.latitude,
+        result.longitude,
+      );
 
-    String address = placemark.administrativeArea ?? "";
-    address =
-        placemark.country != null ? address + ", " + placemark.country! : "";
-    address = address != ""
-        ? address
-        : result.latitude.toString() + ", " + result.longitude.toString();
+      String address = placemark.subAdministrativeArea ?? "";
+      address =
+          placemark.country != null ? address + ", " + placemark.country! : "";
+      address = address != ""
+          ? address
+          : result.latitude.toString() + ", " + result.longitude.toString();
 
-    await _storageService.setString("address", address);
-    await _storageService.setDouble("latitude", result.latitude);
-    await _storageService.setDouble("longitude", result.longitude);
+      await _storageService.setString("address", address);
+      await _storageService.setDouble("latitude", result.latitude);
+      await _storageService.setDouble("longitude", result.longitude);
 
-    emit(state.copyWith(
-      isAddressFetching: false,
-      isAddressFetched: true,
-      address: address,
-      latitude: result.latitude,
-      longitude: result.longitude,
-    ));
+      emit(state.copyWith(
+        isAddressFetching: false,
+        isAddressFetched: true,
+        address: address,
+        latitude: result.latitude,
+        longitude: result.longitude,
+      ));
+    } catch (e) {
+      emit(state.copyWith(
+        isAddressFetching: false,
+        isAddressFetched: true,
+        isLocationEnabled: false,
+      ));
+    }
   }
 
   void changeCalculationMethod(String method) async {
