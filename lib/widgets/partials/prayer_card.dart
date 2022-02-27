@@ -36,7 +36,7 @@ class PrayerCard extends StatelessWidget {
           child: Column(
             children: [
               Text(
-                prayer.prayer.toUpperCase(),
+                prayer.name.english.toUpperCase(),
                 style: const TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,

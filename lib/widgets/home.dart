@@ -38,7 +38,8 @@ class Home extends StatelessWidget {
                   BlocBuilder<PrayerCubit, PrayerState>(
                     builder: (context, state) {
                       return Text(
-                        state.currentPrayer?.prayer.toUpperCase() ?? "none",
+                        state.currentPrayer?.name.english.toUpperCase() ??
+                            "none",
                         style: const TextStyle(
                           fontSize: 32,
                           fontWeight: FontWeight.bold,
