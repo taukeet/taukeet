@@ -27,17 +27,17 @@ class Home extends StatelessWidget {
       body: Stack(
         children: [
           Positioned(
-            top: 0,
+            top: 20,
             left: 0,
             right: 0,
             height: 200,
             child: Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  BlocBuilder<PrayerCubit, PrayerState>(
-                    builder: (context, state) {
-                      return Text(
+              child: BlocBuilder<PrayerCubit, PrayerState>(
+                builder: (context, state) {
+                  return Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
                         state.currentPrayer?.name.english.toUpperCase() ??
                             "none",
                         style: const TextStyle(
@@ -46,11 +46,25 @@ class Home extends StatelessWidget {
                           letterSpacing: 6,
                           color: Color(0xffF0E7D8),
                         ),
-                      );
-                    },
-                  ),
-                  const TimerText(),
-                ],
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const TimerText(),
+                          const SizedBox(width: 5),
+                          Text(
+                            state.currentPrayer?.name.arabic ?? "none",
+                            style: const TextStyle(
+                              fontSize: 14,
+                              color: Color(0xffF0E7D8),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  );
+                },
               ),
             ),
           ),
