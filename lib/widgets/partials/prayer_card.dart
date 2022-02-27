@@ -14,7 +14,7 @@ class PrayerCard extends StatelessWidget {
   );
 
   final cardTimeLabelStyle = const TextStyle(
-    fontSize: 8,
+    fontSize: 20,
     color: Color(0xff191923),
   );
 
@@ -35,47 +35,38 @@ class PrayerCard extends StatelessWidget {
           padding: const EdgeInsets.all(20),
           child: Column(
             children: [
-              Text(
-                prayer.name.english.toUpperCase(),
-                style: const TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                  letterSpacing: 6,
-                  color: Color(0xff191923),
-                ),
-              ),
-              const SizedBox(
-                height: 8,
-              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "START",
-                        style: cardTimeLabelStyle,
-                      ),
-                      Text(
-                        DateFormat("hh:mm a").format(prayer.startTime),
-                        style: cardTimeStyle,
-                      ),
-                    ],
+                  Expanded(
+                    flex: 3,
+                    child: Text(
+                      prayer.name.english,
+                      style: cardTimeLabelStyle,
+                    ),
                   ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: [
-                      Text(
-                        "END",
-                        style: cardTimeLabelStyle,
+                  Expanded(
+                    flex: 8,
+                    child: Center(
+                      child: Text(
+                        DateFormat("hh:mm a").format(prayer.startTime),
+                        style: const TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          letterSpacing: 2,
+                          color: Color(0xff191923),
+                        ),
                       ),
-                      Text(
-                        DateFormat("hh:mm a").format(prayer.endTime),
-                        style: cardTimeStyle,
-                      ),
-                    ],
-                  )
+                    ),
+                  ),
+                  Expanded(
+                    flex: 3,
+                    child: Text(
+                      prayer.name.arabic,
+                      style: cardTimeLabelStyle,
+                      textAlign: TextAlign.right,
+                    ),
+                  ),
                 ],
               ),
             ],
