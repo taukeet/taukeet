@@ -1,16 +1,12 @@
-import 'package:adhan/adhan.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:intl/intl.dart';
-import 'package:taukeet/bloc/timer_bloc.dart';
 import 'package:taukeet/contracts/prayer_service.dart';
 import 'package:taukeet/contracts/storage_service.dart';
 import 'package:taukeet/cubit/prayer_cubit.dart';
 import 'package:taukeet/service_locator.dart';
-import 'package:taukeet/services/adhan_prayer_service.dart';
 import 'package:taukeet/widgets/partials/prayer_card.dart';
+import 'package:taukeet/widgets/partials/date_time_text.dart';
 import 'package:taukeet/widgets/partials/timer_text.dart';
-import 'package:taukeet/widgets/settings.dart';
 
 class Home extends StatelessWidget {
   final prayerService = getIt<PrayerService>();
@@ -93,23 +89,13 @@ class Home extends StatelessWidget {
               ),
             ),
           ),
-          Positioned(
+          const Positioned(
             top: 30,
-            right: 10,
-            child: IconButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const Settings(),
-                  ),
-                );
-              },
-              iconSize: 26,
-              icon: const Icon(
-                Icons.settings,
-                color: Color(0xffF0E7D8),
-              ),
+            left: 0,
+            right: 0,
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 15),
+              child: DateTimeText(),
             ),
           ),
         ],
