@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:taukeet/bloc/timer_bloc.dart';
 import 'package:provider/provider.dart';
+import 'package:taukeet/config.dart';
 import 'package:taukeet/widgets/settings.dart';
 
 class DateTimeText extends StatelessWidget {
@@ -16,10 +17,10 @@ class DateTimeText extends StatelessWidget {
       children: [
         Text(
           DateFormat('EEEE d MMMM').format(now).toUpperCase(),
-          style: const TextStyle(
-            fontSize: 12,
+          style: TextStyle(
+            fontSize: App(context).appWidth(4),
             letterSpacing: 1,
-            color: Color(0xffF0E7D8),
+            color: const Color(0xffF0E7D8),
           ),
         ),
         Row(
@@ -27,10 +28,10 @@ class DateTimeText extends StatelessWidget {
           children: [
             Text(
               DateFormat('hh:mm a').format(now),
-              style: const TextStyle(
-                fontSize: 20,
+              style: TextStyle(
+                fontSize: App(context).appWidth(6),
                 letterSpacing: 1,
-                color: Color(0xffF0E7D8),
+                color: const Color(0xffF0E7D8),
               ),
             ),
             IconButton(
@@ -42,7 +43,7 @@ class DateTimeText extends StatelessWidget {
                   ),
                 );
               },
-              iconSize: 24,
+              iconSize: App(context).appWidth(8),
               icon: const Icon(
                 Icons.settings,
                 color: Color(0xffF0E7D8),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:taukeet/config.dart';
 import 'package:taukeet/services/adhan_prayer_service.dart';
 
 class PrayerCard extends StatelessWidget {
@@ -21,10 +22,10 @@ class PrayerCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(
-        top: 2,
-        left: 10,
-        right: 10,
+      padding: EdgeInsets.only(
+        top: App(context).appHeight(.5),
+        left: App(context).appWidth(4),
+        right: App(context).appWidth(4),
       ),
       child: Card(
         color: const Color(0xffF0E7D8),
@@ -42,7 +43,10 @@ class PrayerCard extends StatelessWidget {
                     flex: 3,
                     child: Text(
                       prayer.name.english,
-                      style: cardTimeLabelStyle,
+                      style: TextStyle(
+                        fontSize: App(context).appWidth(6),
+                        color: const Color(0xff191923),
+                      ),
                     ),
                   ),
                   Expanded(
@@ -50,11 +54,11 @@ class PrayerCard extends StatelessWidget {
                     child: Center(
                       child: Text(
                         DateFormat("hh:mm a").format(prayer.startTime),
-                        style: const TextStyle(
-                          fontSize: 20,
+                        style: TextStyle(
+                          fontSize: App(context).appWidth(8),
                           fontWeight: FontWeight.bold,
-                          letterSpacing: 2,
-                          color: Color(0xff191923),
+                          letterSpacing: 1,
+                          color: const Color(0xff191923),
                         ),
                       ),
                     ),
@@ -63,7 +67,10 @@ class PrayerCard extends StatelessWidget {
                     flex: 3,
                     child: Text(
                       prayer.name.arabic,
-                      style: cardTimeLabelStyle,
+                      style: TextStyle(
+                        fontSize: App(context).appWidth(6),
+                        color: const Color(0xff191923),
+                      ),
                       textAlign: TextAlign.right,
                     ),
                   ),

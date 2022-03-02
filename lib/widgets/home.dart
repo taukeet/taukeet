@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:taukeet/config.dart';
 import 'package:taukeet/contracts/prayer_service.dart';
 import 'package:taukeet/contracts/storage_service.dart';
 import 'package:taukeet/cubit/prayer_cubit.dart';
@@ -23,10 +24,10 @@ class Home extends StatelessWidget {
       body: Stack(
         children: [
           Positioned(
-            top: 20,
+            top: App(context).appHeight(4),
             left: 0,
             right: 0,
-            height: 200,
+            height: App(context).appHeight(40),
             child: Center(
               child: BlocBuilder<PrayerCubit, PrayerState>(
                 builder: (context, state) {
@@ -36,11 +37,11 @@ class Home extends StatelessWidget {
                       Text(
                         state.currentPrayer?.name.english.toUpperCase() ??
                             "none",
-                        style: const TextStyle(
-                          fontSize: 32,
+                        style: TextStyle(
+                          fontSize: App(context).appHeight(5),
                           fontWeight: FontWeight.bold,
                           letterSpacing: 6,
-                          color: Color(0xffF0E7D8),
+                          color: const Color(0xffF0E7D8),
                         ),
                       ),
                       Row(
@@ -51,9 +52,9 @@ class Home extends StatelessWidget {
                           const SizedBox(width: 5),
                           Text(
                             state.currentPrayer?.name.arabic ?? "none",
-                            style: const TextStyle(
-                              fontSize: 14,
-                              color: Color(0xffF0E7D8),
+                            style: TextStyle(
+                              fontSize: App(context).appHeight(3),
+                              color: const Color(0xffF0E7D8),
                             ),
                           ),
                         ],
@@ -71,7 +72,7 @@ class Home extends StatelessWidget {
             bottom: 0,
             child: SingleChildScrollView(
               child: Padding(
-                padding: const EdgeInsets.only(top: 196),
+                padding: EdgeInsets.only(top: App(context).appHeight(38)),
                 child: BlocBuilder<PrayerCubit, PrayerState>(
                   builder: (context, state) {
                     return Column(
@@ -89,13 +90,14 @@ class Home extends StatelessWidget {
               ),
             ),
           ),
-          const Positioned(
-            top: 30,
+          Positioned(
+            top: App(context).appHeight(5),
             left: 0,
             right: 0,
             child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 15),
-              child: DateTimeText(),
+              padding:
+                  EdgeInsets.symmetric(horizontal: App(context).appHeight(5)),
+              child: const DateTimeText(),
             ),
           ),
         ],

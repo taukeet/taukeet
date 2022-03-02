@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:taukeet/bloc/timer_bloc.dart';
 import 'package:provider/provider.dart';
+import 'package:taukeet/config.dart';
 
 class TimerText extends StatelessWidget {
   const TimerText({Key? key}) : super(key: key);
@@ -13,10 +14,10 @@ class TimerText extends StatelessWidget {
     final secondsStr = (duration % 60).floor().toString().padLeft(2, '0');
     return Text(
       '$hourStr:$minutesStr:$secondsStr',
-      style: const TextStyle(
-        fontSize: 16,
+      style: TextStyle(
+        fontSize: App(context).appHeight(3),
         letterSpacing: 2,
-        color: Color(0xffF0E7D8),
+        color: const Color(0xffF0E7D8),
       ),
     );
   }
