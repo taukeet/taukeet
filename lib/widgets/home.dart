@@ -42,6 +42,7 @@ class Home extends StatelessWidget {
                           fontWeight: FontWeight.bold,
                           letterSpacing: 6,
                           color: const Color(0xffF0E7D8),
+                          fontFamily: "Lateef",
                         ),
                       ),
                       Row(
@@ -55,6 +56,7 @@ class Home extends StatelessWidget {
                             style: TextStyle(
                               fontSize: App(context).appHeight(3),
                               color: const Color(0xffF0E7D8),
+                              fontFamily: "Lateef",
                             ),
                           ),
                         ],

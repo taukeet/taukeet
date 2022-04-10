@@ -46,6 +46,7 @@ class PrayerCard extends StatelessWidget {
                       style: TextStyle(
                         fontSize: App(context).appWidth(6),
                         color: const Color(0xff191923),
+                        fontFamily: "Lateef",
                       ),
                     ),
                   ),
@@ -59,6 +60,7 @@ class PrayerCard extends StatelessWidget {
                           fontWeight: FontWeight.bold,
                           letterSpacing: 1,
                           color: const Color(0xff191923),
+                          fontFamily: "Lateef",
                         ),
                       ),
                     ),
@@ -70,6 +72,7 @@ class PrayerCard extends StatelessWidget {
                       style: TextStyle(
                         fontSize: App(context).appWidth(6),
                         color: const Color(0xff191923),
+                        fontFamily: "Lateef",
                       ),
                       textAlign: TextAlign.right,
                     ),

@@ -18,6 +18,7 @@ class TimerText extends StatelessWidget {
         fontSize: App(context).appHeight(3),
         letterSpacing: 2,
         color: const Color(0xffF0E7D8),
+        fontFamily: "Lateef",
       ),
     );
   }

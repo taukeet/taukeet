@@ -21,6 +21,7 @@ class DateTimeText extends StatelessWidget {
             fontSize: App(context).appWidth(4),
             letterSpacing: 1,
             color: const Color(0xffF0E7D8),
+            fontFamily: "Lateef",
           ),
         ),
         Row(
@@ -32,6 +33,7 @@ class DateTimeText extends StatelessWidget {
                 fontSize: App(context).appWidth(6),
                 letterSpacing: 1,
                 color: const Color(0xffF0E7D8),
+                fontFamily: "Lateef",
               ),
             ),
             IconButton(

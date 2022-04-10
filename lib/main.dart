@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:taukeet/bloc/timer_bloc.dart';
 import 'package:taukeet/contracts/location_service.dart';
 import 'package:taukeet/contracts/prayer_service.dart';
@@ -56,7 +55,6 @@ class MyApp extends StatelessWidget {
         title: "Taukeet",
         theme: ThemeData(
           visualDensity: VisualDensity.adaptivePlatformDensity,
-          fontFamily: GoogleFonts.lateef().fontFamily,
         ),
         home: storageService.getString("madhab") != null &&
                 storageService.getString("calculationMethod") != null &&
