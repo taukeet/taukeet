@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:taukeet/src/libraries/prayer_time_library.dart';
 
 class HomeView extends StatelessWidget {
   const HomeView({super.key});
+
+  final PrayerTimeLibrary library = const PrayerTimeLibrary();
 
   @override
   Widget build(BuildContext context) {
@@ -88,8 +91,9 @@ class HomeView extends StatelessWidget {
                             Text(
                               "فجر",
                               style: TextStyle(
-                                  color: Theme.of(context).colorScheme.primary,
-                                  fontSize: 12),
+                                color: Theme.of(context).colorScheme.primary,
+                                fontSize: 12,
+                              ),
                             ),
                           ],
                         ),
@@ -133,45 +137,54 @@ class HomeView extends StatelessWidget {
                         ),
                       ],
                     ),
-                    const Card(
+                    Card(
                       child: Padding(
-                        padding: EdgeInsets.all(8.0),
-                        child: Column(
-                          children: [
-                            Row(
-                              children: [
-                                Expanded(
-                                  flex: 1,
-                                  child: Text(
-                                    "Fajr",
-                                    style: TextStyle(
-                                      fontSize: 12,
-                                    ),
-                                  ),
-                                ),
-                                Expanded(
-                                  flex: 2,
-                                  child: Text(
-                                    "05:30 AM",
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                      fontSize: 12,
-                                    ),
-                                  ),
-                                ),
-                                Expanded(
-                                  flex: 1,
-                                  child: Text(
-                                    "فجد",
-                                    textAlign: TextAlign.right,
-                                    style: TextStyle(
-                                      fontSize: 12,
-                                    ),
-                                  ),
-                                )
-                              ],
-                            ),
-                          ],
+                        padding: const EdgeInsets.all(8.0),
+                        child: ListView.separated(
+                          itemBuilder: (context, index) {
+                            final PrayerTime prayer =
+                                library.prayerTimes[index];
+
+                            return Text('ok');
+
+                            // return Row(
+                            //   children: [
+                            //     Expanded(
+                            //       flex: 1,
+                            //       child: Text(
+                            //         prayer.name,
+                            //         style: const TextStyle(
+                            //           fontSize: 12,
+                            //         ),
+                            //       ),
+                            //     ),
+                            //     Expanded(
+                            //       flex: 2,
+                            //       child: Text(
+                            //         prayer.time,
+                            //         textAlign: TextAlign.center,
+                            //         style: const TextStyle(
+                            //           fontSize: 12,
+                            //         ),
+                            //       ),
+                            //     ),
+                            //     Expanded(
+                            //       flex: 1,
+                            //       child: Text(
+                            //         prayer.secondName(prayer.name),
+                            //         textAlign: TextAlign.right,
+                            //         style: const TextStyle(
+                            //           fontSize: 12,
+                            //         ),
+                            //       ),
+                            //     )
+                            //   ],
+                            // );
+                          },
+                          separatorBuilder: (context, index) {
+                            return Divider();
+                          },
+                          itemCount: library.prayerTimes.length,
                         ),
                       ),
                     ),
