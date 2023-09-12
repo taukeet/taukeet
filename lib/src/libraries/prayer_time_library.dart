@@ -1,57 +1,55 @@
-import 'package:pray_times/pray_times.dart';
+import 'package:adhan_dart/adhan_dart.dart';
+
+class PrayerName {
+  final String english;
+  final String arabic;
+
+  PrayerName({required this.english, required this.arabic});
+}
 
 class PrayerTime {
-  final String name;
-  final String time;
-  final Map<String, String> names = const {
-    "Fajr": "فجر",
-    "Sunrise": "شروق",
-    "Dhuhr": "ظهر",
-    "Asr": "عصر",
-    "Sunset": "غروب",
-    "Maghrib": "مغرب",
-    "Isha": "عشاء"
-  };
+  final PrayerName name;
+  final DateTime startTime;
+  // final DateTime endTime;
+  final bool isCurrentPrayer;
 
-  const PrayerTime({
+  PrayerTime({
     required this.name,
-    required this.time,
+    required this.startTime,
+    // required this.endTime,
+    this.isCurrentPrayer = false,
   });
-
-  String secondName(String name) => names[name]!;
 }
 
 class PrayerTimeLibrary {
   final double latitude;
   final double longitude;
-  final double timezone;
 
   const PrayerTimeLibrary({
-    this.latitude = 31.7775067,
-    this.longitude = 35.2368801,
-    this.timezone = 2,
+    this.latitude = 21.146633,
+    this.longitude = 79.088860,
   });
 
-  List<PrayerTime> get prayerTimes {
-    List<PrayerTime> prayerTimeList = [];
+  List<PrayerTime> get prayers {
+    final prayerTimeMap = {
+      Prayer.Fajr: PrayerName(english: "Fajr", arabic: "فجر"),
+      Prayer.Sunrise: PrayerName(english: "Sunrise", arabic: "شروق"),
+      Prayer.Dhuhr: PrayerName(english: "Dhuhr", arabic: "ظهر"),
+      Prayer.Asr: PrayerName(english: "Asr", arabic: "عصر"),
+      Prayer.Maghrib: PrayerName(english: "Maghrib", arabic: "مغرب"),
+      Prayer.Isha: PrayerName(english: "Isha", arabic: "عشاء"),
+    };
 
-    PrayerTimes prayers = PrayerTimes();
-    prayers.setTimeFormat(prayers.Time24);
-    prayers.setCalcMethod(prayers.MWL);
-    prayers.setAsrJuristic(prayers.Shafii);
-    prayers.setAdjustHighLats(prayers.AngleBased);
-    var offsets = [0, 0, 0, 0, 0, 0, 0];
-    prayers.tune(offsets);
+    Coordinates coordinates = Coordinates(latitude, longitude);
+    CalculationParameters params = CalculationMethod.MuslimWorldLeague();
+    PrayerTimes prayerTimes = PrayerTimes(coordinates, DateTime.now(), params);
 
-    final date = DateTime(2023, DateTime.january, 20);
-    List<String> times =
-        prayers.getPrayerTimes(date, latitude, longitude, timezone);
-    List<String> names = prayers.getTimeNames();
-
-    for (int i = 0; i < times.length; i++) {
-      prayerTimeList.add(PrayerTime(name: names[i], time: times[i]));
-    }
-
-    return prayerTimeList;
+    return prayerTimeMap.keys.map((prayer) {
+      return PrayerTime(
+        name: prayerTimeMap[prayer]!,
+        startTime: prayerTimes.timeForPrayer(prayer)!.toLocal(),
+        isCurrentPrayer: false,
+      );
+    }).toList();
   }
 }

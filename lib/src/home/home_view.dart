@@ -1,13 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:taukeet/src/libraries/prayer_time_library.dart';
+// import 'package:taukeet/src/libraries/prayer_time_library.dart';
+import 'package:taukeet/src/libraries/size_library.dart';
 
 class HomeView extends StatelessWidget {
   const HomeView({super.key});
 
-  final PrayerTimeLibrary library = const PrayerTimeLibrary();
+  final PrayerTimeLibrary _prayerTimeLibrary = const PrayerTimeLibrary();
 
   @override
   Widget build(BuildContext context) {
+    final SizeLibrary sizeLibrary = SizeLibrary(context);
+
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.secondary,
       body: SafeArea(
@@ -28,15 +33,18 @@ class HomeView extends StatelessWidget {
                         Text(
                           "12:02 AM",
                           style: TextStyle(
-                            fontSize: 12,
+                            fontSize: sizeLibrary.appSize(14),
                             color: Theme.of(context).colorScheme.primary,
                           ),
+                        ),
+                        const SizedBox(
+                          height: 2,
                         ),
                         Row(
                           children: [
                             Icon(
                               Icons.location_pin,
-                              size: 12,
+                              size: sizeLibrary.appSize(12),
                               color: Theme.of(context).colorScheme.primary,
                             ),
                             const SizedBox(
@@ -45,7 +53,7 @@ class HomeView extends StatelessWidget {
                             Text(
                               "Nagpur, India",
                               style: TextStyle(
-                                fontSize: 12,
+                                fontSize: sizeLibrary.appSize(12),
                                 color: Theme.of(context).colorScheme.primary,
                               ),
                             )
@@ -55,13 +63,13 @@ class HomeView extends StatelessWidget {
                     ),
                     Icon(
                       Icons.settings,
-                      size: 24,
+                      size: sizeLibrary.appSize(24),
                       color: Theme.of(context).colorScheme.primary,
                     ),
                   ],
                 ),
                 SizedBox(
-                  height: 120,
+                  height: sizeLibrary.appSize(150),
                   child: Center(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -70,11 +78,11 @@ class HomeView extends StatelessWidget {
                           "Fajr",
                           style: TextStyle(
                             color: Theme.of(context).colorScheme.primary,
-                            fontSize: 28,
+                            fontSize: sizeLibrary.appSize(34),
                           ),
                         ),
                         const SizedBox(
-                          height: 10,
+                          height: 6,
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -82,8 +90,9 @@ class HomeView extends StatelessWidget {
                             Text(
                               "05:30:45",
                               style: TextStyle(
-                                  color: Theme.of(context).colorScheme.primary,
-                                  fontSize: 12),
+                                color: Theme.of(context).colorScheme.primary,
+                                fontSize: sizeLibrary.appSize(12),
+                              ),
                             ),
                             const SizedBox(
                               width: 10,
@@ -92,7 +101,8 @@ class HomeView extends StatelessWidget {
                               "فجر",
                               style: TextStyle(
                                 color: Theme.of(context).colorScheme.primary,
-                                fontSize: 12,
+                                fontSize: sizeLibrary.appSize(16),
+                                fontFamily: "Lateef",
                               ),
                             ),
                           ],
@@ -107,7 +117,7 @@ class HomeView extends StatelessWidget {
                       children: [
                         Icon(
                           Icons.arrow_left_rounded,
-                          size: 44,
+                          size: sizeLibrary.appSize(40),
                           color: Theme.of(context).colorScheme.primary,
                         ),
                         Expanded(
@@ -117,14 +127,14 @@ class HomeView extends StatelessWidget {
                                 "THURSDAY 04 MAY",
                                 style: TextStyle(
                                   color: Theme.of(context).colorScheme.primary,
-                                  fontSize: 10,
+                                  fontSize: sizeLibrary.appSize(12),
                                 ),
                               ),
                               Text(
                                 "20 safar 1430",
                                 style: TextStyle(
                                   color: Theme.of(context).colorScheme.primary,
-                                  fontSize: 10,
+                                  fontSize: sizeLibrary.appSize(12),
                                 ),
                               ),
                             ],
@@ -132,59 +142,69 @@ class HomeView extends StatelessWidget {
                         ),
                         Icon(
                           Icons.arrow_right_rounded,
-                          size: 44,
+                          size: sizeLibrary.appSize(40),
                           color: Theme.of(context).colorScheme.primary,
                         ),
                       ],
                     ),
+                    const SizedBox(
+                      height: 12,
+                    ),
                     Card(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
                       child: Padding(
-                        padding: const EdgeInsets.all(8.0),
+                        padding: EdgeInsets.all(sizeLibrary.appSize(12)),
                         child: ListView.separated(
+                          shrinkWrap: true,
                           itemBuilder: (context, index) {
                             final PrayerTime prayer =
-                                library.prayerTimes[index];
+                                _prayerTimeLibrary.prayers[index];
 
-                            return Text('ok');
-
-                            // return Row(
-                            //   children: [
-                            //     Expanded(
-                            //       flex: 1,
-                            //       child: Text(
-                            //         prayer.name,
-                            //         style: const TextStyle(
-                            //           fontSize: 12,
-                            //         ),
-                            //       ),
-                            //     ),
-                            //     Expanded(
-                            //       flex: 2,
-                            //       child: Text(
-                            //         prayer.time,
-                            //         textAlign: TextAlign.center,
-                            //         style: const TextStyle(
-                            //           fontSize: 12,
-                            //         ),
-                            //       ),
-                            //     ),
-                            //     Expanded(
-                            //       flex: 1,
-                            //       child: Text(
-                            //         prayer.secondName(prayer.name),
-                            //         textAlign: TextAlign.right,
-                            //         style: const TextStyle(
-                            //           fontSize: 12,
-                            //         ),
-                            //       ),
-                            //     )
-                            //   ],
-                            // );
+                            return Row(
+                              children: [
+                                Expanded(
+                                  flex: 1,
+                                  child: Text(
+                                    prayer.name.english,
+                                    style: TextStyle(
+                                      fontSize: sizeLibrary.appSize(12),
+                                    ),
+                                  ),
+                                ),
+                                Expanded(
+                                  flex: 2,
+                                  child: Text(
+                                    DateFormat('hh:mm a')
+                                        .format(prayer.startTime),
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      fontSize: sizeLibrary.appSize(16),
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ),
+                                Expanded(
+                                  flex: 1,
+                                  child: Text(
+                                    prayer.name.arabic,
+                                    textAlign: TextAlign.right,
+                                    style: TextStyle(
+                                      fontSize: sizeLibrary.appSize(16),
+                                      fontFamily: "Lateef",
+                                    ),
+                                  ),
+                                )
+                              ],
+                            );
                           },
                           separatorBuilder: (context, index) {
-                            return Divider();
+                            return const SizedBox(
+                              height: 12,
+                            );
                           },
-                          itemCount: library.prayerTimes.length,
+                          itemCount: _prayerTimeLibrary.prayers.length,
                         ),
                       ),
                     ),
