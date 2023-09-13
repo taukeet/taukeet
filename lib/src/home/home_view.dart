@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:taukeet/src/libraries/prayer_time_library.dart';
 // import 'package:taukeet/src/libraries/prayer_time_library.dart';
@@ -61,10 +62,13 @@ class HomeView extends StatelessWidget {
                         )
                       ],
                     ),
-                    Icon(
-                      Icons.settings,
-                      size: sizeLibrary.appSize(24),
-                      color: Theme.of(context).colorScheme.primary,
+                    InkWell(
+                      child: Icon(
+                        Icons.settings,
+                        size: sizeLibrary.appSize(24),
+                        color: Theme.of(context).colorScheme.primary,
+                      ),
+                      onTap: () => context.pushNamed('settings'),
                     ),
                   ],
                 ),
@@ -124,17 +128,11 @@ class HomeView extends StatelessWidget {
                           child: Column(
                             children: [
                               Text(
-                                "THURSDAY 04 MAY",
+                                "THUR 04 MAY, 2023",
                                 style: TextStyle(
                                   color: Theme.of(context).colorScheme.primary,
                                   fontSize: sizeLibrary.appSize(12),
-                                ),
-                              ),
-                              Text(
-                                "20 safar 1430",
-                                style: TextStyle(
-                                  color: Theme.of(context).colorScheme.primary,
-                                  fontSize: sizeLibrary.appSize(12),
+                                  fontWeight: FontWeight.bold,
                                 ),
                               ),
                             ],
@@ -148,9 +146,10 @@ class HomeView extends StatelessWidget {
                       ],
                     ),
                     const SizedBox(
-                      height: 12,
+                      height: 10,
                     ),
                     Card(
+                      color: Theme.of(context).colorScheme.primary,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10),
                       ),

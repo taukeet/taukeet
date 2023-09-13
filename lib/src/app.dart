@@ -1,12 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:taukeet/src/home/home_view.dart';
+import 'package:taukeet/src/settings/settings_view.dart';
 
 final _router = GoRouter(
   routes: [
     GoRoute(
+      name: 'home',
       path: '/',
       builder: (context, state) => const HomeView(),
+    ),
+    GoRoute(
+      name: 'settings',
+      path: '/settings',
+      builder: (context, state) => const SettingsView(),
     ),
   ],
 );
