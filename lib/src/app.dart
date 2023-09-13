@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:taukeet/src/home/home_view.dart';
-import 'package:taukeet/src/settings/settings_view.dart';
+import 'package:taukeet/src/modules/home/home_view.dart';
+import 'package:taukeet/src/modules/settings/settings_view.dart';
 
 final _router = GoRouter(
   routes: [
