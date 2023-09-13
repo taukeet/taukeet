@@ -17,6 +17,8 @@ dependencies:
   adhan_dart:
     git:
       url: https://github.com/taukeet/adhan_dart.git
+  location: ^5.0.3
+  geocoding: ^2.1.0
 
 dev_dependencies:
   flutter_test:

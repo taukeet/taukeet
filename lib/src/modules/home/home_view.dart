@@ -1,14 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:taukeet/src/libraries/prayer_time_library.dart';
 // import 'package:taukeet/src/libraries/prayer_time_library.dart';
 import 'package:taukeet/src/libraries/size_library.dart';
+import 'package:taukeet/src/modules/settings/cubit/settings_cubit.dart';
 
 class HomeView extends StatelessWidget {
   const HomeView({super.key});
 
-  final PrayerTimeLibrary _prayerTimeLibrary = const PrayerTimeLibrary();
+  final PrayerTimeLibrary _prayerTimeLibrary = const PrayerTimeLibrary(
+    latitude: 21.146633,
+    longitude: 79.088860,
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -51,11 +56,13 @@ class HomeView extends StatelessWidget {
                             const SizedBox(
                               width: 4,
                             ),
-                            Text(
-                              "Nagpur, India",
-                              style: TextStyle(
-                                fontSize: sizeLibrary.appSize(12),
-                                color: Theme.of(context).colorScheme.primary,
+                            BlocBuilder<SettingsCubit, SettingsState>(
+                              builder: (context, state) => Text(
+                                state.address.address,
+                                style: TextStyle(
+                                  fontSize: sizeLibrary.appSize(12),
+                                  color: Theme.of(context).colorScheme.primary,
+                                ),
                               ),
                             )
                           ],

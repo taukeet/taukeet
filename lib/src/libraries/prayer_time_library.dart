@@ -10,13 +10,11 @@ class PrayerName {
 class PrayerTime {
   final PrayerName name;
   final DateTime startTime;
-  // final DateTime endTime;
   final bool isCurrentPrayer;
 
   PrayerTime({
     required this.name,
     required this.startTime,
-    // required this.endTime,
     this.isCurrentPrayer = false,
   });
 }
@@ -26,8 +24,8 @@ class PrayerTimeLibrary {
   final double longitude;
 
   const PrayerTimeLibrary({
-    this.latitude = 21.146633,
-    this.longitude = 79.088860,
+    required this.latitude,
+    required this.longitude,
   });
 
   List<PrayerTime> get prayers {

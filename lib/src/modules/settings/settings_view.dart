@@ -1,26 +1,45 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:taukeet/src/modules/settings/cubit/location_cubit.dart';
+import 'package:taukeet/src/modules/settings/cubit/settings_cubit.dart';
 
 class SettingsView extends StatelessWidget {
   const SettingsView({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.primary,
-      appBar: AppBar(
-        title: const Text('Settings'),
-        backgroundColor: Theme.of(context).colorScheme.secondary,
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            SettingTile(
-              text: "Location",
-              secodaryText: "tap to get the current location",
-              icon: Icons.location_pin,
-              onPressed: () {},
-            ),
-          ],
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => LocationCubit(
+            settingsCubit: BlocProvider.of<SettingsCubit>(context),
+          ),
+        ),
+      ],
+      child: Scaffold(
+        backgroundColor: Theme.of(context).colorScheme.primary,
+        appBar: AppBar(
+          title: const Text('Settings'),
+          backgroundColor: Theme.of(context).colorScheme.secondary,
+        ),
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              BlocBuilder<LocationCubit, LocationState>(
+                builder: (context, state) => SettingTile(
+                  text: state.isFetchingLocation
+                      ? "Fetching your location..."
+                      : state.address.address,
+                  secodaryText: state.isFetchingLocation
+                      ? null
+                      : "tap to get the current location",
+                  icon: Icons.location_pin,
+                  onPressed: () =>
+                      BlocProvider.of<LocationCubit>(context).fetchLocation(),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
