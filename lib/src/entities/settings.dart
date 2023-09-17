@@ -8,5 +8,18 @@ class Settings extends HiveObject {
   @HiveField(0)
   Address address;
 
-  Settings({required this.address});
+  @HiveField(1)
+  String madhab;
+
+  Settings({required this.address, required this.madhab});
+
+  Settings copyWith({
+    Address? address,
+    String? madhab,
+  }) {
+    return Settings(
+      address: address ?? this.address,
+      madhab: madhab ?? this.madhab,
+    );
+  }
 }

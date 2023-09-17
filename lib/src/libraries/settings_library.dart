@@ -1,3 +1,4 @@
+import 'package:adhan_dart/adhan_dart.dart';
 import 'package:hive/hive.dart';
 import 'package:taukeet/src/entities/address.dart';
 import 'package:taukeet/src/entities/settings.dart';
@@ -17,7 +18,10 @@ class SettingsLibrary {
         longitude: 39.569183,
         address: "Al-Madinah al-Munawwarah, Saudi Arabia",
       );
-      final defaultSettings = Settings(address: defaultAddress);
+      final defaultSettings = Settings(
+        address: defaultAddress,
+        madhab: Madhab.Hanafi,
+      );
 
       await settingsBox.put(settingsKey, defaultSettings);
     }
@@ -31,15 +35,24 @@ class SettingsLibrary {
     if (storedSettings != null) {
       return storedSettings;
     } else {
-      return Settings(address: Address());
+      return Settings(address: Address(), madhab: Madhab.Hanafi);
     }
   }
 
   // Update the address in the first Settings object found in the settings box
   static Future<void> updateAddress(Address newAddress) async {
     final settingsBox = await Hive.openBox<Settings>(settingsBoxName);
-    final updatedSettings = Settings(address: newAddress);
+    final Settings? settings = settingsBox.get(settingsKey);
+    final updatedSettings = settings?.copyWith(address: newAddress);
 
-    await settingsBox.put(settingsKey, updatedSettings);
+    await settingsBox.put(settingsKey, updatedSettings!);
+  }
+
+  static Future<void> updateMadhab(String madhab) async {
+    final settingsBox = await Hive.openBox<Settings>(settingsBoxName);
+    final Settings? settings = settingsBox.get(settingsKey);
+    final updatedSettings = settings?.copyWith(madhab: madhab);
+
+    await settingsBox.put(settingsKey, updatedSettings!);
   }
 }

@@ -1,5 +1,7 @@
+import 'package:adhan_dart/adhan_dart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:taukeet/main.dart';
 import 'package:taukeet/src/modules/settings/cubit/location_cubit.dart';
 import 'package:taukeet/src/modules/settings/cubit/settings_cubit.dart';
 
@@ -41,8 +43,66 @@ class SettingsView extends StatelessWidget {
                       BlocProvider.of<LocationCubit>(context).fetchLocation(),
                 ),
               ),
+              BlocBuilder<SettingsCubit, SettingsState>(
+                builder: (context, state) {
+                  return SettingTile(
+                    text: state.madhab.capitalized(),
+                    secodaryText: "tap to change the madhab",
+                    icon: Icons.people,
+                    onPressed: () {
+                      showDialog(
+                        context: context,
+                        builder: (context) {
+                          return const SelectMadhabDialog();
+                        },
+                      );
+                    },
+                  );
+                },
+              ),
             ],
           ),
+        ),
+      ),
+    );
+  }
+}
+
+class SelectMadhabDialog extends StatelessWidget {
+  const SelectMadhabDialog({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Dialog(
+      child: Container(
+        decoration: BoxDecoration(
+          color: Theme.of(context).colorScheme.primary,
+          borderRadius: const BorderRadius.all(Radius.circular(12.0)),
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            SettingTile(
+              text: Madhab.Hanafi.capitalized(),
+              secodaryText: "Later Asr time",
+              icon: Icons.arrow_right,
+              onPressed: () {
+                BlocProvider.of<SettingsCubit>(context)
+                    .updateMadhab(Madhab.Hanafi);
+                Navigator.pop(context);
+              },
+            ),
+            SettingTile(
+              text: Madhab.Shafi.capitalized(),
+              secodaryText: "Earlier Asr time",
+              icon: Icons.arrow_right,
+              onPressed: () {
+                BlocProvider.of<SettingsCubit>(context)
+                    .updateMadhab(Madhab.Shafi);
+                Navigator.pop(context);
+              },
+            ),
+          ],
         ),
       ),
     );
@@ -90,7 +150,7 @@ class SettingTile extends StatelessWidget {
                   color: Theme.of(context).colorScheme.secondary,
                 ),
                 const SizedBox(
-                  width: 6.0,
+                  width: 10.0,
                 ),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,

@@ -1,5 +1,6 @@
 import 'package:adhan_dart/adhan_dart.dart';
 import 'package:taukeet/src/entities/address.dart';
+import 'package:taukeet/src/libraries/settings_library.dart';
 
 class PrayerName {
   final String english;
@@ -39,7 +40,7 @@ class PrayerTimeLibrary {
 
     Coordinates coordinates = Coordinates(address.latitude, address.longitude);
     CalculationParameters params = CalculationMethod.MuslimWorldLeague();
-    params.madhab = Madhab.Hanafi;
+    params.madhab = SettingsLibrary.getSettings().madhab;
     PrayerTimes prayerTimes = PrayerTimes(coordinates, dateTime, params);
 
     return prayerTimeMap.keys.map((prayer) {

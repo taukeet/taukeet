@@ -18,15 +18,18 @@ class SettingsAdapter extends TypeAdapter<Settings> {
     };
     return Settings(
       address: fields[0] as Address,
+      madhab: fields[1] as String,
     );
   }
 
   @override
   void write(BinaryWriter writer, Settings obj) {
     writer
-      ..writeByte(1)
+      ..writeByte(2)
       ..writeByte(0)
-      ..write(obj.address);
+      ..write(obj.address)
+      ..writeByte(1)
+      ..write(obj.madhab);
   }
 
   @override
