@@ -5,9 +5,6 @@ import 'package:taukeet/src/entities/address.dart';
 import 'package:taukeet/src/entities/settings.dart';
 import 'package:taukeet/src/libraries/settings_library.dart';
 
-// Hive Box Constants
-const String addressBoxName = "addressBox";
-
 void main() async {
   await Hive.initFlutter();
   Hive.registerAdapter(SettingsAdapter());

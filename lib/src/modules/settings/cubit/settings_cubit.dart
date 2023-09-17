@@ -9,7 +9,6 @@ class SettingsCubit extends Cubit<SettingsState> {
   SettingsCubit()
       : super(SettingsState(
           address: SettingsLibrary.getSettings().address,
-          dateTime: DateTime.now(),
         ));
 
   void updateLocation(Address address) {

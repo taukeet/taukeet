@@ -27,7 +27,7 @@ class PrayerTimeLibrary {
     required this.address,
   });
 
-  List<PrayerTime> get prayers {
+  List<PrayerTime> prayers(DateTime dateTime) {
     final prayerTimeMap = {
       Prayer.Fajr: PrayerName(english: "Fajr", arabic: "فجر"),
       Prayer.Sunrise: PrayerName(english: "Sunrise", arabic: "شروق"),
@@ -40,7 +40,7 @@ class PrayerTimeLibrary {
     Coordinates coordinates = Coordinates(address.latitude, address.longitude);
     CalculationParameters params = CalculationMethod.MuslimWorldLeague();
     params.madhab = Madhab.Hanafi;
-    PrayerTimes prayerTimes = PrayerTimes(coordinates, DateTime.now(), params);
+    PrayerTimes prayerTimes = PrayerTimes(coordinates, dateTime, params);
 
     return prayerTimeMap.keys.map((prayer) {
       return PrayerTime(
