@@ -2,6 +2,7 @@ import 'package:adhan_dart/adhan_dart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:taukeet/main.dart';
+import 'package:taukeet/src/libraries/prayer_time_library.dart';
 import 'package:taukeet/src/modules/settings/cubit/location_cubit.dart';
 import 'package:taukeet/src/modules/settings/cubit/settings_cubit.dart';
 
@@ -48,12 +49,29 @@ class SettingsView extends StatelessWidget {
                   return SettingTile(
                     text: state.madhab.capitalized(),
                     secodaryText: "tap to change the madhab",
-                    icon: Icons.people,
+                    icon: Icons.domain,
                     onPressed: () {
                       showDialog(
                         context: context,
                         builder: (context) {
                           return const SelectMadhabDialog();
+                        },
+                      );
+                    },
+                  );
+                },
+              ),
+              BlocBuilder<SettingsCubit, SettingsState>(
+                builder: (context, state) {
+                  return SettingTile(
+                    text: state.calculationMethod.humanReadable(),
+                    secodaryText: "tap to change the calculation method",
+                    icon: Icons.timelapse,
+                    onPressed: () {
+                      showDialog(
+                        context: context,
+                        builder: (context) {
+                          return const SelectCalculationMethodDialog();
                         },
                       );
                     },
@@ -109,6 +127,40 @@ class SelectMadhabDialog extends StatelessWidget {
   }
 }
 
+class SelectCalculationMethodDialog extends StatelessWidget {
+  const SelectCalculationMethodDialog({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Dialog(
+      child: Container(
+        decoration: BoxDecoration(
+          color: Theme.of(context).colorScheme.primary,
+          borderRadius: const BorderRadius.all(Radius.circular(12.0)),
+        ),
+        child: SingleChildScrollView(
+          child: Column(
+            children: PrayerTimeLibrary.calculationMethods.map(
+              (e) {
+                return SettingTile(
+                  text: '${e["name"]}'.humanReadable(),
+                  secodaryText: '${e["description"]}',
+                  icon: Icons.arrow_right,
+                  onPressed: () {
+                    BlocProvider.of<SettingsCubit>(context)
+                        .updateCalculationMethod(e["name"]!);
+                    Navigator.pop(context);
+                  },
+                );
+              },
+            ).toList(),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
 class SettingTile extends StatelessWidget {
   const SettingTile({
     super.key,
@@ -152,31 +204,33 @@ class SettingTile extends StatelessWidget {
                 const SizedBox(
                   width: 10.0,
                 ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      text,
-                      style: TextStyle(
-                        fontSize: 18.0,
-                        color: Theme.of(context).colorScheme.secondary,
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        text,
+                        style: TextStyle(
+                          fontSize: 18.0,
+                          color: Theme.of(context).colorScheme.secondary,
+                        ),
                       ),
-                    ),
-                    ...[
-                      secodaryText != null
-                          ? Text(
-                              secodaryText!,
-                              style: TextStyle(
-                                fontSize: 12,
-                                color: Theme.of(context)
-                                    .colorScheme
-                                    .secondary
-                                    .withOpacity(.6),
-                              ),
-                            )
-                          : Container()
+                      ...[
+                        secodaryText != null
+                            ? Text(
+                                secodaryText!,
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .secondary
+                                      .withOpacity(.6),
+                                ),
+                              )
+                            : Container()
+                      ],
                     ],
-                  ],
+                  ),
                 ),
               ],
             ),

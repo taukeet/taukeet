@@ -21,6 +21,7 @@ class SettingsLibrary {
       final defaultSettings = Settings(
         address: defaultAddress,
         madhab: Madhab.Hanafi,
+        calculationMethod: 'MuslimWorldLeague',
       );
 
       await settingsBox.put(settingsKey, defaultSettings);
@@ -35,7 +36,11 @@ class SettingsLibrary {
     if (storedSettings != null) {
       return storedSettings;
     } else {
-      return Settings(address: Address(), madhab: Madhab.Hanafi);
+      return Settings(
+        address: Address(),
+        madhab: Madhab.Hanafi,
+        calculationMethod: 'MuslimWorldLeague',
+      );
     }
   }
 
@@ -52,6 +57,14 @@ class SettingsLibrary {
     final settingsBox = await Hive.openBox<Settings>(settingsBoxName);
     final Settings? settings = settingsBox.get(settingsKey);
     final updatedSettings = settings?.copyWith(madhab: madhab);
+
+    await settingsBox.put(settingsKey, updatedSettings!);
+  }
+
+  static Future<void> updateCalculationMethod(String method) async {
+    final settingsBox = await Hive.openBox<Settings>(settingsBoxName);
+    final Settings? settings = settingsBox.get(settingsKey);
+    final updatedSettings = settings?.copyWith(calculationMethod: method);
 
     await settingsBox.put(settingsKey, updatedSettings!);
   }

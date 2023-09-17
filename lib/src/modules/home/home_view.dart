@@ -84,7 +84,7 @@ class HomeView extends StatelessWidget {
                   ],
                 ),
                 SizedBox(
-                  height: sizeLibrary.appSize(150),
+                  height: sizeLibrary.appSize(180),
                   child: Center(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,

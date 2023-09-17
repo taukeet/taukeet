@@ -8,6 +8,9 @@ import 'package:taukeet/src/libraries/settings_library.dart';
 extension StringCasingExtension on String {
   String capitalized() =>
       length > 0 ? '${this[0].toUpperCase()}${substring(1).toLowerCase()}' : '';
+  String humanReadable() =>
+      replaceAllMapped(RegExp(r'[A-Z]'), (match) => ' ${match.group(0)}')
+          .trim();
 }
 
 void main() async {
