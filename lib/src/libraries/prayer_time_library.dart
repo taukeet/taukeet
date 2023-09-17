@@ -1,4 +1,5 @@
 import 'package:adhan_dart/adhan_dart.dart';
+import 'package:taukeet/src/entities/address.dart';
 
 class PrayerName {
   final String english;
@@ -20,12 +21,10 @@ class PrayerTime {
 }
 
 class PrayerTimeLibrary {
-  final double latitude;
-  final double longitude;
+  final Address address;
 
   const PrayerTimeLibrary({
-    required this.latitude,
-    required this.longitude,
+    required this.address,
   });
 
   List<PrayerTime> get prayers {
@@ -38,8 +37,9 @@ class PrayerTimeLibrary {
       Prayer.Isha: PrayerName(english: "Isha", arabic: "عشاء"),
     };
 
-    Coordinates coordinates = Coordinates(latitude, longitude);
+    Coordinates coordinates = Coordinates(address.latitude, address.longitude);
     CalculationParameters params = CalculationMethod.MuslimWorldLeague();
+    params.madhab = Madhab.Hanafi;
     PrayerTimes prayerTimes = PrayerTimes(coordinates, DateTime.now(), params);
 
     return prayerTimeMap.keys.map((prayer) {

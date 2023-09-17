@@ -3,17 +3,15 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:taukeet/src/libraries/prayer_time_library.dart';
-// import 'package:taukeet/src/libraries/prayer_time_library.dart';
+import 'package:taukeet/src/libraries/settings_library.dart';
 import 'package:taukeet/src/libraries/size_library.dart';
 import 'package:taukeet/src/modules/settings/cubit/settings_cubit.dart';
 
 class HomeView extends StatelessWidget {
-  const HomeView({super.key});
+  HomeView({super.key});
 
-  final PrayerTimeLibrary _prayerTimeLibrary = const PrayerTimeLibrary(
-    latitude: 21.146633,
-    longitude: 79.088860,
-  );
+  final PrayerTimeLibrary _prayerTimeLibrary =
+      PrayerTimeLibrary(address: SettingsLibrary.getSettings().address);
 
   @override
   Widget build(BuildContext context) {
@@ -57,11 +55,16 @@ class HomeView extends StatelessWidget {
                               width: 4,
                             ),
                             BlocBuilder<SettingsCubit, SettingsState>(
-                              builder: (context, state) => Text(
-                                state.address.address,
-                                style: TextStyle(
-                                  fontSize: sizeLibrary.appSize(12),
-                                  color: Theme.of(context).colorScheme.primary,
+                              builder: (context, state) => SizedBox(
+                                width: sizeLibrary.appWidth(context, 60),
+                                child: Text(
+                                  state.address.address,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: TextStyle(
+                                    fontSize: sizeLibrary.appSize(12),
+                                    color:
+                                        Theme.of(context).colorScheme.primary,
+                                  ),
                                 ),
                               ),
                             )
@@ -132,17 +135,20 @@ class HomeView extends StatelessWidget {
                           color: Theme.of(context).colorScheme.primary,
                         ),
                         Expanded(
-                          child: Column(
-                            children: [
-                              Text(
-                                "THUR 04 MAY, 2023",
+                          child: BlocBuilder<SettingsCubit, SettingsState>(
+                            builder: (context, state) {
+                              return Text(
+                                DateFormat('EEE dd MMM, yyyy')
+                                    .format(state.dateTime)
+                                    .toUpperCase(),
+                                textAlign: TextAlign.center,
                                 style: TextStyle(
                                   color: Theme.of(context).colorScheme.primary,
                                   fontSize: sizeLibrary.appSize(12),
                                   fontWeight: FontWeight.bold,
                                 ),
-                              ),
-                            ],
+                              );
+                            },
                           ),
                         ),
                         Icon(

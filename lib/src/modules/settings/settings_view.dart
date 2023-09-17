@@ -10,6 +10,9 @@ class SettingsView extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
+        BlocProvider.value(
+          value: BlocProvider.of<SettingsCubit>(context),
+        ),
         BlocProvider(
           create: (context) => LocationCubit(
             settingsCubit: BlocProvider.of<SettingsCubit>(context),

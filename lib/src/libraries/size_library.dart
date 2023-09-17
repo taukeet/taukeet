@@ -18,4 +18,9 @@ class SizeLibrary {
 
     return appSize / 6;
   }
+
+  double appWidth(BuildContext context, double percentage) {
+    double screenWidth = MediaQuery.of(context).size.width;
+    return (percentage / 100) * screenWidth;
+  }
 }

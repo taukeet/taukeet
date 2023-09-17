@@ -19,11 +19,15 @@ dependencies:
       url: https://github.com/taukeet/adhan_dart.git
   location: ^5.0.3
   geocoding: ^2.1.0
+  hive_flutter: ^1.1.0
+  hive: ^2.2.3
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^2.0.0
+  build_runner: ^2.4.6
+  hive_generator: ^2.0.1
 
 flutter:
   uses-material-design: true

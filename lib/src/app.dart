@@ -10,7 +10,7 @@ final _router = GoRouter(
     GoRoute(
       name: 'home',
       path: '/',
-      builder: (context, state) => const HomeView(),
+      builder: (context, state) => HomeView(),
     ),
     GoRoute(
       name: 'settings',
