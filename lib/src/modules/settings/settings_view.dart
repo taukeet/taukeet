@@ -140,7 +140,7 @@ class SelectCalculationMethodDialog extends StatelessWidget {
         ),
         child: SingleChildScrollView(
           child: Column(
-            children: PrayerTimeLibrary.calculationMethods.map(
+            children: getIt<PrayerTimeLibrary>().calculationMethods.map(
               (e) {
                 return SettingTile(
                   text: '${e["name"]}'.humanReadable(),

@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
+import 'package:taukeet/main.dart';
 import 'package:taukeet/src/libraries/prayer_time_library.dart';
-import 'package:taukeet/src/libraries/settings_library.dart';
 import 'package:taukeet/src/libraries/size_library.dart';
 import 'package:taukeet/src/modules/home/cubit/home_cubit.dart';
 import 'package:taukeet/src/modules/settings/cubit/settings_cubit.dart';
@@ -11,8 +11,7 @@ import 'package:taukeet/src/modules/settings/cubit/settings_cubit.dart';
 class HomeView extends StatelessWidget {
   HomeView({super.key});
 
-  final PrayerTimeLibrary _prayerTimeLibrary =
-      PrayerTimeLibrary(address: SettingsLibrary.getSettings().address);
+  final PrayerTimeLibrary _prayerTimeLibrary = getIt<PrayerTimeLibrary>();
 
   @override
   Widget build(BuildContext context) {
@@ -90,7 +89,10 @@ class HomeView extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          "Fajr",
+                          getIt<PrayerTimeLibrary>()
+                              .currentPrayer()
+                              .name
+                              .english,
                           style: TextStyle(
                             color: Theme.of(context).colorScheme.primary,
                             fontSize: sizeLibrary.appSize(34),
@@ -113,7 +115,10 @@ class HomeView extends StatelessWidget {
                               width: 10,
                             ),
                             Text(
-                              "فجر",
+                              getIt<PrayerTimeLibrary>()
+                                  .currentPrayer()
+                                  .name
+                                  .arabic,
                               style: TextStyle(
                                 color: Theme.of(context).colorScheme.primary,
                                 fontSize: sizeLibrary.appSize(16),

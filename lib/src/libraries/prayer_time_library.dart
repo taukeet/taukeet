@@ -22,13 +22,7 @@ class PrayerTime {
 }
 
 class PrayerTimeLibrary {
-  final Address address;
-
-  const PrayerTimeLibrary({
-    required this.address,
-  });
-
-  static List<Map<String, String>> get calculationMethods => [
+  List<Map<String, String>> get calculationMethods => [
         {
           'name': 'MuslimWorldLeague',
           'description':
@@ -94,7 +88,16 @@ class PrayerTimeLibrary {
         },
       ];
 
-  static calculationMehod(String methodName) {
+  final _prayerTimeMap = {
+    Prayer.Fajr: PrayerName(english: "Fajr", arabic: "فجر"),
+    Prayer.Sunrise: PrayerName(english: "Sunrise", arabic: "شروق"),
+    Prayer.Dhuhr: PrayerName(english: "Dhuhr", arabic: "ظهر"),
+    Prayer.Asr: PrayerName(english: "Asr", arabic: "عصر"),
+    Prayer.Maghrib: PrayerName(english: "Maghrib", arabic: "مغرب"),
+    Prayer.Isha: PrayerName(english: "Isha", arabic: "عشاء"),
+  };
+
+  dynamic _calculationMehod(String methodName) {
     switch (methodName) {
       case 'Dubai':
         return CalculationMethod.Dubai();
@@ -128,28 +131,35 @@ class PrayerTimeLibrary {
     }
   }
 
-  List<PrayerTime> prayers(DateTime dateTime) {
-    final prayerTimeMap = {
-      Prayer.Fajr: PrayerName(english: "Fajr", arabic: "فجر"),
-      Prayer.Sunrise: PrayerName(english: "Sunrise", arabic: "شروق"),
-      Prayer.Dhuhr: PrayerName(english: "Dhuhr", arabic: "ظهر"),
-      Prayer.Asr: PrayerName(english: "Asr", arabic: "عصر"),
-      Prayer.Maghrib: PrayerName(english: "Maghrib", arabic: "مغرب"),
-      Prayer.Isha: PrayerName(english: "Isha", arabic: "عشاء"),
-    };
-
+  PrayerTimes _calculatePrayertimes(DateTime dateTime) {
+    Address address = SettingsLibrary.getSettings().address;
     Coordinates coordinates = Coordinates(address.latitude, address.longitude);
     CalculationParameters params =
-        calculationMehod(SettingsLibrary.getSettings().calculationMethod);
+        _calculationMehod(SettingsLibrary.getSettings().calculationMethod);
     params.madhab = SettingsLibrary.getSettings().madhab;
-    PrayerTimes prayerTimes = PrayerTimes(coordinates, dateTime, params);
+    return PrayerTimes(coordinates, dateTime, params);
+  }
 
-    return prayerTimeMap.keys.map((prayer) {
+  List<PrayerTime> prayers(DateTime dateTime) {
+    PrayerTimes prayerTimes = _calculatePrayertimes(dateTime);
+
+    return _prayerTimeMap.keys.map((prayer) {
       return PrayerTime(
-        name: prayerTimeMap[prayer]!,
+        name: _prayerTimeMap[prayer]!,
         startTime: prayerTimes.timeForPrayer(prayer)!.toLocal(),
         isCurrentPrayer: false,
       );
     }).toList();
+  }
+
+  PrayerTime currentPrayer() {
+    PrayerTimes prayerTimes = _calculatePrayertimes(DateTime.now());
+    final prayer = prayerTimes.currentPrayer(date: DateTime.now());
+
+    return PrayerTime(
+      name: _prayerTimeMap[prayer]!,
+      startTime: prayerTimes.timeForPrayer(prayer)!.toLocal(),
+      isCurrentPrayer: false,
+    );
   }
 }
