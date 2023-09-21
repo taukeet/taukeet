@@ -34,16 +34,6 @@ class HomeView extends StatelessWidget {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          "12:02 AM",
-                          style: TextStyle(
-                            fontSize: sizeLibrary.appSize(14),
-                            color: Theme.of(context).colorScheme.primary,
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 2,
-                        ),
                         Row(
                           children: [
                             Icon(
@@ -105,23 +95,13 @@ class HomeView extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
-                              "05:30:45",
-                              style: TextStyle(
-                                color: Theme.of(context).colorScheme.primary,
-                                fontSize: sizeLibrary.appSize(12),
-                              ),
-                            ),
-                            const SizedBox(
-                              width: 10,
-                            ),
-                            Text(
                               getIt<PrayerTimeLibrary>()
                                   .currentPrayer()
                                   .name
                                   .arabic,
                               style: TextStyle(
                                 color: Theme.of(context).colorScheme.primary,
-                                fontSize: sizeLibrary.appSize(16),
+                                fontSize: sizeLibrary.appSize(18),
                                 fontFamily: "Lateef",
                               ),
                             ),
@@ -210,6 +190,9 @@ class HomeView extends StatelessWidget {
                                         prayer.name.english,
                                         style: TextStyle(
                                           fontSize: sizeLibrary.appSize(12),
+                                          fontWeight: prayer.isCurrentPrayer
+                                              ? FontWeight.bold
+                                              : FontWeight.normal,
                                         ),
                                       ),
                                     ),
@@ -221,7 +204,9 @@ class HomeView extends StatelessWidget {
                                         textAlign: TextAlign.center,
                                         style: TextStyle(
                                           fontSize: sizeLibrary.appSize(16),
-                                          fontWeight: FontWeight.bold,
+                                          fontWeight: prayer.isCurrentPrayer
+                                              ? FontWeight.bold
+                                              : FontWeight.normal,
                                         ),
                                       ),
                                     ),
@@ -233,6 +218,9 @@ class HomeView extends StatelessWidget {
                                         style: TextStyle(
                                           fontSize: sizeLibrary.appSize(16),
                                           fontFamily: "Lateef",
+                                          fontWeight: prayer.isCurrentPrayer
+                                              ? FontWeight.bold
+                                              : FontWeight.normal,
                                         ),
                                       ),
                                     )

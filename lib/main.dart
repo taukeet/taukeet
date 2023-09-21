@@ -17,6 +17,15 @@ extension StringCasingExtension on String {
           .trim();
 }
 
+extension DateTimeExtensions on DateTime {
+  bool isToday() {
+    final currentDate = DateTime.now();
+    return year == currentDate.year &&
+        month == currentDate.month &&
+        day == currentDate.day;
+  }
+}
+
 void main() async {
   await Hive.initFlutter();
   Hive.registerAdapter(SettingsAdapter());

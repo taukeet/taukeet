@@ -1,4 +1,5 @@
 import 'package:adhan_dart/adhan_dart.dart';
+import 'package:taukeet/main.dart';
 import 'package:taukeet/src/entities/address.dart';
 import 'package:taukeet/src/libraries/settings_library.dart';
 
@@ -142,12 +143,13 @@ class PrayerTimeLibrary {
 
   List<PrayerTime> prayers(DateTime dateTime) {
     PrayerTimes prayerTimes = _calculatePrayertimes(dateTime);
+    final currentPrayer = prayerTimes.currentPrayer(date: DateTime.now());
 
     return _prayerTimeMap.keys.map((prayer) {
       return PrayerTime(
         name: _prayerTimeMap[prayer]!,
         startTime: prayerTimes.timeForPrayer(prayer)!.toLocal(),
-        isCurrentPrayer: false,
+        isCurrentPrayer: currentPrayer == prayer && dateTime.isToday(),
       );
     }).toList();
   }
