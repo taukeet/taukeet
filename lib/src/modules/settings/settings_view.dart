@@ -78,6 +78,24 @@ class SettingsView extends StatelessWidget {
                   );
                 },
               ),
+              BlocBuilder<SettingsCubit, SettingsState>(
+                builder: (context, state) {
+                  return SettingTile(
+                    text: state.higherLatitude.humanReadable(),
+                    secodaryText:
+                        "In locations at higher latitude, twilight may persist throughout the night during some months of the year. In these abnormal periods, the determination of Fajr and Isha is not possible using the usual formulas, to overcome this problem, several solutions have been proposed, tap to changed the method.",
+                    icon: Icons.keyboard_double_arrow_up,
+                    onPressed: () {
+                      showDialog(
+                        context: context,
+                        builder: (context) {
+                          return const SelectHigherLatitudeDialog();
+                        },
+                      );
+                    },
+                  );
+                },
+              ),
             ],
           ),
         ),
@@ -149,6 +167,41 @@ class SelectCalculationMethodDialog extends StatelessWidget {
                   onPressed: () {
                     BlocProvider.of<SettingsCubit>(context)
                         .updateCalculationMethod(e["name"]!);
+                    Navigator.pop(context);
+                  },
+                );
+              },
+            ).toList(),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class SelectHigherLatitudeDialog extends StatelessWidget {
+  const SelectHigherLatitudeDialog({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Dialog(
+      child: Container(
+        decoration: BoxDecoration(
+          color: Theme.of(context).colorScheme.primary,
+          borderRadius: const BorderRadius.all(Radius.circular(12.0)),
+        ),
+        child: SingleChildScrollView(
+          child: Column(
+            children: getIt<PrayerTimeLibrary>().higherLatitudes.map(
+              (e) {
+                return SettingTile(
+                  text: '${e["name"]}'.humanReadable(),
+                  secodaryText:
+                      e["description"] == null ? null : '${e["description"]}',
+                  icon: Icons.arrow_right,
+                  onPressed: () {
+                    BlocProvider.of<SettingsCubit>(context)
+                        .updateHigherLatitude(e["name"]!);
                     Navigator.pop(context);
                   },
                 );

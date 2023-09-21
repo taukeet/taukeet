@@ -22,6 +22,7 @@ class SettingsLibrary {
         address: defaultAddress,
         madhab: Madhab.Hanafi,
         calculationMethod: 'MuslimWorldLeague',
+        higherLatitude: 'None',
       );
 
       await settingsBox.put(settingsKey, defaultSettings);
@@ -31,17 +32,14 @@ class SettingsLibrary {
   // Get the settings from the settings box
   Settings getSettings() {
     final settingsBox = Hive.box<Settings>(settingsBoxName);
-    final storedSettings = settingsBox.get(settingsKey);
-
-    if (storedSettings != null) {
-      return storedSettings;
-    } else {
-      return Settings(
-        address: Address(),
-        madhab: Madhab.Hanafi,
-        calculationMethod: 'MuslimWorldLeague',
-      );
-    }
+    return settingsBox.get(
+      settingsKey,
+      defaultValue: Settings(
+          address: Address(),
+          madhab: Madhab.Hanafi,
+          calculationMethod: 'MuslimWorldLeague',
+          higherLatitude: 'None'),
+    )!;
   }
 
   // Update the address in the first Settings object found in the settings box
@@ -65,6 +63,14 @@ class SettingsLibrary {
     final settingsBox = await Hive.openBox<Settings>(settingsBoxName);
     final Settings? settings = settingsBox.get(settingsKey);
     final updatedSettings = settings?.copyWith(calculationMethod: method);
+
+    await settingsBox.put(settingsKey, updatedSettings!);
+  }
+
+  Future<void> updateHigherLatitude(String value) async {
+    final settingsBox = await Hive.openBox<Settings>(settingsBoxName);
+    final Settings? settings = settingsBox.get(settingsKey);
+    final updatedSettings = settings?.copyWith(higherLatitude: value);
 
     await settingsBox.put(settingsKey, updatedSettings!);
   }

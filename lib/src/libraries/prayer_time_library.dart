@@ -89,6 +89,27 @@ class PrayerTimeLibrary {
         },
       ];
 
+  List<Map<String, String>> get higherLatitudes => [
+        {
+          'name': 'None',
+        },
+        {
+          'name': 'MiddleOfTheNight',
+          'description':
+              'Fajr will never be earlier than the middle of the night and Isha will never be later than the middle of the night',
+        },
+        {
+          'name': 'SeventhOfTheNight',
+          'description':
+              'Fajr will never be earlier than the beginning of the last seventh of the night and Isha will never be later than the end of the first seventh of the night',
+        },
+        {
+          'name': 'TwilightAngle',
+          'description':
+              'Similar to SeventhOfTheNight, but instead of 1/7, the fraction of the night used is fajrAngle/60 and ishaAngle/60',
+        },
+      ];
+
   final _prayerTimeMap = {
     Prayer.Fajr: PrayerName(english: "Fajr", arabic: "فجر"),
     Prayer.Sunrise: PrayerName(english: "Sunrise", arabic: "شروق"),
@@ -132,12 +153,31 @@ class PrayerTimeLibrary {
     }
   }
 
+  dynamic _higherLatitude(String latitudeName) {
+    switch (latitudeName) {
+      case 'MiddleOfTheNight':
+        return HighLatitudeRule.MiddleOfTheNight;
+      case 'SeventhOfTheNight':
+        return HighLatitudeRule.SeventhOfTheNight;
+      case 'TwilightAngle':
+        return HighLatitudeRule.TwilightAngle;
+      default:
+        return null;
+    }
+  }
+
   PrayerTimes _calculatePrayertimes(DateTime dateTime) {
     Address address = getIt<SettingsLibrary>().getSettings().address;
     Coordinates coordinates = Coordinates(address.latitude, address.longitude);
     CalculationParameters params = _calculationMehod(
         getIt<SettingsLibrary>().getSettings().calculationMethod);
     params.madhab = getIt<SettingsLibrary>().getSettings().madhab;
+
+    final higherLatitude = _higherLatitude('None');
+    if (higherLatitude != null) {
+      params.highLatitudeRule = higherLatitude;
+    }
+
     return PrayerTimes(coordinates, dateTime, params);
   }
 

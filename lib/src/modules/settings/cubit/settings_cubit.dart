@@ -13,6 +13,7 @@ class SettingsCubit extends Cubit<SettingsState> {
           madhab: getIt<SettingsLibrary>().getSettings().madhab,
           calculationMethod:
               getIt<SettingsLibrary>().getSettings().calculationMethod,
+          higherLatitude: getIt<SettingsLibrary>().getSettings().higherLatitude,
         ));
 
   void updateLocation(Address address) {
@@ -27,5 +28,10 @@ class SettingsCubit extends Cubit<SettingsState> {
   void updateCalculationMethod(String method) {
     getIt<SettingsLibrary>().updateCalculationMethod(method);
     emit(state.copyWith(calculationMethod: method));
+  }
+
+  void updateHigherLatitude(String value) {
+    getIt<SettingsLibrary>().updateHigherLatitude(value);
+    emit(state.copyWith(higherLatitude: value));
   }
 }
