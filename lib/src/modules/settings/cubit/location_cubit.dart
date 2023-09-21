@@ -2,6 +2,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:location/location.dart' as GeoLocation;
+import 'package:taukeet/main.dart';
 import 'package:taukeet/src/entities/address.dart';
 import 'package:taukeet/src/libraries/settings_library.dart';
 import 'package:taukeet/src/modules/settings/cubit/settings_cubit.dart';
@@ -12,7 +13,7 @@ class LocationCubit extends Cubit<LocationState> {
   LocationCubit({required this.settingsCubit})
       : super(LocationState(
           isFetchingLocation: false,
-          address: SettingsLibrary.getSettings().address,
+          address: getIt<SettingsLibrary>().getSettings().address,
         ));
 
   final SettingsCubit settingsCubit;
@@ -68,7 +69,7 @@ class LocationCubit extends Cubit<LocationState> {
           : addressStr,
     );
 
-    await SettingsLibrary.updateAddress(address);
+    await getIt<SettingsLibrary>().updateAddress(address);
 
     emit(state.copyWith(isFetchingLocation: false, address: address));
     settingsCubit.updateLocation(address);

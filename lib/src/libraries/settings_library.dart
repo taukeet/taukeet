@@ -8,7 +8,7 @@ class SettingsLibrary {
   static const String settingsKey = 'settingsKey';
 
   // Populate the default data to settings box if the data is not available
-  static Future<void> populateDefaultData() async {
+  Future<void> populateDefaultData() async {
     final settingsBox = await Hive.openBox<Settings>(settingsBoxName);
     final existingSettings = settingsBox.get(settingsKey);
 
@@ -29,7 +29,7 @@ class SettingsLibrary {
   }
 
   // Get the settings from the settings box
-  static Settings getSettings() {
+  Settings getSettings() {
     final settingsBox = Hive.box<Settings>(settingsBoxName);
     final storedSettings = settingsBox.get(settingsKey);
 
@@ -45,7 +45,7 @@ class SettingsLibrary {
   }
 
   // Update the address in the first Settings object found in the settings box
-  static Future<void> updateAddress(Address newAddress) async {
+  Future<void> updateAddress(Address newAddress) async {
     final settingsBox = await Hive.openBox<Settings>(settingsBoxName);
     final Settings? settings = settingsBox.get(settingsKey);
     final updatedSettings = settings?.copyWith(address: newAddress);
@@ -53,7 +53,7 @@ class SettingsLibrary {
     await settingsBox.put(settingsKey, updatedSettings!);
   }
 
-  static Future<void> updateMadhab(String madhab) async {
+  Future<void> updateMadhab(String madhab) async {
     final settingsBox = await Hive.openBox<Settings>(settingsBoxName);
     final Settings? settings = settingsBox.get(settingsKey);
     final updatedSettings = settings?.copyWith(madhab: madhab);
@@ -61,7 +61,7 @@ class SettingsLibrary {
     await settingsBox.put(settingsKey, updatedSettings!);
   }
 
-  static Future<void> updateCalculationMethod(String method) async {
+  Future<void> updateCalculationMethod(String method) async {
     final settingsBox = await Hive.openBox<Settings>(settingsBoxName);
     final Settings? settings = settingsBox.get(settingsKey);
     final updatedSettings = settings?.copyWith(calculationMethod: method);

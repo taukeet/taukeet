@@ -31,7 +31,8 @@ void main() async {
   Hive.registerAdapter(SettingsAdapter());
   Hive.registerAdapter(AddressAdapter());
 
-  await SettingsLibrary.populateDefaultData();
+  getIt.registerSingleton<SettingsLibrary>(SettingsLibrary());
+  await getIt<SettingsLibrary>().populateDefaultData();
   getIt.registerSingleton<PrayerTimeLibrary>(PrayerTimeLibrary());
 
   runApp(const App());

@@ -133,11 +133,11 @@ class PrayerTimeLibrary {
   }
 
   PrayerTimes _calculatePrayertimes(DateTime dateTime) {
-    Address address = SettingsLibrary.getSettings().address;
+    Address address = getIt<SettingsLibrary>().getSettings().address;
     Coordinates coordinates = Coordinates(address.latitude, address.longitude);
-    CalculationParameters params =
-        _calculationMehod(SettingsLibrary.getSettings().calculationMethod);
-    params.madhab = SettingsLibrary.getSettings().madhab;
+    CalculationParameters params = _calculationMehod(
+        getIt<SettingsLibrary>().getSettings().calculationMethod);
+    params.madhab = getIt<SettingsLibrary>().getSettings().madhab;
     return PrayerTimes(coordinates, dateTime, params);
   }
 
