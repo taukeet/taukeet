@@ -1,26 +1,9 @@
 import 'package:adhan_dart/adhan_dart.dart';
 import 'package:taukeet/main.dart';
 import 'package:taukeet/src/entities/address.dart';
+import 'package:taukeet/src/entities/prayer_name.dart';
+import 'package:taukeet/src/entities/prayer_time.dart';
 import 'package:taukeet/src/libraries/settings_library.dart';
-
-class PrayerName {
-  final String english;
-  final String arabic;
-
-  PrayerName({required this.english, required this.arabic});
-}
-
-class PrayerTime {
-  final PrayerName name;
-  final DateTime startTime;
-  final bool isCurrentPrayer;
-
-  PrayerTime({
-    required this.name,
-    required this.startTime,
-    this.isCurrentPrayer = false,
-  });
-}
 
 class PrayerTimeLibrary {
   List<Map<String, String>> get calculationMethods => [
