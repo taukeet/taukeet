@@ -1,9 +1,9 @@
 import 'package:geocoding/geocoding.dart';
-import 'package:taukeet/src/interfaces/geo_location.dart';
+import 'package:taukeet/src/services/geo_location_service.dart';
 import 'package:location/location.dart' as geo_location;
 import 'package:taukeet/src/entities/address.dart';
 
-class LocationService implements GeoLocation {
+class LocationImpl implements GeoLocationService {
   @override
   Future<Address> fetch() async {
     geo_location.Location location = geo_location.Location();

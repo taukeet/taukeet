@@ -1,0 +1,77 @@
+{
+  "methods": [
+    {
+      "name": "MuslimWorldLeague",
+      "description": "Muslim World League (MWL) method, usually used in Europe, Far East, and parts of America. Default in most calculators."
+    },
+    {
+      "name": "Egyptian",
+      "description": "Egyptian General Authority of Survey method, commonly used in Egypt."
+    },
+    {
+      "name": "Karachi",
+      "description": "University of Islamic Sciences, Karachi method, widely used in Karachi, Pakistan."
+    },
+    {
+      "name": "UmmAlQura",
+      "description": "Umm al-Qura University, Makkah method, utilized in Makkah, Saudi Arabia."
+    },
+    {
+      "name": "Dubai",
+      "description": "Dubai method, specific to Dubai, United Arab Emirates."
+    },
+    {
+      "name": "MoonsightingCommittee",
+      "description": "Moonsighting Committee method, based on moonsighting observations."
+    },
+    {
+      "name": "NorthAmerica",
+      "description": "Islamic Society of North America (ISNA) method, commonly used in North America."
+    },
+    {
+      "name": "Kuwait",
+      "description": "Kuwait method, commonly used in Kuwait."
+    },
+    {
+      "name": "Qatar",
+      "description": "Qatar method, specific to Qatar."
+    },
+    {
+      "name": "Singapore",
+      "description": "Singapore method, specific to Singapore."
+    },
+    {
+      "name": "Tehran",
+      "description": "Institute of Geophysics, University of Tehran method, commonly used in Tehran, Iran."
+    },
+    {
+      "name": "Turkey",
+      "description": "Dianet, Turkey method, utilized in Turkey."
+    },
+    {
+      "name": "Morocco",
+      "description": "Moroccan Ministry of Habous and Islamic Affairs method, commonly used in Morocco."
+    },
+    {
+      "name": "Other",
+      "description": "Other or generic calculation method with no specific parameters."
+    }
+  ],
+  "latitudes": [
+    {
+      "name": "None"
+    },
+    {
+      "name": "MiddleOfTheNight",
+      "description": "Fajr will never be earlier than the middle of the night and Isha will never be later than the middle of the night"
+    },
+    {
+      "name": "SeventhOfTheNight",
+      "description": "Fajr will never be earlier than the beginning of the last seventh of the night and Isha will never be later than the end of the first seventh of the night"
+    },
+    {
+      "name": "TwilightAngle",
+      "description": "Similar to SeventhOfTheNight, but instead of 1/7, the fraction of the night used is fajrAngle/60 and ishaAngle/60"
+    }
+  ]
+}

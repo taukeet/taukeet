@@ -6,13 +6,11 @@ import 'package:taukeet/main.dart';
 import 'package:taukeet/src/blocs/home/home_cubit.dart';
 import 'package:taukeet/src/blocs/settings/settings_cubit.dart';
 import 'package:taukeet/src/entities/prayer_time.dart';
-import 'package:taukeet/src/libraries/prayer_time_library.dart';
 import 'package:taukeet/src/libraries/size_library.dart';
+import 'package:taukeet/src/services/prayer_time_service.dart';
 
 class HomeView extends StatelessWidget {
-  HomeView({super.key});
-
-  final PrayerTimeLibrary _prayerTimeLibrary = getIt<PrayerTimeLibrary>();
+  const HomeView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -80,7 +78,7 @@ class HomeView extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          getIt<PrayerTimeLibrary>()
+                          getIt<PrayerTimeService>()
                               .currentPrayer()
                               .name
                               .english,
@@ -96,7 +94,7 @@ class HomeView extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
-                              getIt<PrayerTimeLibrary>()
+                              getIt<PrayerTimeService>()
                                   .currentPrayer()
                                   .name
                                   .arabic,
@@ -177,7 +175,8 @@ class HomeView extends StatelessWidget {
                         child: BlocBuilder<HomeCubit, HomeState>(
                           builder: (context, state) {
                             final List<PrayerTime> prayers =
-                                _prayerTimeLibrary.prayers(state.dateTime);
+                                getIt<PrayerTimeService>()
+                                    .prayers(state.dateTime);
                             return ListView.separated(
                               shrinkWrap: true,
                               itemBuilder: (context, index) {

@@ -1,0 +1,9 @@
+import 'package:taukeet/src/entities/prayer_time.dart';
+
+abstract class PrayerTimeService {
+  List<Map<String, String>> get calculationMethods;
+  List<Map<String, String>> get higherLatitudes;
+  List<Map<String, String>> get madhabs;
+  List<PrayerTime> prayers(DateTime dateTime);
+  PrayerTime currentPrayer();
+}
