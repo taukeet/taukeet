@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:taukeet/src/modules/home/cubit/home_cubit.dart';
-import 'package:taukeet/src/modules/home/home_view.dart';
-import 'package:taukeet/src/modules/settings/cubit/settings_cubit.dart';
-import 'package:taukeet/src/modules/settings/settings_view.dart';
+import 'package:taukeet/src/blocs/home/home_cubit.dart';
+import 'package:taukeet/src/blocs/settings/settings_cubit.dart';
+import 'package:taukeet/src/views/home_view.dart';
+import 'package:taukeet/src/views/settings_view.dart';
 
 final _router = GoRouter(
   routes: [

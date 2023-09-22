@@ -3,10 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:taukeet/main.dart';
+import 'package:taukeet/src/blocs/home/home_cubit.dart';
+import 'package:taukeet/src/blocs/settings/settings_cubit.dart';
 import 'package:taukeet/src/libraries/prayer_time_library.dart';
 import 'package:taukeet/src/libraries/size_library.dart';
-import 'package:taukeet/src/modules/home/cubit/home_cubit.dart';
-import 'package:taukeet/src/modules/settings/cubit/settings_cubit.dart';
 
 class HomeView extends StatelessWidget {
   HomeView({super.key});

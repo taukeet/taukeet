@@ -3,9 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:location/location.dart' as GeoLocation;
 import 'package:taukeet/main.dart';
+import 'package:taukeet/src/blocs/settings/settings_cubit.dart';
 import 'package:taukeet/src/entities/address.dart';
 import 'package:taukeet/src/libraries/settings_library.dart';
-import 'package:taukeet/src/modules/settings/cubit/settings_cubit.dart';
 
 part 'location_state.dart';
 
