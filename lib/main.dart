@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:taukeet/src/interfaces/geo_location.dart';
 import 'package:taukeet/src/app.dart';
 import 'package:taukeet/src/entities/address.dart';
 import 'package:taukeet/src/entities/settings.dart';
 import 'package:taukeet/src/libraries/prayer_time_library.dart';
 import 'package:taukeet/src/libraries/settings_library.dart';
+import 'package:taukeet/src/services/location_service.dart';
 
 final getIt = GetIt.instance;
 
@@ -34,6 +36,7 @@ void main() async {
   getIt.registerSingleton<SettingsLibrary>(SettingsLibrary());
   await getIt<SettingsLibrary>().populateDefaultData();
   getIt.registerSingleton<PrayerTimeLibrary>(PrayerTimeLibrary());
+  getIt.registerSingleton<GeoLocation>(LocationService());
 
   runApp(const App());
 }
