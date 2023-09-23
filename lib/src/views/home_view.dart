@@ -5,7 +5,7 @@ import 'package:intl/intl.dart';
 import 'package:taukeet/src/blocs/home/home_cubit.dart';
 import 'package:taukeet/src/blocs/settings/settings_cubit.dart';
 import 'package:taukeet/src/entities/prayer_time.dart';
-import 'package:taukeet/src/libraries/size_library.dart';
+import 'package:taukeet/src/utils/size_library.dart';
 
 class HomeView extends StatelessWidget {
   const HomeView({super.key});
