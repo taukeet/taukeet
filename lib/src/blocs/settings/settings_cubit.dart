@@ -1,37 +1,43 @@
+import 'dart:convert';
+
 import 'package:equatable/equatable.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:taukeet/main.dart';
 import 'package:taukeet/src/entities/address.dart';
-import 'package:taukeet/src/libraries/settings_library.dart';
+import 'package:taukeet/src/services/geo_location_service.dart';
 
 part 'settings_state.dart';
 
-class SettingsCubit extends Cubit<SettingsState> {
-  SettingsCubit()
-      : super(SettingsState(
-          address: getIt<SettingsLibrary>().getSettings().address,
-          madhab: getIt<SettingsLibrary>().getSettings().madhab,
-          calculationMethod:
-              getIt<SettingsLibrary>().getSettings().calculationMethod,
-          higherLatitude: getIt<SettingsLibrary>().getSettings().higherLatitude,
-        ));
+class SettingsCubit extends HydratedCubit<SettingsState> {
+  SettingsCubit() : super(const SettingsState());
 
-  void updateLocation(Address address) {
-    emit(state.copyWith(address: address));
+  Future<void> fetchLocation() async {
+    emit(state.copyWith(isFetchingLocation: true));
+
+    Address address = await getIt<GeoLocationService>().fetch();
+
+    emit(state.copyWith(isFetchingLocation: false, address: address));
   }
 
   void updateMadhab(String madhab) {
-    getIt<SettingsLibrary>().updateMadhab(madhab);
     emit(state.copyWith(madhab: madhab));
   }
 
   void updateCalculationMethod(String method) {
-    getIt<SettingsLibrary>().updateCalculationMethod(method);
     emit(state.copyWith(calculationMethod: method));
   }
 
   void updateHigherLatitude(String value) {
-    getIt<SettingsLibrary>().updateHigherLatitude(value);
     emit(state.copyWith(higherLatitude: value));
+  }
+
+  @override
+  SettingsState? fromJson(Map<String, dynamic> json) {
+    return SettingsState.fromMap(json);
+  }
+
+  @override
+  Map<String, dynamic>? toJson(SettingsState state) {
+    return state.toMap();
   }
 }

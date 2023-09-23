@@ -3,13 +3,25 @@ import 'package:taukeet/main.dart';
 import 'package:taukeet/src/entities/address.dart';
 import 'package:taukeet/src/entities/prayer_name.dart';
 import 'package:taukeet/src/entities/prayer_time.dart';
-import 'package:taukeet/src/libraries/settings_library.dart';
 import 'package:taukeet/src/services/prayer_time_service.dart';
 
 class AdhanImpl implements PrayerTimeService {
   final Map<String, dynamic> data;
 
   AdhanImpl({required this.data});
+
+  final _prayerTimeMap = {
+    Prayer.Fajr: PrayerName(english: "Fajr", arabic: "فجر"),
+    Prayer.Sunrise: PrayerName(english: "Sunrise", arabic: "شروق"),
+    Prayer.Dhuhr: PrayerName(english: "Dhuhr", arabic: "ظهر"),
+    Prayer.Asr: PrayerName(english: "Asr", arabic: "عصر"),
+    Prayer.Maghrib: PrayerName(english: "Maghrib", arabic: "مغرب"),
+    Prayer.Isha: PrayerName(english: "Isha", arabic: "عشاء"),
+  };
+
+  late Address address;
+  late String calculationMethod;
+  late String madhab;
 
   @override
   List<Map<String, String>> get calculationMethods =>
@@ -25,15 +37,6 @@ class AdhanImpl implements PrayerTimeService {
 
   @override
   List<Map<String, String>> get madhabs => throw UnimplementedError();
-
-  final _prayerTimeMap = {
-    Prayer.Fajr: PrayerName(english: "Fajr", arabic: "فجر"),
-    Prayer.Sunrise: PrayerName(english: "Sunrise", arabic: "شروق"),
-    Prayer.Dhuhr: PrayerName(english: "Dhuhr", arabic: "ظهر"),
-    Prayer.Asr: PrayerName(english: "Asr", arabic: "عصر"),
-    Prayer.Maghrib: PrayerName(english: "Maghrib", arabic: "مغرب"),
-    Prayer.Isha: PrayerName(english: "Isha", arabic: "عشاء"),
-  };
 
   dynamic _calculationMehod(String methodName) {
     switch (methodName) {
@@ -83,18 +86,27 @@ class AdhanImpl implements PrayerTimeService {
   }
 
   PrayerTimes _calculatePrayertimes(DateTime dateTime) {
-    Address address = getIt<SettingsLibrary>().getSettings().address;
     Coordinates coordinates = Coordinates(address.latitude, address.longitude);
-    CalculationParameters params = _calculationMehod(
-        getIt<SettingsLibrary>().getSettings().calculationMethod);
-    params.madhab = getIt<SettingsLibrary>().getSettings().madhab;
+    CalculationParameters params = _calculationMehod(calculationMethod);
+    params.madhab = madhab;
 
-    final higherLatitude = _higherLatitude('None');
-    if (higherLatitude != null) {
-      params.highLatitudeRule = higherLatitude;
-    }
+    // final higherLatitude = _higherLatitude('None');
+    // if (higherLatitude != null) {
+    //   params.highLatitudeRule = higherLatitude;
+    // }
 
     return PrayerTimes(coordinates, dateTime, params);
+  }
+
+  @override
+  void init(
+    Address address,
+    String calculationMethod,
+    String madhab,
+  ) {
+    this.address = address;
+    this.calculationMethod = calculationMethod;
+    this.madhab = madhab;
   }
 
   @override

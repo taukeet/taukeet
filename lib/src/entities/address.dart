@@ -1,21 +1,40 @@
-import 'package:hive/hive.dart';
+import 'dart:convert';
 
-part 'address.g.dart'; // You'll need to generate this file using `hive_generator`
+class Address {
+  final double latitude;
+  final double longitude;
+  final String address;
 
-@HiveType(typeId: 2)
-class Address extends HiveObject {
-  @HiveField(0)
-  double latitude;
-
-  @HiveField(1)
-  double longitude;
-
-  @HiveField(2)
-  String address;
-
-  Address({
-    this.latitude = 24.524654,
-    this.longitude = 39.569183,
-    this.address = "Al-Madinah al-Munawwarah, Saudi Arabia",
+  const Address({
+    required this.latitude,
+    required this.longitude,
+    required this.address,
   });
+
+  Address copyWith({
+    double? latitude,
+    double? longitude,
+    String? address,
+  }) =>
+      Address(
+        latitude: latitude ?? this.latitude,
+        longitude: longitude ?? this.longitude,
+        address: address ?? this.address,
+      );
+
+  factory Address.fromJson(String str) => Address.fromMap(json.decode(str));
+
+  String toJson() => json.encode(toMap());
+
+  factory Address.fromMap(Map<String, dynamic> json) => Address(
+        latitude: json["latitude"]?.toDouble(),
+        longitude: json["longitude"]?.toDouble(),
+        address: json["address"],
+      );
+
+  Map<String, dynamic> toMap() => {
+        "latitude": latitude,
+        "longitude": longitude,
+        "address": address,
+      };
 }

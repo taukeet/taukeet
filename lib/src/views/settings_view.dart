@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:taukeet/main.dart';
-import 'package:taukeet/src/blocs/location/location_cubit.dart';
 import 'package:taukeet/src/blocs/settings/settings_cubit.dart';
 import 'package:taukeet/src/views/widgets/select_calculation_method_dialog.dart';
 import 'package:taukeet/src/views/widgets/select_higher_latitude_dialog.dart';
@@ -18,11 +17,6 @@ class SettingsView extends StatelessWidget {
         BlocProvider.value(
           value: BlocProvider.of<SettingsCubit>(context),
         ),
-        BlocProvider(
-          create: (context) => LocationCubit(
-            settingsCubit: BlocProvider.of<SettingsCubit>(context),
-          ),
-        ),
       ],
       child: Scaffold(
         backgroundColor: Theme.of(context).colorScheme.primary,
@@ -33,7 +27,7 @@ class SettingsView extends StatelessWidget {
         body: SingleChildScrollView(
           child: Column(
             children: [
-              BlocBuilder<LocationCubit, LocationState>(
+              BlocBuilder<SettingsCubit, SettingsState>(
                 builder: (context, state) => SettingTile(
                   text: state.isFetchingLocation
                       ? "Fetching your location..."
@@ -43,7 +37,7 @@ class SettingsView extends StatelessWidget {
                       : "tap to get the current location",
                   icon: Icons.location_pin,
                   onPressed: () =>
-                      BlocProvider.of<LocationCubit>(context).fetchLocation(),
+                      BlocProvider.of<SettingsCubit>(context).fetchLocation(),
                 ),
               ),
               BlocBuilder<SettingsCubit, SettingsState>(
