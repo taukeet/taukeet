@@ -92,7 +92,6 @@ class AdhanImpl implements PrayerTimeService {
     params.madhab = madhab;
 
     final higherLatitude = _higherLatitude(this.higherLatitude);
-    print(higherLatitude);
     if (higherLatitude != null) {
       params.highLatitudeRule = higherLatitude;
     }

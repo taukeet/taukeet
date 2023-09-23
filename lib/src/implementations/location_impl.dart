@@ -1,4 +1,6 @@
 import 'package:geocoding/geocoding.dart';
+import 'package:taukeet/src/exceptions/location_disabled_exception.dart';
+import 'package:taukeet/src/exceptions/location_permission_denied.dart';
 import 'package:taukeet/src/services/geo_location_service.dart';
 import 'package:location/location.dart' as geo_location;
 import 'package:taukeet/src/entities/address.dart';
@@ -13,7 +15,7 @@ class LocationImpl implements GeoLocationService {
     if (!serviceEnabled) {
       serviceEnabled = await location.requestService();
       if (!serviceEnabled) {
-        throw Exception();
+        throw LocationDisabledException();
       }
     }
 
@@ -23,7 +25,7 @@ class LocationImpl implements GeoLocationService {
     if (permissionGranted == geo_location.PermissionStatus.denied) {
       permissionGranted = await location.requestPermission();
       if (permissionGranted != geo_location.PermissionStatus.granted) {
-        throw Exception();
+        throw LocationPermissionDenied();
       }
     }
 

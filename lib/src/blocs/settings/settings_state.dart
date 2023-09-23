@@ -3,6 +3,8 @@ part of 'settings_cubit.dart';
 class SettingsState extends Equatable {
   const SettingsState({
     this.isFetchingLocation = false,
+    this.isLocationEnabled = false,
+    this.hasLocationPermission = false,
     this.address = const Address(
       latitude: 24.524654,
       longitude: 39.569183,
@@ -14,6 +16,8 @@ class SettingsState extends Equatable {
   });
 
   final bool isFetchingLocation;
+  final bool isLocationEnabled;
+  final bool hasLocationPermission;
   final Address address;
   final String madhab;
   final String calculationMethod;
@@ -25,6 +29,8 @@ class SettingsState extends Equatable {
     String? calculationMethod,
     String? higherLatitude,
     bool? isFetchingLocation,
+    bool? isLocationEnabled,
+    bool? hasLocationPermission,
   }) {
     return SettingsState(
       address: address ?? this.address,
@@ -32,6 +38,9 @@ class SettingsState extends Equatable {
       calculationMethod: calculationMethod ?? this.calculationMethod,
       higherLatitude: higherLatitude ?? this.higherLatitude,
       isFetchingLocation: isFetchingLocation ?? this.isFetchingLocation,
+      isLocationEnabled: isLocationEnabled ?? this.isLocationEnabled,
+      hasLocationPermission:
+          hasLocationPermission ?? this.hasLocationPermission,
     );
   }
 
@@ -61,5 +70,7 @@ class SettingsState extends Equatable {
         calculationMethod,
         higherLatitude,
         isFetchingLocation,
+        isLocationEnabled,
+        hasLocationPermission,
       ];
 }

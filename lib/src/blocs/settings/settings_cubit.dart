@@ -4,6 +4,8 @@ import 'package:equatable/equatable.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:taukeet/main.dart';
 import 'package:taukeet/src/entities/address.dart';
+import 'package:taukeet/src/exceptions/location_disabled_exception.dart';
+import 'package:taukeet/src/exceptions/location_permission_denied.dart';
 import 'package:taukeet/src/services/geo_location_service.dart';
 
 part 'settings_state.dart';
@@ -12,11 +14,35 @@ class SettingsCubit extends HydratedCubit<SettingsState> {
   SettingsCubit() : super(const SettingsState());
 
   Future<void> fetchLocation() async {
-    emit(state.copyWith(isFetchingLocation: true));
+    emit(
+      state.copyWith(
+        isFetchingLocation: true,
+      ),
+    );
 
-    Address address = await getIt<GeoLocationService>().fetch();
-
-    emit(state.copyWith(isFetchingLocation: false, address: address));
+    try {
+      Address address = await getIt<GeoLocationService>().fetch();
+      emit(state.copyWith(
+        isFetchingLocation: false,
+        address: address,
+        isLocationEnabled: true,
+        hasLocationPermission: true,
+      ));
+    } on LocationDisabledException {
+      emit(state.copyWith(
+        isLocationEnabled: false,
+        isFetchingLocation: false,
+        hasLocationPermission: true,
+      ));
+    } on LocationPermissionDenied {
+      emit(state.copyWith(
+        isLocationEnabled: true,
+        isFetchingLocation: false,
+        hasLocationPermission: false,
+      ));
+    } catch (e) {
+      rethrow;
+    }
   }
 
   void updateMadhab(String madhab) {
