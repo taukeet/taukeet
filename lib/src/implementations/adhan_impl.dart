@@ -22,6 +22,7 @@ class AdhanImpl implements PrayerTimeService {
   late Address address;
   late String calculationMethod;
   late String madhab;
+  late String higherLatitude;
 
   @override
   List<Map<String, String>> get calculationMethods =>
@@ -90,10 +91,11 @@ class AdhanImpl implements PrayerTimeService {
     CalculationParameters params = _calculationMehod(calculationMethod);
     params.madhab = madhab;
 
-    // final higherLatitude = _higherLatitude('None');
-    // if (higherLatitude != null) {
-    //   params.highLatitudeRule = higherLatitude;
-    // }
+    final higherLatitude = _higherLatitude(this.higherLatitude);
+    print(higherLatitude);
+    if (higherLatitude != null) {
+      params.highLatitudeRule = higherLatitude;
+    }
 
     return PrayerTimes(coordinates, dateTime, params);
   }
@@ -103,10 +105,12 @@ class AdhanImpl implements PrayerTimeService {
     Address address,
     String calculationMethod,
     String madhab,
+    String higherLatitude,
   ) {
     this.address = address;
     this.calculationMethod = calculationMethod;
     this.madhab = madhab;
+    this.higherLatitude = higherLatitude;
   }
 
   @override

@@ -9,6 +9,7 @@ abstract class PrayerTimeService {
     Address address,
     String calculationMethod,
     String madhab,
+    String higherLatitude,
   );
   List<PrayerTime> prayers(DateTime dateTime);
   PrayerTime currentPrayer();

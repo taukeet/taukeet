@@ -39,8 +39,12 @@ class App extends StatelessWidget {
       ],
       child: BlocBuilder<SettingsCubit, SettingsState>(
         builder: (context, state) {
-          getIt<PrayerTimeService>()
-              .init(state.address, state.calculationMethod, state.madhab);
+          getIt<PrayerTimeService>().init(
+            state.address,
+            state.calculationMethod,
+            state.madhab,
+            state.higherLatitude,
+          );
           BlocProvider.of<HomeCubit>(context).calculatePrayers();
 
           return MaterialApp.router(
