@@ -19,7 +19,7 @@ class HomeState extends Equatable {
     return HomeState(
       dateTime: dateTime ?? this.dateTime,
       prayers: prayers ?? this.prayers,
-      currentPrayer: currentPrayer,
+      currentPrayer: currentPrayer ?? this.currentPrayer,
     );
   }
 

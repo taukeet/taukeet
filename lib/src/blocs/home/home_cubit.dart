@@ -17,18 +17,25 @@ class HomeCubit extends Cubit<HomeState> {
   }
 
   void changeToToday() {
-    emit(state.copyWith(dateTime: DateTime.now()));
+    emit(state.copyWith(
+      dateTime: DateTime.now(),
+      prayers: getIt<PrayerTimeService>().prayers(DateTime.now()),
+    ));
   }
 
   void changeToPrevDate() {
+    DateTime dateTime = state.dateTime.subtract(const Duration(days: 1));
     emit(state.copyWith(
-      dateTime: state.dateTime.subtract(const Duration(days: 1)),
+      dateTime: dateTime,
+      prayers: getIt<PrayerTimeService>().prayers(dateTime),
     ));
   }
 
   void changeToNextDate() {
+    DateTime dateTime = state.dateTime.add(const Duration(days: 1));
     emit(state.copyWith(
-      dateTime: state.dateTime.add(const Duration(days: 1)),
+      dateTime: dateTime,
+      prayers: getIt<PrayerTimeService>().prayers(dateTime),
     ));
   }
 }

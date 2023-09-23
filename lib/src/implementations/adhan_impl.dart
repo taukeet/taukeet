@@ -112,7 +112,11 @@ class AdhanImpl implements PrayerTimeService {
   @override
   PrayerTime currentPrayer() {
     PrayerTimes prayerTimes = _calculatePrayertimes(DateTime.now());
-    final prayer = prayerTimes.currentPrayer(date: DateTime.now());
+    String prayer = prayerTimes.currentPrayer(date: DateTime.now());
+
+    if (prayer == Prayer.IshaBefore) {
+      prayer = Prayer.Isha;
+    }
 
     return PrayerTime(
       name: _prayerTimeMap[prayer]!,
@@ -124,7 +128,11 @@ class AdhanImpl implements PrayerTimeService {
   @override
   List<PrayerTime> prayers(DateTime dateTime) {
     PrayerTimes prayerTimes = _calculatePrayertimes(dateTime);
-    final currentPrayer = prayerTimes.currentPrayer(date: DateTime.now());
+    String currentPrayer = prayerTimes.currentPrayer(date: DateTime.now());
+
+    if (currentPrayer == Prayer.IshaBefore) {
+      currentPrayer = Prayer.Isha;
+    }
 
     return _prayerTimeMap.keys.map((prayer) {
       return PrayerTime(
