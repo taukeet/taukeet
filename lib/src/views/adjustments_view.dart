@@ -4,6 +4,7 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:taukeet/src/blocs/settings/settings_cubit.dart';
 import 'package:taukeet/src/entities/adjustments.dart';
 import 'package:taukeet/src/views/widgets/primary_button.dart';
+import 'package:taukeet/src/views/widgets/secondary_button.dart';
 import 'package:taukeet/src/views/widgets/text_form_input.dart';
 
 class AdjustmentsView extends StatelessWidget {
@@ -93,29 +94,57 @@ class AdjustmentsView extends StatelessWidget {
                     const SizedBox(
                       height: 6,
                     ),
-                    PrimaryButton(
-                      text: "Save Adjustments",
-                      onPressed: () {
-                        if (formKey.currentState!.validate()) {
-                          final fields = formKey.currentState?.fields;
-                          BlocProvider.of<SettingsCubit>(context)
-                              .updateAdjustments(
-                            fajr: int.parse(fields?['fajr']!.value ?? 0),
-                            sunrise: int.parse(fields?['sunrise']!.value ?? 0),
-                            dhuhr: int.parse(fields?['dhuhr']!.value ?? 0),
-                            asr: int.parse(fields?['asr']!.value ?? 0),
-                            maghrib: int.parse(fields?['maghrib']!.value ?? 0),
-                            isha: int.parse(fields?['isha']!.value ?? 0),
-                          );
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        SecondaryButton(
+                          text: "Reset",
+                          onPressed: () {
+                            BlocProvider.of<SettingsCubit>(context)
+                                .updateAdjustments(
+                              fajr: 0,
+                              sunrise: 0,
+                              dhuhr: 0,
+                              asr: 0,
+                              maghrib: 0,
+                              isha: 0,
+                            );
 
-                          ScaffoldMessenger.of(context)
-                              .showSnackBar(const SnackBar(
-                            content: Text("Adjustments saved successfully"),
-                          ));
+                            ScaffoldMessenger.of(context)
+                                .showSnackBar(const SnackBar(
+                              content: Text("Adjustments reset successfully"),
+                            ));
 
-                          Navigator.pop(context);
-                        }
-                      },
+                            Navigator.pop(context);
+                          },
+                        ),
+                        PrimaryButton(
+                          text: "Save Adjustments",
+                          onPressed: () {
+                            if (formKey.currentState!.validate()) {
+                              final fields = formKey.currentState?.fields;
+                              BlocProvider.of<SettingsCubit>(context)
+                                  .updateAdjustments(
+                                fajr: int.parse(fields?['fajr']!.value ?? 0),
+                                sunrise:
+                                    int.parse(fields?['sunrise']!.value ?? 0),
+                                dhuhr: int.parse(fields?['dhuhr']!.value ?? 0),
+                                asr: int.parse(fields?['asr']!.value ?? 0),
+                                maghrib:
+                                    int.parse(fields?['maghrib']!.value ?? 0),
+                                isha: int.parse(fields?['isha']!.value ?? 0),
+                              );
+
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(const SnackBar(
+                                content: Text("Adjustments saved successfully"),
+                              ));
+
+                              Navigator.pop(context);
+                            }
+                          },
+                        )
+                      ],
                     ),
                   ],
                 ),
