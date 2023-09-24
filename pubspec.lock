@@ -9,15 +9,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "61.0.0"
-  adhan_dart:
+  adhan:
     dependency: "direct main"
     description:
-      path: "."
-      ref: HEAD
-      resolved-ref: f709b02cda6b624ab53de5db9e363988403975f2
-      url: "https://github.com/taukeet/adhan_dart.git"
-    source: git
-    version: "1.0.8"
+      name: adhan
+      sha256: a42eaab2b0c8046a978e706479e21a08ef08b21a130f03d410481600f7bb58b3
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.0.0"
   analyzer:
     dependency: transitive
     description:

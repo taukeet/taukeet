@@ -1,4 +1,4 @@
-import 'package:adhan_dart/adhan_dart.dart';
+import 'package:adhan/adhan.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:taukeet/main.dart';
@@ -20,22 +20,22 @@ class SelectMadhabDialog extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             SettingTile(
-              text: Madhab.Hanafi.capitalized(),
+              text: Madhab.hanafi.name.capitalized(),
               secodaryText: "Later Asr time",
               icon: Icons.arrow_right,
               onPressed: () {
                 BlocProvider.of<SettingsCubit>(context)
-                    .updateMadhab(Madhab.Hanafi);
+                    .updateMadhab(Madhab.hanafi.name);
                 Navigator.pop(context);
               },
             ),
             SettingTile(
-              text: Madhab.Shafi.capitalized(),
+              text: Madhab.shafi.name.capitalized(),
               secodaryText: "Earlier Asr time",
               icon: Icons.arrow_right,
               onPressed: () {
                 BlocProvider.of<SettingsCubit>(context)
-                    .updateMadhab(Madhab.Shafi);
+                    .updateMadhab(Madhab.shafi.name);
                 Navigator.pop(context);
               },
             ),

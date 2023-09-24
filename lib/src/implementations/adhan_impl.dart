@@ -1,4 +1,4 @@
-import 'package:adhan_dart/adhan_dart.dart';
+import 'package:adhan/adhan.dart';
 import 'package:taukeet/main.dart';
 import 'package:taukeet/src/entities/address.dart';
 import 'package:taukeet/src/entities/adjustments.dart';
@@ -12,12 +12,12 @@ class AdhanImpl implements PrayerTimeService {
   AdhanImpl({required this.data});
 
   final _prayerTimeMap = {
-    Prayer.Fajr: PrayerName(english: "Fajr", arabic: "فجر"),
-    Prayer.Sunrise: PrayerName(english: "Sunrise", arabic: "شروق"),
-    Prayer.Dhuhr: PrayerName(english: "Dhuhr", arabic: "ظهر"),
-    Prayer.Asr: PrayerName(english: "Asr", arabic: "عصر"),
-    Prayer.Maghrib: PrayerName(english: "Maghrib", arabic: "مغرب"),
-    Prayer.Isha: PrayerName(english: "Isha", arabic: "عشاء"),
+    Prayer.fajr: PrayerName(english: "Fajr", arabic: "فجر"),
+    Prayer.sunrise: PrayerName(english: "Sunrise", arabic: "شروق"),
+    Prayer.dhuhr: PrayerName(english: "Dhuhr", arabic: "ظهر"),
+    Prayer.asr: PrayerName(english: "Asr", arabic: "عصر"),
+    Prayer.maghrib: PrayerName(english: "Maghrib", arabic: "مغرب"),
+    Prayer.isha: PrayerName(english: "Isha", arabic: "عشاء"),
   };
 
   late Address address;
@@ -41,48 +41,57 @@ class AdhanImpl implements PrayerTimeService {
   @override
   List<Map<String, String>> get madhabs => throw UnimplementedError();
 
-  dynamic _calculationMehod(String methodName) {
+  Madhab _madhab(String madhab) {
+    switch (madhab) {
+      case 'hanafi':
+        return Madhab.hanafi;
+      case 'shafi':
+        return Madhab.shafi;
+      default:
+        return Madhab.hanafi;
+    }
+  }
+
+  CalculationMethod _calculationMehod(String methodName) {
     switch (methodName) {
       case 'Dubai':
-        return CalculationMethod.Dubai();
+        return CalculationMethod.dubai;
       case 'Egyptian':
-        return CalculationMethod.Egyptian();
+        return CalculationMethod.egyptian;
       case 'Karachi':
-        return CalculationMethod.Karachi();
+        return CalculationMethod.karachi;
       case 'Kuwait':
-        return CalculationMethod.Kuwait();
-      case 'Morocco':
-        return CalculationMethod.Morocco();
+        return CalculationMethod.kuwait;
       case 'MoonsightingCommittee':
-        return CalculationMethod.MoonsightingCommittee();
+        return CalculationMethod.moon_sighting_committee;
       case 'MuslimWorldLeague':
-        return CalculationMethod.MuslimWorldLeague();
+        return CalculationMethod.muslim_world_league;
       case 'NorthAmerica':
-        return CalculationMethod.NorthAmerica();
+        return CalculationMethod.north_america;
       case 'Qatar':
-        return CalculationMethod.Qatar();
+        return CalculationMethod.qatar;
       case 'Singapore':
-        return CalculationMethod.Singapore();
+        return CalculationMethod.singapore;
       case 'Tehran':
-        return CalculationMethod.Tehran();
+        return CalculationMethod.tehran;
       case 'Turkey':
-        return CalculationMethod.Turkey();
+        return CalculationMethod.turkey;
       case 'UmmAlQura':
-        return CalculationMethod.UmmAlQura();
+        return CalculationMethod.umm_al_qura;
       default:
         return CalculationMethod
-            .Other(); // Return 'Other' method if the provided method name is not found
+            .other; // Return 'Other' method if the provided method name is not found
     }
   }
 
   dynamic _higherLatitude(String latitudeName) {
     switch (latitudeName) {
       case 'MiddleOfTheNight':
-        return HighLatitudeRule.MiddleOfTheNight;
+        return HighLatitudeRule.middle_of_the_night;
       case 'SeventhOfTheNight':
-        return HighLatitudeRule.SeventhOfTheNight;
+        return HighLatitudeRule.seventh_of_the_night;
       case 'TwilightAngle':
-        return HighLatitudeRule.TwilightAngle;
+        return HighLatitudeRule.twilight_angle;
       default:
         return null;
     }
@@ -90,16 +99,24 @@ class AdhanImpl implements PrayerTimeService {
 
   PrayerTimes _calculatePrayertimes(DateTime dateTime) {
     Coordinates coordinates = Coordinates(address.latitude, address.longitude);
-    CalculationParameters params = _calculationMehod(calculationMethod);
-    params.madhab = madhab;
-    params.adjustments = adjustments.toMap();
+    CalculationParameters params =
+        _calculationMehod(calculationMethod).getParameters();
+
+    params.madhab = _madhab(madhab);
+
+    params.adjustments.fajr = adjustments.fajr;
+    params.adjustments.sunrise = adjustments.sunrise;
+    params.adjustments.dhuhr = adjustments.dhuhr;
+    params.adjustments.asr = adjustments.asr;
+    params.adjustments.maghrib = adjustments.maghrib;
+    params.adjustments.isha = adjustments.isha;
 
     final higherLatitude = _higherLatitude(this.higherLatitude);
     if (higherLatitude != null) {
       params.highLatitudeRule = higherLatitude;
     }
 
-    return PrayerTimes(coordinates, dateTime, params);
+    return PrayerTimes(coordinates, DateComponents.from(dateTime), params);
   }
 
   @override
@@ -120,10 +137,10 @@ class AdhanImpl implements PrayerTimeService {
   @override
   PrayerTime currentPrayer() {
     PrayerTimes prayerTimes = _calculatePrayertimes(DateTime.now());
-    String prayer = prayerTimes.currentPrayer(date: DateTime.now());
+    Prayer prayer = prayerTimes.currentPrayer();
 
-    if (prayer == Prayer.IshaBefore) {
-      prayer = Prayer.Isha;
+    if (prayer == Prayer.none) {
+      prayer = Prayer.isha;
     }
 
     return PrayerTime(
@@ -136,10 +153,10 @@ class AdhanImpl implements PrayerTimeService {
   @override
   List<PrayerTime> prayers(DateTime dateTime) {
     PrayerTimes prayerTimes = _calculatePrayertimes(dateTime);
-    String currentPrayer = prayerTimes.currentPrayer(date: DateTime.now());
+    Prayer currentPrayer = prayerTimes.currentPrayer();
 
-    if (currentPrayer == Prayer.IshaBefore) {
-      currentPrayer = Prayer.Isha;
+    if (currentPrayer == Prayer.none) {
+      currentPrayer = Prayer.isha;
     }
 
     return _prayerTimeMap.keys.map((prayer) {
