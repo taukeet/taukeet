@@ -119,6 +119,7 @@ class HomeView extends StatelessWidget {
                       Row(
                         children: [
                           InkWell(
+                            key: const Key("previusDateBtn"),
                             onTap: () {
                               BlocProvider.of<HomeCubit>(context)
                                   .changeToPrevDate();
@@ -138,6 +139,7 @@ class HomeView extends StatelessWidget {
                                         .changeToToday();
                                   },
                                   child: Text(
+                                    key: Key("dateText"),
                                     DateFormat('EEE dd MMM, yyyy')
                                         .format(state.dateTime)
                                         .toUpperCase(),
@@ -155,6 +157,7 @@ class HomeView extends StatelessWidget {
                             ),
                           ),
                           InkWell(
+                            key: const Key("nextDateBtn"),
                             onTap: () {
                               BlocProvider.of<HomeCubit>(context)
                                   .changeToNextDate();
