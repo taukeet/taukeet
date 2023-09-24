@@ -41,16 +41,12 @@
       "description": "Singapore method, specific to Singapore."
     },
     {
-      "name": "Tehran",
-      "description": "Institute of Geophysics, University of Tehran method, commonly used in Tehran, Iran."
-    },
-    {
       "name": "Turkey",
-      "description": "Dianet, Turkey method, utilized in Turkey."
+      "description": "Turkey method, specific to turkey."
     },
     {
-      "name": "Morocco",
-      "description": "Moroccan Ministry of Habous and Islamic Affairs method, commonly used in Morocco."
+      "name": "Tehran",
+      "description": "Tehran method, specific to tehran."
     },
     {
       "name": "Other",
