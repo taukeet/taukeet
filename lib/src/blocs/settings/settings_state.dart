@@ -3,12 +3,20 @@ part of 'settings_cubit.dart';
 class SettingsState extends Equatable {
   const SettingsState({
     this.isFetchingLocation = false,
-    this.isLocationEnabled = false,
-    this.hasLocationPermission = false,
+    this.isLocationEnabled = true,
+    this.hasLocationPermission = true,
     this.address = const Address(
       latitude: 24.524654,
       longitude: 39.569183,
       address: "Al-Madinah al-Munawwarah, Saudi Arabia",
+    ),
+    this.adjustments = const Adjustments(
+      fajr: 0,
+      sunrise: 0,
+      dhuhr: 0,
+      asr: 0,
+      maghrib: 0,
+      isha: 0,
     ),
     this.madhab = "hanafi",
     this.calculationMethod = "Karachi",
@@ -19,12 +27,14 @@ class SettingsState extends Equatable {
   final bool isLocationEnabled;
   final bool hasLocationPermission;
   final Address address;
+  final Adjustments adjustments;
   final String madhab;
   final String calculationMethod;
   final String higherLatitude;
 
   SettingsState copyWith({
     Address? address,
+    Adjustments? adjustments,
     String? madhab,
     String? calculationMethod,
     String? higherLatitude,
@@ -34,6 +44,7 @@ class SettingsState extends Equatable {
   }) {
     return SettingsState(
       address: address ?? this.address,
+      adjustments: adjustments ?? this.adjustments,
       madhab: madhab ?? this.madhab,
       calculationMethod: calculationMethod ?? this.calculationMethod,
       higherLatitude: higherLatitude ?? this.higherLatitude,
@@ -51,6 +62,7 @@ class SettingsState extends Equatable {
 
   factory SettingsState.fromMap(Map<String, dynamic> json) => SettingsState(
         address: Address.fromMap(json["address"]),
+        adjustments: Adjustments.fromMap(json["adjustments"]),
         madhab: json["madhab"],
         calculationMethod: json["calculation_method"],
         higherLatitude: json["higher_latitude"],
@@ -58,6 +70,7 @@ class SettingsState extends Equatable {
 
   Map<String, dynamic> toMap() => {
         "address": address.toMap(),
+        "adjustments": adjustments.toMap(),
         "madhab": madhab,
         "calculation_method": calculationMethod,
         "higher_latitude": higherLatitude,
@@ -66,6 +79,7 @@ class SettingsState extends Equatable {
   @override
   List<Object?> get props => [
         address,
+        adjustments,
         madhab,
         calculationMethod,
         higherLatitude,

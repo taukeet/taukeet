@@ -13,7 +13,7 @@ class SelectMadhabDialog extends StatelessWidget {
     return Dialog(
       child: Container(
         decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.primary,
+          color: Theme.of(context).colorScheme.secondary,
           borderRadius: const BorderRadius.all(Radius.circular(12.0)),
         ),
         child: Column(

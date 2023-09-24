@@ -25,6 +25,7 @@ dependencies:
   hydrated_bloc: ^9.1.2
   path_provider: ^2.1.1
   app_settings: ^5.0.0
+  flutter_form_builder: ^9.1.1
 
 dev_dependencies:
   flutter_test:

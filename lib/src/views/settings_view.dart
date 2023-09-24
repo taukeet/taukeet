@@ -1,6 +1,7 @@
 import 'package:app_settings/app_settings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:taukeet/main.dart';
 import 'package:taukeet/src/blocs/settings/settings_cubit.dart';
 import 'package:taukeet/src/views/widgets/primary_button.dart';
@@ -83,10 +84,9 @@ class SettingsView extends StatelessWidget {
           }
         },
         child: Scaffold(
-          backgroundColor: Theme.of(context).colorScheme.primary,
+          backgroundColor: Theme.of(context).colorScheme.secondary,
           appBar: AppBar(
             title: const Text('Settings'),
-            backgroundColor: Theme.of(context).colorScheme.secondary,
           ),
           body: SingleChildScrollView(
             child: Column(
@@ -154,6 +154,14 @@ class SettingsView extends StatelessWidget {
                         );
                       },
                     );
+                  },
+                ),
+                SettingTile(
+                  text: "Adjustments",
+                  secodaryText: "Adjust the prayer times by minutes",
+                  icon: Icons.adjust,
+                  onPressed: () {
+                    context.pushNamed('settings.adjustments');
                   },
                 ),
               ],

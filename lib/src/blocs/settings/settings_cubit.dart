@@ -4,6 +4,7 @@ import 'package:equatable/equatable.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:taukeet/main.dart';
 import 'package:taukeet/src/entities/address.dart';
+import 'package:taukeet/src/entities/adjustments.dart';
 import 'package:taukeet/src/exceptions/location_disabled_exception.dart';
 import 'package:taukeet/src/exceptions/location_permission_denied.dart';
 import 'package:taukeet/src/services/geo_location_service.dart';
@@ -43,6 +44,26 @@ class SettingsCubit extends HydratedCubit<SettingsState> {
     } catch (e) {
       rethrow;
     }
+  }
+
+  void updateAdjustments({
+    required int fajr,
+    required int sunrise,
+    required int dhuhr,
+    required int asr,
+    required int maghrib,
+    required int isha,
+  }) {
+    emit(state.copyWith(
+      adjustments: Adjustments(
+        fajr: fajr,
+        sunrise: sunrise,
+        dhuhr: dhuhr,
+        asr: asr,
+        maghrib: maghrib,
+        isha: isha,
+      ),
+    ));
   }
 
   void updateMadhab(String madhab) {

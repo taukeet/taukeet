@@ -1,6 +1,7 @@
 import 'package:adhan_dart/adhan_dart.dart';
 import 'package:taukeet/main.dart';
 import 'package:taukeet/src/entities/address.dart';
+import 'package:taukeet/src/entities/adjustments.dart';
 import 'package:taukeet/src/entities/prayer_name.dart';
 import 'package:taukeet/src/entities/prayer_time.dart';
 import 'package:taukeet/src/services/prayer_time_service.dart';
@@ -20,6 +21,7 @@ class AdhanImpl implements PrayerTimeService {
   };
 
   late Address address;
+  late Adjustments adjustments;
   late String calculationMethod;
   late String madhab;
   late String higherLatitude;
@@ -90,6 +92,7 @@ class AdhanImpl implements PrayerTimeService {
     Coordinates coordinates = Coordinates(address.latitude, address.longitude);
     CalculationParameters params = _calculationMehod(calculationMethod);
     params.madhab = madhab;
+    params.adjustments = adjustments.toMap();
 
     final higherLatitude = _higherLatitude(this.higherLatitude);
     if (higherLatitude != null) {
@@ -102,11 +105,13 @@ class AdhanImpl implements PrayerTimeService {
   @override
   void init(
     Address address,
+    Adjustments adjustments,
     String calculationMethod,
     String madhab,
     String higherLatitude,
   ) {
     this.address = address;
+    this.adjustments = adjustments;
     this.calculationMethod = calculationMethod;
     this.madhab = madhab;
     this.higherLatitude = higherLatitude;

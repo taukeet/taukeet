@@ -38,7 +38,7 @@ class SettingTile extends StatelessWidget {
                 Icon(
                   icon,
                   size: 24,
-                  color: Theme.of(context).colorScheme.secondary,
+                  color: Theme.of(context).colorScheme.primary,
                 ),
                 const SizedBox(
                   width: 10.0,
@@ -51,7 +51,7 @@ class SettingTile extends StatelessWidget {
                         text,
                         style: TextStyle(
                           fontSize: 18.0,
-                          color: Theme.of(context).colorScheme.secondary,
+                          color: Theme.of(context).colorScheme.primary,
                         ),
                       ),
                       ...[
@@ -62,7 +62,7 @@ class SettingTile extends StatelessWidget {
                                   fontSize: 12,
                                   color: Theme.of(context)
                                       .colorScheme
-                                      .secondary
+                                      .primary
                                       .withOpacity(.6),
                                 ),
                               )

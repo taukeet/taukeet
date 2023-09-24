@@ -19,7 +19,7 @@ class HomeView extends StatelessWidget {
         BlocProvider.of<HomeCubit>(context).calculatePrayers();
       },
       child: Scaffold(
-        backgroundColor: Theme.of(context).colorScheme.secondary,
+        backgroundColor: Theme.of(context).colorScheme.primary,
         body: SafeArea(
           child: SingleChildScrollView(
             child: Padding(
@@ -40,7 +40,7 @@ class HomeView extends StatelessWidget {
                               Icon(
                                 Icons.location_pin,
                                 size: sizeLibrary.appSize(12),
-                                color: Theme.of(context).colorScheme.primary,
+                                color: Theme.of(context).colorScheme.secondary,
                               ),
                               const SizedBox(
                                 width: 4,
@@ -53,8 +53,9 @@ class HomeView extends StatelessWidget {
                                     overflow: TextOverflow.ellipsis,
                                     style: TextStyle(
                                       fontSize: sizeLibrary.appSize(12),
-                                      color:
-                                          Theme.of(context).colorScheme.primary,
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .secondary,
                                     ),
                                   ),
                                 ),
@@ -67,7 +68,7 @@ class HomeView extends StatelessWidget {
                         child: Icon(
                           Icons.settings,
                           size: sizeLibrary.appSize(24),
-                          color: Theme.of(context).colorScheme.primary,
+                          color: Theme.of(context).colorScheme.secondary,
                         ),
                         onTap: () => context.pushNamed('settings'),
                       ),
@@ -84,7 +85,8 @@ class HomeView extends StatelessWidget {
                               Text(
                                 state.currentPrayer!.name.english,
                                 style: TextStyle(
-                                  color: Theme.of(context).colorScheme.primary,
+                                  color:
+                                      Theme.of(context).colorScheme.secondary,
                                   fontSize: sizeLibrary.appSize(34),
                                 ),
                               ),
@@ -97,8 +99,9 @@ class HomeView extends StatelessWidget {
                                   Text(
                                     state.currentPrayer!.name.arabic,
                                     style: TextStyle(
-                                      color:
-                                          Theme.of(context).colorScheme.primary,
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .secondary,
                                       fontSize: sizeLibrary.appSize(18),
                                       fontFamily: "Lateef",
                                     ),
@@ -123,7 +126,7 @@ class HomeView extends StatelessWidget {
                             child: Icon(
                               Icons.arrow_left_rounded,
                               size: sizeLibrary.appSize(40),
-                              color: Theme.of(context).colorScheme.primary,
+                              color: Theme.of(context).colorScheme.secondary,
                             ),
                           ),
                           Expanded(
@@ -140,8 +143,9 @@ class HomeView extends StatelessWidget {
                                         .toUpperCase(),
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
-                                      color:
-                                          Theme.of(context).colorScheme.primary,
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .secondary,
                                       fontSize: sizeLibrary.appSize(12),
                                       fontWeight: FontWeight.bold,
                                     ),
@@ -158,7 +162,7 @@ class HomeView extends StatelessWidget {
                             child: Icon(
                               Icons.arrow_right_rounded,
                               size: sizeLibrary.appSize(40),
-                              color: Theme.of(context).colorScheme.primary,
+                              color: Theme.of(context).colorScheme.secondary,
                             ),
                           ),
                         ],
@@ -167,7 +171,7 @@ class HomeView extends StatelessWidget {
                         height: 10,
                       ),
                       Card(
-                        color: Theme.of(context).colorScheme.primary,
+                        color: Theme.of(context).colorScheme.secondary,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10),
                         ),
@@ -175,9 +179,6 @@ class HomeView extends StatelessWidget {
                           padding: EdgeInsets.all(sizeLibrary.appSize(12)),
                           child: BlocBuilder<HomeCubit, HomeState>(
                             builder: (context, state) {
-                              // final List<PrayerTime> prayers =
-                              //     getIt<PrayerTimeService>()
-                              //         .prayers(state.dateTime);
                               return ListView.separated(
                                 shrinkWrap: true,
                                 itemBuilder: (context, index) {
