@@ -77,7 +77,9 @@ class HomeView extends StatelessWidget {
                                   builder: (context, state) => SizedBox(
                                     width: sizeLibrary.appWidth(context, 60),
                                     child: Text(
-                                      state.address.address,
+                                      state.isFetchingLocation
+                                          ? "Fetching location..."
+                                          : state.address.address,
                                       overflow: TextOverflow.ellipsis,
                                       style: TextStyle(
                                         fontSize: sizeLibrary.appSize(12),
