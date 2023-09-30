@@ -8,6 +8,7 @@ Taukeet is an open-source project that aims to provide the Salah timings. We are
 
 ### TODO
 1. Tests
-2. Notifications
-3. Qiblah Direction
-4. More devices (Desktop, IOs, TV)
+2. Localization
+3. Notifications
+4. Qiblah Direction
+5. More devices (Desktop, IOs, TV)
