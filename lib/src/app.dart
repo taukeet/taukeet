@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:showcaseview/showcaseview.dart';
 import 'package:taukeet/main.dart';
 import 'package:taukeet/src/blocs/home/home_cubit.dart';
 import 'package:taukeet/src/blocs/settings/settings_cubit.dart';
@@ -14,7 +15,14 @@ final _router = GoRouter(
     GoRoute(
       name: 'home',
       path: '/',
-      builder: (context, state) => const HomeView(),
+      builder: (context, state) => ShowCaseWidget(
+        onFinish: () {
+          BlocProvider.of<SettingsCubit>(context).completeTutorial();
+        },
+        builder: Builder(
+          builder: (context) => const HomeView(),
+        ),
+      ),
     ),
     GoRoute(
       name: 'settings',

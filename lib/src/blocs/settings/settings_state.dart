@@ -5,6 +5,7 @@ class SettingsState extends Equatable {
     this.isFetchingLocation = false,
     this.isLocationEnabled = true,
     this.hasLocationPermission = true,
+    this.isTutorialCompleted = false,
     this.address = const Address(
       latitude: 24.524654,
       longitude: 39.569183,
@@ -26,6 +27,7 @@ class SettingsState extends Equatable {
   final bool isFetchingLocation;
   final bool isLocationEnabled;
   final bool hasLocationPermission;
+  final bool isTutorialCompleted;
   final Address address;
   final Adjustments adjustments;
   final String madhab;
@@ -41,6 +43,7 @@ class SettingsState extends Equatable {
     bool? isFetchingLocation,
     bool? isLocationEnabled,
     bool? hasLocationPermission,
+    bool? isTutorialCompleted,
   }) {
     return SettingsState(
       address: address ?? this.address,
@@ -52,6 +55,7 @@ class SettingsState extends Equatable {
       isLocationEnabled: isLocationEnabled ?? this.isLocationEnabled,
       hasLocationPermission:
           hasLocationPermission ?? this.hasLocationPermission,
+      isTutorialCompleted: isTutorialCompleted ?? this.isTutorialCompleted,
     );
   }
 
@@ -66,6 +70,7 @@ class SettingsState extends Equatable {
         madhab: json["madhab"],
         calculationMethod: json["calculation_method"],
         higherLatitude: json["higher_latitude"],
+        isTutorialCompleted: json['is_tutorial_completed'],
       );
 
   Map<String, dynamic> toMap() => {
@@ -74,6 +79,7 @@ class SettingsState extends Equatable {
         "madhab": madhab,
         "calculation_method": calculationMethod,
         "higher_latitude": higherLatitude,
+        "is_tutorial_completed": isTutorialCompleted,
       };
 
   @override
@@ -86,5 +92,6 @@ class SettingsState extends Equatable {
         isFetchingLocation,
         isLocationEnabled,
         hasLocationPermission,
+        isTutorialCompleted,
       ];
 }

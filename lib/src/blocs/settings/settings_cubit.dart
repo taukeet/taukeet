@@ -14,6 +14,10 @@ part 'settings_state.dart';
 class SettingsCubit extends HydratedCubit<SettingsState> {
   SettingsCubit() : super(const SettingsState());
 
+  void completeTutorial() {
+    emit(state.copyWith(isTutorialCompleted: true));
+  }
+
   Future<void> fetchLocation() async {
     emit(
       state.copyWith(

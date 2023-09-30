@@ -32,7 +32,8 @@ void main() {
     mockSettingsState = const SettingsState();
     mockHomeState = HomeState(dateTime: DateTime.now());
 
-    when(() => mockSettingsCubit.state).thenReturn(mockSettingsState);
+    when(() => mockSettingsCubit.state)
+        .thenReturn(mockSettingsState.copyWith(isTutorialCompleted: true));
     when(() => mockHomeCubit.state).thenReturn(
       HomeState(
         dateTime: DateTime.now(),
