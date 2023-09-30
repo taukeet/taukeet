@@ -4,6 +4,7 @@ class SettingsState extends Equatable {
   const SettingsState({
     this.isFetchingLocation = false,
     this.isLocationEnabled = true,
+    this.hasFetchedInitialLocation = false,
     this.hasLocationPermission = true,
     this.isTutorialCompleted = false,
     this.address = const Address(
@@ -26,6 +27,7 @@ class SettingsState extends Equatable {
 
   final bool isFetchingLocation;
   final bool isLocationEnabled;
+  final bool hasFetchedInitialLocation;
   final bool hasLocationPermission;
   final bool isTutorialCompleted;
   final Address address;
@@ -43,6 +45,7 @@ class SettingsState extends Equatable {
     bool? isFetchingLocation,
     bool? isLocationEnabled,
     bool? hasLocationPermission,
+    bool? hasFetchedInitialLocation,
     bool? isTutorialCompleted,
   }) {
     return SettingsState(
@@ -55,6 +58,8 @@ class SettingsState extends Equatable {
       isLocationEnabled: isLocationEnabled ?? this.isLocationEnabled,
       hasLocationPermission:
           hasLocationPermission ?? this.hasLocationPermission,
+      hasFetchedInitialLocation:
+          hasFetchedInitialLocation ?? this.hasFetchedInitialLocation,
       isTutorialCompleted: isTutorialCompleted ?? this.isTutorialCompleted,
     );
   }
@@ -70,6 +75,7 @@ class SettingsState extends Equatable {
         madhab: json["madhab"],
         calculationMethod: json["calculation_method"],
         higherLatitude: json["higher_latitude"],
+        hasFetchedInitialLocation: json['has_fetched_initial_location'],
         isTutorialCompleted: json['is_tutorial_completed'],
       );
 
@@ -79,6 +85,7 @@ class SettingsState extends Equatable {
         "madhab": madhab,
         "calculation_method": calculationMethod,
         "higher_latitude": higherLatitude,
+        "has_fetched_initial_location": hasFetchedInitialLocation,
         "is_tutorial_completed": isTutorialCompleted,
       };
 
@@ -92,6 +99,7 @@ class SettingsState extends Equatable {
         isFetchingLocation,
         isLocationEnabled,
         hasLocationPermission,
+        hasFetchedInitialLocation,
         isTutorialCompleted,
       ];
 }
