@@ -1,7 +1,6 @@
 import 'package:app_settings/app_settings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_native_splash/cli_commands.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intro_slider/intro_slider.dart';
 import 'package:taukeet/main.dart';
@@ -118,7 +117,7 @@ class SplashView extends StatelessWidget {
                 BlocBuilder<SettingsCubit, SettingsState>(
                   builder: (context, state) {
                     return SplashContainer(
-                      title: state.madhabStr.capitalize(),
+                      title: state.madhabStr.capitalized(),
                       description:
                           "You can choose between Hanafi or Standard (Maliki, Shafi'i, Hanbali) calculation methods for Asr prayer times. Hanafi starts Asr later when an object's shadow is twice its length.",
                       buttonText: "Change madhab",
