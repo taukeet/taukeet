@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
-import 'package:showcaseview/showcaseview.dart';
 import 'package:taukeet/src/blocs/home/home_cubit.dart';
 import 'package:taukeet/src/blocs/settings/settings_cubit.dart';
 import 'package:taukeet/src/entities/prayer_time.dart';
@@ -14,28 +13,6 @@ class HomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final SizeLibrary sizeLibrary = SizeLibrary(context);
-    GlobalKey currentLocationKey = GlobalKey();
-    GlobalKey settingsMenuKey = GlobalKey();
-    GlobalKey nextDatebtnKey = GlobalKey();
-    GlobalKey todayDateBtnKey = GlobalKey();
-    GlobalKey prevDatebtnKey = GlobalKey();
-
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      final isTutorialCompleted =
-          BlocProvider.of<SettingsCubit>(context).state.isTutorialCompleted;
-
-      if (!isTutorialCompleted) {
-        ShowCaseWidget.of(context).startShowCase(
-          [
-            currentLocationKey,
-            settingsMenuKey,
-            nextDatebtnKey,
-            todayDateBtnKey,
-            prevDatebtnKey,
-          ],
-        );
-      }
-    });
 
     return BlocListener<SettingsCubit, SettingsState>(
       listener: (context, state) {
@@ -58,60 +35,49 @@ class HomeView extends StatelessWidget {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Showcase(
-                            key: currentLocationKey,
-                            description:
-                                "This represents your current location, and prayer times will be computed for this spot. You have the option to modify your current location in the settings.",
-                            child: Row(
-                              children: [
-                                Icon(
-                                  Icons.location_pin,
-                                  size: sizeLibrary.appSize(12),
-                                  color:
-                                      Theme.of(context).colorScheme.secondary,
-                                ),
-                                const SizedBox(
-                                  width: 4,
-                                ),
-                                BlocBuilder<SettingsCubit, SettingsState>(
-                                  builder: (context, state) => SizedBox(
-                                    width: sizeLibrary.appWidth(context, 60),
-                                    child: Text(
-                                      state.isFetchingLocation
-                                          ? "Fetching location..."
-                                          : state.address.address,
-                                      overflow: TextOverflow.ellipsis,
-                                      style: TextStyle(
-                                        fontSize: sizeLibrary.appSize(12),
-                                        color: Theme.of(context)
-                                            .colorScheme
-                                            .secondary,
-                                      ),
+                          Row(
+                            children: [
+                              Icon(
+                                Icons.location_pin,
+                                size: sizeLibrary.appSize(12),
+                                color: Theme.of(context).colorScheme.secondary,
+                              ),
+                              const SizedBox(
+                                width: 4,
+                              ),
+                              BlocBuilder<SettingsCubit, SettingsState>(
+                                builder: (context, state) => SizedBox(
+                                  width: sizeLibrary.appWidth(context, 60),
+                                  child: Text(
+                                    state.isFetchingLocation
+                                        ? "Fetching location..."
+                                        : state.address.address,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: TextStyle(
+                                      fontSize: sizeLibrary.appSize(12),
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .secondary,
                                     ),
                                   ),
-                                )
-                              ],
-                            ),
+                                ),
+                              )
+                            ],
                           )
                         ],
                       ),
-                      Showcase(
-                        key: settingsMenuKey,
-                        description:
-                            "Clicking here will take you to the settings page, where you can make changes to the location, madhab, and other preferences.",
-                        child: InkWell(
-                          child: Icon(
-                            Icons.settings,
-                            size: sizeLibrary.appSize(24),
-                            color: Theme.of(context).colorScheme.secondary,
-                          ),
-                          onTap: () => context.pushNamed('settings'),
+                      InkWell(
+                        child: Icon(
+                          Icons.settings,
+                          size: sizeLibrary.appSize(24),
+                          color: Theme.of(context).colorScheme.secondary,
                         ),
+                        onTap: () => context.pushNamed('settings'),
                       ),
                     ],
                   ),
                   SizedBox(
-                    height: sizeLibrary.appSize(180),
+                    height: sizeLibrary.appSize(200),
                     child: Center(
                       child: BlocBuilder<HomeCubit, HomeState>(
                         builder: (context, state) {
@@ -154,66 +120,51 @@ class HomeView extends StatelessWidget {
                     children: [
                       Row(
                         children: [
-                          Showcase(
-                            key: prevDatebtnKey,
-                            description:
-                                "Click here to switch and view prayer times for the previous day.",
-                            child: InkWell(
-                              onTap: () {
-                                BlocProvider.of<HomeCubit>(context)
-                                    .changeToPrevDate();
-                              },
-                              child: Icon(
-                                Icons.arrow_left_rounded,
-                                size: sizeLibrary.appSize(40),
-                                color: Theme.of(context).colorScheme.secondary,
-                              ),
+                          InkWell(
+                            onTap: () {
+                              BlocProvider.of<HomeCubit>(context)
+                                  .changeToPrevDate();
+                            },
+                            child: Icon(
+                              Icons.arrow_left_rounded,
+                              size: sizeLibrary.appSize(40),
+                              color: Theme.of(context).colorScheme.secondary,
                             ),
                           ),
                           Expanded(
                             child: BlocBuilder<HomeCubit, HomeState>(
                               builder: (context, state) {
-                                return Showcase(
-                                  key: todayDateBtnKey,
-                                  description:
-                                      "Click here to return to today's prayer times.",
-                                  child: InkWell(
-                                    onTap: () {
-                                      BlocProvider.of<HomeCubit>(context)
-                                          .changeToToday();
-                                    },
-                                    child: Text(
-                                      DateFormat('EEE dd MMM, yyyy')
-                                          .format(state.dateTime)
-                                          .toUpperCase(),
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                        color: Theme.of(context)
-                                            .colorScheme
-                                            .secondary,
-                                        fontSize: sizeLibrary.appSize(12),
-                                        fontWeight: FontWeight.bold,
-                                      ),
+                                return InkWell(
+                                  onTap: () {
+                                    BlocProvider.of<HomeCubit>(context)
+                                        .changeToToday();
+                                  },
+                                  child: Text(
+                                    DateFormat('EEE dd MMM, yyyy')
+                                        .format(state.dateTime)
+                                        .toUpperCase(),
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .secondary,
+                                      fontSize: sizeLibrary.appSize(12),
+                                      fontWeight: FontWeight.bold,
                                     ),
                                   ),
                                 );
                               },
                             ),
                           ),
-                          Showcase(
-                            key: nextDatebtnKey,
-                            description:
-                                "Click here to switch and view prayer times for the next day.",
-                            child: InkWell(
-                              onTap: () {
-                                BlocProvider.of<HomeCubit>(context)
-                                    .changeToNextDate();
-                              },
-                              child: Icon(
-                                Icons.arrow_right_rounded,
-                                size: sizeLibrary.appSize(40),
-                                color: Theme.of(context).colorScheme.secondary,
-                              ),
+                          InkWell(
+                            onTap: () {
+                              BlocProvider.of<HomeCubit>(context)
+                                  .changeToNextDate();
+                            },
+                            child: Icon(
+                              Icons.arrow_right_rounded,
+                              size: sizeLibrary.appSize(40),
+                              color: Theme.of(context).colorScheme.secondary,
                             ),
                           ),
                         ],

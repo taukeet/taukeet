@@ -107,7 +107,7 @@ class SettingsView extends StatelessWidget {
                 BlocBuilder<SettingsCubit, SettingsState>(
                   builder: (context, state) {
                     return SettingTile(
-                      text: state.madhab.capitalized(),
+                      text: state.madhabStr.capitalized(),
                       secodaryText: "tap to change the madhab",
                       icon: Icons.domain,
                       onPressed: () {

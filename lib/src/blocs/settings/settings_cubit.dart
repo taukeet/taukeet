@@ -15,17 +15,12 @@ class SettingsCubit extends HydratedCubit<SettingsState> {
   SettingsCubit() : super(const SettingsState());
 
   Future<void> completeTutorial() async {
-    if (!state.hasFetchedInitialLocation) {
-      await fetchLocation();
-    }
-
     emit(state.copyWith(
       isTutorialCompleted: true,
-      hasFetchedInitialLocation: true,
     ));
   }
 
-  Future<void> fetchLocation() async {
+  Future<bool> fetchLocation() async {
     emit(
       state.copyWith(
         isFetchingLocation: true,
@@ -40,6 +35,8 @@ class SettingsCubit extends HydratedCubit<SettingsState> {
         isLocationEnabled: true,
         hasLocationPermission: true,
       ));
+
+      return true;
     } on LocationDisabledException {
       emit(state.copyWith(
         isLocationEnabled: false,
@@ -55,6 +52,8 @@ class SettingsCubit extends HydratedCubit<SettingsState> {
     } catch (e) {
       rethrow;
     }
+
+    return false;
   }
 
   void updateAdjustments({

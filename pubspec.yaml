@@ -23,7 +23,7 @@ dependencies:
   app_settings: ^5.0.0
   flutter_form_builder: ^9.1.1
   adhan: ^2.0.0
-  showcaseview: ^2.0.3
+  intro_slider: ^4.2.1
 
 dev_dependencies:
   flutter_test:

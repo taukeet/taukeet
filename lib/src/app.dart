@@ -1,28 +1,38 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:showcaseview/showcaseview.dart';
 import 'package:taukeet/main.dart';
 import 'package:taukeet/src/blocs/home/home_cubit.dart';
 import 'package:taukeet/src/blocs/settings/settings_cubit.dart';
+import 'package:taukeet/src/blocs/splash/splash_cubit.dart';
 import 'package:taukeet/src/services/prayer_time_service.dart';
 import 'package:taukeet/src/views/adjustments_view.dart';
 import 'package:taukeet/src/views/home_view.dart';
 import 'package:taukeet/src/views/settings_view.dart';
+import 'package:taukeet/src/views/splash_view.dart';
 
 final _router = GoRouter(
+  redirect: (context, state) {
+    return null;
+  },
   routes: [
     GoRoute(
       name: 'home',
       path: '/',
-      builder: (context, state) => ShowCaseWidget(
-        onFinish: () {
-          BlocProvider.of<SettingsCubit>(context).completeTutorial();
-        },
-        builder: Builder(
-          builder: (context) => const HomeView(),
-        ),
-      ),
+      redirect: (context, state) {
+        if (!BlocProvider.of<SettingsCubit>(context)
+            .state
+            .isTutorialCompleted) {
+          return '/splash';
+        }
+        return null;
+      },
+      builder: (context, state) => const HomeView(),
+    ),
+    GoRoute(
+      name: 'splash',
+      path: '/splash',
+      builder: (context, state) => const SplashView(),
     ),
     GoRoute(
       name: 'settings',
@@ -51,6 +61,11 @@ class App extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => HomeCubit(),
+        ),
+        BlocProvider(
+          create: (context) => SplashCubit(
+            settingsCubit: BlocProvider.of<SettingsCubit>(context),
+          ),
         ),
       ],
       child: BlocBuilder<SettingsCubit, SettingsState>(

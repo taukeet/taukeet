@@ -472,6 +472,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.18.1"
+  intro_slider:
+    dependency: "direct main"
+    description:
+      name: intro_slider
+      sha256: eb43fefa27b0655edebc3e7fe7ff320cb5996a4e64649d79969c7099105fe52f
+      url: "https://pub.dev"
+    source: hosted
+    version: "4.2.1"
   io:
     dependency: transitive
     description:
@@ -752,14 +760,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.4"
-  showcaseview:
-    dependency: "direct main"
-    description:
-      name: showcaseview
-      sha256: dc62ce38820dead4a27ce39d9e6c98384be89c2f2b4da3255238a59b041c7ccd
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.0.3"
   sky_engine:
     dependency: transitive
     description: flutter

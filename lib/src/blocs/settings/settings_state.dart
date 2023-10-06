@@ -8,9 +8,9 @@ class SettingsState extends Equatable {
     this.hasLocationPermission = true,
     this.isTutorialCompleted = false,
     this.address = const Address(
-      latitude: 24.524654,
-      longitude: 39.569183,
-      address: "Al-Madinah al-Munawwarah, Saudi Arabia",
+      latitude: 0.0,
+      longitude: 0.0,
+      address: "",
     ),
     this.adjustments = const Adjustments(
       fajr: 0,
@@ -35,6 +35,8 @@ class SettingsState extends Equatable {
   final String madhab;
   final String calculationMethod;
   final String higherLatitude;
+
+  String get madhabStr => madhab == "shafi" ? "Standard" : "Hanafi";
 
   SettingsState copyWith({
     Address? address,

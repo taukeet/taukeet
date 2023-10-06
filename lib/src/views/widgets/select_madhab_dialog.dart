@@ -30,8 +30,8 @@ class SelectMadhabDialog extends StatelessWidget {
               },
             ),
             SettingTile(
-              text: Madhab.shafi.name.capitalized(),
-              secodaryText: "Earlier Asr time",
+              text: "Standard",
+              secodaryText: "Maliki, Shafi'i, Hanbali - Earlier Asr time",
               icon: Icons.arrow_right,
               onPressed: () {
                 BlocProvider.of<SettingsCubit>(context)
