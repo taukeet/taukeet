@@ -25,6 +25,7 @@ dependencies:
   adhan: ^2.0.0
   intro_slider: ^4.2.1
   flutter_riverpod: ^2.6.1
+  shared_preferences: ^2.5.2
 
 dev_dependencies:
   flutter_test:
