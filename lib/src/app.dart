@@ -5,6 +5,7 @@ import 'package:taukeet/main.dart';
 import 'package:taukeet/src/blocs/home/home_cubit.dart';
 import 'package:taukeet/src/blocs/settings/settings_cubit.dart';
 import 'package:taukeet/src/blocs/splash/splash_cubit.dart';
+import 'package:taukeet/src/screens/splash_screen.dart';
 import 'package:taukeet/src/services/prayer_time_service.dart';
 import 'package:taukeet/src/views/adjustments_view.dart';
 import 'package:taukeet/src/views/home_view.dart';
@@ -17,18 +18,23 @@ final _router = GoRouter(
   },
   routes: [
     GoRoute(
-      name: 'home',
+      name: 'root',
       path: '/',
-      redirect: (context, state) {
-        if (!BlocProvider.of<SettingsCubit>(context)
-            .state
-            .isTutorialCompleted) {
-          return '/splash';
-        }
-        return null;
-      },
-      builder: (context, state) => const HomeView(),
+      builder: (context, state) => const SplashScreen(),
     ),
+    // GoRoute(
+    //   name: 'home',
+    //   path: '/',
+    //   redirect: (context, state) {
+    //     if (!BlocProvider.of<SettingsCubit>(context)
+    //         .state
+    //         .isTutorialCompleted) {
+    //       return '/splash';
+    //     }
+    //     return null;
+    //   },
+    //   builder: (context, state) => const HomeView(),
+    // ),
     GoRoute(
       name: 'splash',
       path: '/splash',
