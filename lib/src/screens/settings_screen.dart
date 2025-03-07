@@ -80,62 +80,65 @@ class SettingsScreen extends ConsumerWidget {
         title: const Text('Settings'),
       ),
       body: SingleChildScrollView(
-        child: Column(
-          children: [
-            SettingTile(
-              text: settingsState.isFetchingLocation
-                  ? "Fetching your location..."
-                  : settingsState.address.address,
-              secodaryText: settingsState.isFetchingLocation
-                  ? null
-                  : "tap to get the current location",
-              icon: Icons.location_pin,
-              onPressed: () =>
-                  ref.read(settingsProvider.notifier).fetchLocation(),
-            ),
-            SettingTile(
-              text: settingsState.madhabStr.capitalized(),
-              secodaryText: "tap to change the madhab",
-              icon: Icons.domain,
-              onPressed: () {
-                showDialog(
-                  context: context,
-                  builder: (context) => const SelectMadhabDialog(),
-                );
-              },
-            ),
-            SettingTile(
-              text: settingsState.calculationMethod.humanReadable(),
-              secodaryText: "tap to change the calculation method",
-              icon: Icons.timelapse,
-              onPressed: () {
-                showDialog(
-                  context: context,
-                  builder: (context) => const SelectCalculationMethodDialog(),
-                );
-              },
-            ),
-            SettingTile(
-              text: settingsState.higherLatitude.humanReadable(),
-              secodaryText:
-                  "In locations at higher latitude, twilight may persist throughout the night during some months of the year. In these abnormal periods, the determination of Fajr and Isha is not possible using the usual formulas, to overcome this problem, several solutions have been proposed, tap to change the method.",
-              icon: Icons.keyboard_double_arrow_up,
-              onPressed: () {
-                showDialog(
-                  context: context,
-                  builder: (context) => const SelectHigherLatitudeDialog(),
-                );
-              },
-            ),
-            SettingTile(
-              text: "Adjustments",
-              secodaryText: "Adjust the prayer times by minutes",
-              icon: Icons.adjust,
-              onPressed: () {
-                context.pushNamed('settings.adjustments');
-              },
-            ),
-          ],
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 12),
+          child: Column(
+            children: [
+              SettingTile(
+                text: settingsState.isFetchingLocation
+                    ? "Fetching your location..."
+                    : settingsState.address.address,
+                secodaryText: settingsState.isFetchingLocation
+                    ? null
+                    : "tap to get the current location",
+                icon: Icons.location_pin,
+                onPressed: () =>
+                    ref.read(settingsProvider.notifier).fetchLocation(),
+              ),
+              SettingTile(
+                text: settingsState.madhabStr.capitalized(),
+                secodaryText: "tap to change the madhab",
+                icon: Icons.domain,
+                onPressed: () {
+                  showDialog(
+                    context: context,
+                    builder: (context) => const SelectMadhabDialog(),
+                  );
+                },
+              ),
+              SettingTile(
+                text: settingsState.calculationMethod.humanReadable(),
+                secodaryText: "tap to change the calculation method",
+                icon: Icons.timelapse,
+                onPressed: () {
+                  showDialog(
+                    context: context,
+                    builder: (context) => const SelectCalculationMethodDialog(),
+                  );
+                },
+              ),
+              SettingTile(
+                text: settingsState.higherLatitude.humanReadable(),
+                secodaryText:
+                    "In locations at higher latitude, twilight may persist throughout the night during some months of the year. In these abnormal periods, the determination of Fajr and Isha is not possible using the usual formulas, to overcome this problem, several solutions have been proposed, tap to change the method.",
+                icon: Icons.keyboard_double_arrow_up,
+                onPressed: () {
+                  showDialog(
+                    context: context,
+                    builder: (context) => const SelectHigherLatitudeDialog(),
+                  );
+                },
+              ),
+              SettingTile(
+                text: "Adjustments",
+                secodaryText: "Adjust the prayer times by minutes",
+                icon: Icons.adjust,
+                onPressed: () {
+                  context.pushNamed('settings.adjustments');
+                },
+              ),
+            ],
+          ),
         ),
       ),
     );

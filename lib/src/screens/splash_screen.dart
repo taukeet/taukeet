@@ -3,39 +3,72 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:taukeet/src/providers/settings_provider.dart';
 
-class SplashScreen extends ConsumerWidget {
+class SplashScreen extends ConsumerStatefulWidget {
   const SplashScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<SplashScreen> createState() => _SplashScreenState();
+}
+
+class _SplashScreenState extends ConsumerState<SplashScreen> {
+  double opacity = 0.0;
+
+  @override
+  void initState() {
+    super.initState();
+    
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      setState(() => opacity = 1.0);
+    });
+
+    Future.delayed(const Duration(seconds: 1), () {
+      if (mounted) {
+        final settings = ref.read(settingsFutureProvider).value!;
+        if (settings.isTutorialCompleted) {
+          context.replaceNamed('home');
+        } else {
+          context.replaceNamed('intro');
+        }
+      }
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final settingsAsync = ref.watch(settingsFutureProvider);
 
     return settingsAsync.when(
-      data: (settings) {
-        // Navigate based on isTutorialCompleted
-        WidgetsBinding.instance.addPostFrameCallback((_) {
-          if (settings.isTutorialCompleted) {
-            context.goNamed('home');
-          } else {
-            context.goNamed('intro');
-          }
-        });
-
-        return const Scaffold(
-          body: Center(
-            child: CircularProgressIndicator(),
-          ),
-        );
-      },
-      loading: () => const Scaffold(
+      data: (settings) => Scaffold(
+        backgroundColor: Theme.of(context).colorScheme.secondary,
         body: Center(
-          child: CircularProgressIndicator(),
+          child: AnimatedOpacity(
+            opacity: opacity,
+            duration: const Duration(milliseconds: 500),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Image.asset(
+                  'assets/icons/icon.png',
+                  height: 60,
+                ),
+                const SizedBox(height: 4),
+                const Text(
+                  'taukeet',
+                  style: TextStyle(
+                    fontSize: 36,
+                    fontFamily: 'Lateef',
+                  ),
+                ),
+              ],
+            ),
+          ),
         ),
       ),
+      loading: () => const Scaffold(
+        body: Center(child: CircularProgressIndicator()),
+      ),
       error: (error, stack) => Scaffold(
-        body: Center(
-          child: Text('Error loading settings: $error'),
-        ),
+        body: Center(child: Text('Error loading settings: $error')),
       ),
     );
   }
