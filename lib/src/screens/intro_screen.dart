@@ -1,7 +1,6 @@
 import 'package:app_settings/app_settings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
 import 'package:intro_slider/intro_slider.dart';
 import 'package:taukeet/main.dart';
 import 'package:taukeet/src/providers/settings_provider.dart';
@@ -12,12 +11,12 @@ import 'package:taukeet/src/views/widgets/select_calculation_method_dialog.dart'
 import 'package:taukeet/src/views/widgets/select_madhab_dialog.dart';
 import 'package:taukeet/src/views/widgets/warning_dialog.dart';
 
-class SplashScreen extends ConsumerWidget {
-  const SplashScreen({super.key});
+class IntroScreen extends ConsumerWidget {
+  const IntroScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final splashState = ref.watch(splashProvider);
+    final introState = ref.watch(introProvider);
 
     // Listen to settings changes for location/permission dialogs
     ref.listen(settingsProvider, (previous, next) {
@@ -78,8 +77,8 @@ class SplashScreen extends ConsumerWidget {
       key: UniqueKey(),
       isShowPrevBtn: true,
       isShowSkipBtn: false,
-      isShowNextBtn: splashState.showNextButton,
-      isShowDoneBtn: splashState.showNextButton,
+      isShowNextBtn: introState.showNextButton,
+      isShowDoneBtn: introState.showNextButton,
       listCustomTabs: [
         Consumer(
           builder: (context, ref, child) {
@@ -101,7 +100,7 @@ class SplashScreen extends ConsumerWidget {
                   ? null
                   : () async {
                       final success = await ref
-                          .read(splashProvider.notifier)
+                          .read(introProvider.notifier)
                           .fetchLocation();
                       if (!success && !isFetchingLocation) {
                         ScaffoldMessenger.of(context).showSnackBar(

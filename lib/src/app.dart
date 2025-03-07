@@ -5,7 +5,7 @@ import 'package:taukeet/main.dart';
 import 'package:taukeet/src/blocs/home/home_cubit.dart';
 import 'package:taukeet/src/blocs/settings/settings_cubit.dart';
 import 'package:taukeet/src/blocs/splash/splash_cubit.dart';
-import 'package:taukeet/src/screens/splash_screen.dart';
+import 'package:taukeet/src/screens/intro_screen.dart';
 import 'package:taukeet/src/services/prayer_time_service.dart';
 import 'package:taukeet/src/views/adjustments_view.dart';
 import 'package:taukeet/src/views/home_view.dart';
@@ -20,7 +20,7 @@ final _router = GoRouter(
     GoRoute(
       name: 'root',
       path: '/',
-      builder: (context, state) => const SplashScreen(),
+      builder: (context, state) => const IntroScreen(),
     ),
     // GoRoute(
     //   name: 'home',

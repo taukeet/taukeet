@@ -2,29 +2,29 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:taukeet/src/providers/settings_provider.dart'; // We'll create this next
 
 // Provider
-final splashProvider = StateNotifierProvider<SplashNotifier, SplashState>((ref) {
-  return SplashNotifier(ref);
+final introProvider = StateNotifierProvider<IntroNotifier, IntroState>((ref) {
+  return IntroNotifier(ref);
 });
 
 // State
-class SplashState {
+class IntroState {
   final bool showNextButton;
 
-  SplashState({this.showNextButton = false});
+  IntroState({this.showNextButton = false});
 
-  SplashState copyWith({bool? showNextButton}) {
-    return SplashState(
+  IntroState copyWith({bool? showNextButton}) {
+    return IntroState(
       showNextButton: showNextButton ?? this.showNextButton,
     );
   }
 }
 
 // Notifier
-class SplashNotifier extends StateNotifier<SplashState> {
+class IntroNotifier extends StateNotifier<IntroState> {
   final Ref ref;
 
-  SplashNotifier(this.ref)
-      : super(SplashState(
+  IntroNotifier(this.ref)
+      : super(IntroState(
           showNextButton:
               ref.read(settingsProvider).address.address.isNotEmpty,
         ));
