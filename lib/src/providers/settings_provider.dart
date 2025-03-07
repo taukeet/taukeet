@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:taukeet/src/entities/address.dart';
@@ -9,12 +8,30 @@ import 'package:taukeet/src/exceptions/location_permission_denied.dart';
 import 'package:taukeet/src/services/geo_location_service.dart';
 import 'package:get_it/get_it.dart';
 
-// Provider
-final settingsProvider =
-    StateNotifierProvider<SettingsNotifier, SettingsState>((ref) {
-  return SettingsNotifier();
+// FutureProvider to load settings from SharedPreferences
+final settingsFutureProvider = FutureProvider<SettingsState>((ref) async {
+  final prefs = await SharedPreferences.getInstance();
+  const settingsKey = SettingsNotifier._settingsKey;
+  final settingsJson = prefs.getString(settingsKey);
+
+  if (settingsJson != null) {
+    final settingsMap = jsonDecode(settingsJson) as Map<String, dynamic>;
+    return SettingsState.fromMap(settingsMap);
+  }
+
+  return SettingsState();
 });
 
+// Single settings provider, kept alive with initial state from settingsFutureProvider
+final settingsProvider =
+    StateNotifierProvider<SettingsNotifier, SettingsState>((ref) {
+  final initialState =
+      ref.watch(settingsFutureProvider).value ?? SettingsState();
+
+  return SettingsNotifier.withInitialState(initialState);
+});
+
+// Provider for specific field (example)
 final madhabProvider = Provider<String>((ref) {
   return ref.watch(settingsProvider).madhab;
 });
@@ -119,23 +136,25 @@ class SettingsState {
 class SettingsNotifier extends StateNotifier<SettingsState> {
   static const _settingsKey = 'taukeet_settings';
   late SharedPreferences _prefs;
-  
+
   SettingsNotifier() : super(SettingsState()) {
-    _loadSettings();
+    _initPrefs();
   }
 
-  Future<void> _loadSettings() async {
-    _prefs = await SharedPreferences.getInstance();
-    final settingsJson = _prefs.getString(_settingsKey);
+  // ignore: use_super_parameters
+  SettingsNotifier.withInitialState(SettingsState initialState)
+      : super(initialState) {
+    // Fixed to use initialState
+    _initPrefs();
+  }
 
-    if (settingsJson != null) {
-      final settingsMap = json.decode(settingsJson) as Map<String, dynamic>;
-      state = SettingsState.fromMap(settingsMap);
-    }
+  Future<void> _initPrefs() async {
+    _prefs = await SharedPreferences.getInstance();
   }
 
   Future<void> _saveSettings() async {
-    final settingsJson = json.encode(state.toMap());
+    final settingsJson = jsonEncode(state.toMap());
+
     await _prefs.setString(_settingsKey, settingsJson);
   }
 
@@ -152,7 +171,6 @@ class SettingsNotifier extends StateNotifier<SettingsState> {
         hasFetchedInitialLocation: true,
       );
       await _saveSettings();
-
       return true;
     } on LocationDisabledException {
       state = state.copyWith(
@@ -160,7 +178,7 @@ class SettingsNotifier extends StateNotifier<SettingsState> {
         isLocationEnabled: false,
         hasLocationPermission: true,
       );
-
+      await _saveSettings();
       return false;
     } on LocationPermissionDenied {
       state = state.copyWith(
@@ -168,11 +186,12 @@ class SettingsNotifier extends StateNotifier<SettingsState> {
         isLocationEnabled: true,
         hasLocationPermission: false,
       );
-
+      await _saveSettings();
       return false;
     } catch (e) {
       state = state.copyWith(isFetchingLocation: false);
-
+      await _saveSettings();
+      
       return false;
     }
   }
@@ -200,7 +219,6 @@ class SettingsNotifier extends StateNotifier<SettingsState> {
         isha: isha,
       ),
     );
-
     _saveSettings();
   }
 
