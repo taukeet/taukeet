@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intro_slider/intro_slider.dart';
+import 'package:taukeet/generated/l10n.dart';
 import 'package:taukeet/main.dart';
 import 'package:taukeet/src/providers/settings_provider.dart';
 import 'package:taukeet/src/providers/splash_provider.dart';
@@ -26,16 +27,15 @@ class IntroScreen extends ConsumerWidget {
           context: context,
           builder: (context) {
             return WarningDialog(
-              title: "Warning",
-              message:
-                  "Location is disabled, please enable to fetch the current location.",
+              title: S.of(context).disableLocationTitle,
+              message: S.of(context).disableLocationMessage,
               actions: [
                 SecondaryButton(
-                  text: "Cancel",
+                  text: S.of(context).cancel,
                   onPressed: () => Navigator.pop(context),
                 ),
                 PrimaryButton(
-                  text: "Open Settings",
+                  text: S.of(context).openSettings,
                   onPressed: () {
                     AppSettings.openAppSettings(type: AppSettingsType.location);
                     Navigator.pop(context);
@@ -52,16 +52,15 @@ class IntroScreen extends ConsumerWidget {
           context: context,
           builder: (context) {
             return WarningDialog(
-              title: "Permission Error",
-              message:
-                  "Taukeet needs location permission to fetch the current location, with current location Taukeet calculates the prayer times.",
+              title: S.of(context).permissionErrorTitle,
+              message: S.of(context).permissionErrorMessage,
               actions: [
                 SecondaryButton(
-                  text: "Cancel",
+                  text: S.of(context).cancel,
                   onPressed: () => Navigator.pop(context),
                 ),
                 PrimaryButton(
-                  text: "Open App Settings",
+                  text: S.of(context).openSettings,
                   onPressed: () {
                     AppSettings.openAppSettings(type: AppSettingsType.settings);
                     Navigator.pop(context);
@@ -91,12 +90,13 @@ class IntroScreen extends ConsumerWidget {
             );
             return SplashContainer(
               icon: Icons.location_on,
-              title: address.isEmpty ? "Location" : address,
+              title: address.isEmpty ? S.of(context).locationText : address,
               description: address.isEmpty
-                  ? "Taukeet's accuracy in calculating and providing prayer times depends on your location. Please share your current location for precise results."
-                  : "Thank you for the location, click on \"Next\" to continue",
-              buttonText:
-                  isFetchingLocation ? "Fetching location" : "Fetch location",
+                  ? S.of(context).locationIntro
+                  : S.of(context).locationIntroNext,
+              buttonText: isFetchingLocation
+                  ? S.of(context).locationIntroBtnLoading
+                  : S.of(context).locationIntroBtn,
               onPressed: isFetchingLocation
                   ? null
                   : () async {
@@ -105,9 +105,9 @@ class IntroScreen extends ConsumerWidget {
                           .fetchLocation();
                       if (!success && !isFetchingLocation) {
                         ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
+                          SnackBar(
                             content: Text(
-                              "Failed to fetch location. Please check your network and try again.",
+                              S.current.locationFetchNetworkFail,
                             ),
                             duration: Duration(seconds: 3),
                           ),
@@ -124,9 +124,8 @@ class IntroScreen extends ConsumerWidget {
             );
             return SplashContainer(
               title: madhabStr.capitalized(),
-              description:
-                  "You can choose between Hanafi or Standard (Maliki, Shafi'i, Hanbali) calculation methods for Asr prayer times. Hanafi starts Asr later when an object's shadow is twice its length.",
-              buttonText: "Change madhab",
+              description: S.of(context).madhabIntro,
+              buttonText: S.of(context).madhabIntroBtn,
               icon: Icons.people,
               onPressed: () {
                 showDialog(
@@ -144,9 +143,8 @@ class IntroScreen extends ConsumerWidget {
             );
             return SplashContainer(
               title: calculationMethod.humanReadable(),
-              description:
-                  "The calculation methods are algorithms used to determine accurate prayer schedules. To begin, please select one that is near to your location or the one you prefer.",
-              buttonText: "Change calculation method",
+              description: S.of(context).calculationMethodIntro,
+              buttonText: S.of(context).calculationMethodBtn,
               icon: Icons.people,
               onPressed: () {
                 showDialog(

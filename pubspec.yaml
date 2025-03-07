@@ -9,6 +9,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_localizations:
+    sdk: flutter
   intl: any
   go_router: ^14.2.9
   location: ^7.0.0
@@ -44,3 +46,5 @@ flutter_launcher_icons:
   ios: true
   image_path: "assets/icons/icon.png"
   min_sdk_android: 21 # android min sdk min:16, default 21
+flutter_intl:
+  enabled: true

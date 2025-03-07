@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:taukeet/generated/l10n.dart';
 import 'package:taukeet/src/providers/settings_provider.dart';
 
 class SplashScreen extends ConsumerStatefulWidget {
@@ -52,8 +53,8 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
                   height: 60,
                 ),
                 const SizedBox(height: 4),
-                const Text(
-                  'taukeet',
+                Text(
+                  S.of(context).appTitle,
                   style: TextStyle(
                     fontSize: 36,
                     fontFamily: 'Lateef',

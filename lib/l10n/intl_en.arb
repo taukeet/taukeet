@@ -1,0 +1,26 @@
+{
+    "appTitle": "taukeet",
+    
+    "locationText": "Location",
+    
+    "locationIntro": "Taukeet's accuracy in calculating and providing prayer times depends on your location. Please share your current location for precise results.",
+    "locationIntroNext": "Thank you for the location, click on \"Next\" to continue",
+    "locationIntroBtn": "Fetch location",
+    "locationIntroBtnLoading": "Fetching location...",
+    "locationFetchNetworkFail": "Failed to fetch location. Please check your network and try again.",
+    
+    "madhabIntro": "You can choose between Hanafi or Standard (Maliki, Shafi'i, Hanbali) calculation methods for Asr prayer times. Hanafi starts Asr later when an object's shadow is twice its length.",
+    "madhabIntroBtn": "Change madhab",
+    
+    "calculationMethodIntro": "The calculation methods are algorithms used to determine accurate prayer schedules. To begin, please select one that is near to your location or the one you prefer.",
+    "calculationMethodBtn": "Change calculation method",
+
+    "disableLocationTitle": "Warning",
+    "disableLocationMessage": "Location is disabled, please enable to fetch the current location.",
+
+    "permissionErrorTitle": "Permission Error",
+    "permissionErrorMessage": "Taukeet needs location permission to fetch the current location, with current location Taukeet calculates the prayer times.",
+    
+    "cancel": "Cancel",
+    "openSettings": "Open settings"
+}
