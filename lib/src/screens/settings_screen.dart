@@ -4,13 +4,13 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:taukeet/main.dart';
 import 'package:taukeet/src/providers/settings_provider.dart';
-import 'package:taukeet/src/views/widgets/primary_button.dart';
-import 'package:taukeet/src/views/widgets/secondary_button.dart';
-import 'package:taukeet/src/views/widgets/select_calculation_method_dialog.dart';
-import 'package:taukeet/src/views/widgets/select_higher_latitude_dialog.dart';
-import 'package:taukeet/src/views/widgets/select_madhab_dialog.dart';
-import 'package:taukeet/src/views/widgets/setting_tile.dart';
-import 'package:taukeet/src/views/widgets/warning_dialog.dart';
+import 'package:taukeet/src/widgets/primary_button.dart';
+import 'package:taukeet/src/widgets/secondary_button.dart';
+import 'package:taukeet/src/widgets/select_calculation_method_dialog.dart';
+import 'package:taukeet/src/widgets/select_higher_latitude_dialog.dart';
+import 'package:taukeet/src/widgets/select_madhab_dialog.dart';
+import 'package:taukeet/src/widgets/setting_tile.dart';
+import 'package:taukeet/src/widgets/warning_dialog.dart';
 
 class SettingsScreen extends ConsumerWidget {
   const SettingsScreen({super.key});

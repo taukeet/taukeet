@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:taukeet/main.dart';
 import 'package:taukeet/src/providers/settings_provider.dart';
-import 'package:taukeet/src/views/widgets/setting_tile.dart';
+import 'package:taukeet/src/widgets/setting_tile.dart';
 
 class SelectMadhabDialog extends ConsumerWidget {
   const SelectMadhabDialog({super.key});

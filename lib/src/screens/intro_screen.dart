@@ -5,11 +5,11 @@ import 'package:intro_slider/intro_slider.dart';
 import 'package:taukeet/main.dart';
 import 'package:taukeet/src/providers/settings_provider.dart';
 import 'package:taukeet/src/providers/splash_provider.dart';
-import 'package:taukeet/src/views/widgets/primary_button.dart';
-import 'package:taukeet/src/views/widgets/secondary_button.dart';
-import 'package:taukeet/src/views/widgets/select_calculation_method_dialog.dart';
-import 'package:taukeet/src/views/widgets/select_madhab_dialog.dart';
-import 'package:taukeet/src/views/widgets/warning_dialog.dart';
+import 'package:taukeet/src/widgets/primary_button.dart';
+import 'package:taukeet/src/widgets/secondary_button.dart';
+import 'package:taukeet/src/widgets/select_calculation_method_dialog.dart';
+import 'package:taukeet/src/widgets/select_madhab_dialog.dart';
+import 'package:taukeet/src/widgets/warning_dialog.dart';
 
 class IntroScreen extends ConsumerWidget {
   const IntroScreen({super.key});

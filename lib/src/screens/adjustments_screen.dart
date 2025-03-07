@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:taukeet/src/providers/settings_provider.dart';
-import 'package:taukeet/src/views/widgets/primary_button.dart';
-import 'package:taukeet/src/views/widgets/secondary_button.dart';
-import 'package:taukeet/src/views/widgets/text_form_input.dart';
+import 'package:taukeet/src/widgets/primary_button.dart';
+import 'package:taukeet/src/widgets/secondary_button.dart';
+import 'package:taukeet/src/widgets/text_form_input.dart';
 
 class AdjustmentsScreen extends ConsumerWidget {
   const AdjustmentsScreen({super.key});
