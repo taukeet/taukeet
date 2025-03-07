@@ -1,15 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:taukeet/main.dart';
-import 'package:taukeet/src/blocs/home/home_cubit.dart';
-import 'package:taukeet/src/blocs/settings/settings_cubit.dart';
-import 'package:taukeet/src/blocs/splash/splash_cubit.dart';
-import 'package:taukeet/src/services/prayer_time_service.dart';
-import 'package:taukeet/src/views/adjustments_view.dart';
-import 'package:taukeet/src/views/home_view.dart';
-import 'package:taukeet/src/views/settings_view.dart';
-import 'package:taukeet/src/views/splash_view.dart';
+import 'package:taukeet/src/screens/home_screen.dart';
+import 'package:taukeet/src/screens/intro_screen.dart';
+import 'package:taukeet/src/screens/splash_screen.dart';
+import 'package:taukeet/src/screens/settings_screen.dart';
+import 'package:taukeet/src/screens/adjustments_screen.dart';
+import 'package:taukeet/src/providers/settings_provider.dart';
 
 final _router = GoRouter(
   redirect: (context, state) {
@@ -17,33 +14,42 @@ final _router = GoRouter(
   },
   routes: [
     GoRoute(
-      name: 'home',
+      name: 'splash',
       path: '/',
+      builder: (context, state) => const SplashScreen(),
+    ),
+    GoRoute(
+      name: 'intro',
+      path: '/intro',
+      builder: (context, state) => const IntroScreen(),
+    ),
+    GoRoute(
+      name: 'home',
+      path: '/home',
       redirect: (context, state) {
-        if (!BlocProvider.of<SettingsCubit>(context)
-            .state
-            .isTutorialCompleted) {
-          return '/splash';
+        final container = ProviderContainer(
+          parent: ProviderScope.containerOf(context),
+        );
+        final isTutorialCompleted = container
+            .read(settingsProvider.select((s) => s.isTutorialCompleted));
+
+        if (!isTutorialCompleted) {
+          return '/intro';
         }
         return null;
       },
-      builder: (context, state) => const HomeView(),
-    ),
-    GoRoute(
-      name: 'splash',
-      path: '/splash',
-      builder: (context, state) => const SplashView(),
+      builder: (context, state) => const HomeScreen(),
     ),
     GoRoute(
       name: 'settings',
       path: '/settings',
-      builder: (context, state) => const SettingsView(),
+      builder: (context, state) => const SettingsScreen(),
       routes: [
         GoRoute(
           name: 'settings.adjustments',
           path: 'adjustments',
-          builder: (context, state) => const AdjustmentsView(),
-        )
+          builder: (context, state) => const AdjustmentsScreen(),
+        ),
       ],
     ),
   ],
@@ -54,44 +60,18 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider(
-          create: (context) => SettingsCubit(),
-        ),
-        BlocProvider(
-          create: (context) => HomeCubit(),
-        ),
-        BlocProvider(
-          create: (context) => SplashCubit(
-            settingsCubit: BlocProvider.of<SettingsCubit>(context),
+    return ProviderScope(
+      child: MaterialApp.router(
+        theme: ThemeData(
+          appBarTheme: Theme.of(context).appBarTheme.copyWith(
+                backgroundColor: const Color(0xFFF0E7D8),
+              ),
+          colorScheme: ColorScheme.fromSwatch().copyWith(
+            primary: const Color(0xFF191923),
+            secondary: const Color(0xFFF0E7D8),
           ),
         ),
-      ],
-      child: BlocBuilder<SettingsCubit, SettingsState>(
-        builder: (context, state) {
-          getIt<PrayerTimeService>().init(
-            state.address,
-            state.adjustments,
-            state.calculationMethod,
-            state.madhab,
-            state.higherLatitude,
-          );
-          BlocProvider.of<HomeCubit>(context).calculatePrayers();
-
-          return MaterialApp.router(
-            theme: ThemeData(
-              appBarTheme: Theme.of(context).appBarTheme.copyWith(
-                    backgroundColor: const Color(0xFFF0E7D8),
-                  ),
-              colorScheme: ColorScheme.fromSwatch().copyWith(
-                primary: const Color(0xFF191923),
-                secondary: const Color(0xFFF0E7D8),
-              ),
-            ),
-            routerConfig: _router,
-          );
-        },
+        routerConfig: _router,
       ),
     );
   }
