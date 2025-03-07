@@ -32,6 +32,7 @@ final _router = GoRouter(
         );
         final isTutorialCompleted = container
             .read(settingsProvider.select((s) => s.isTutorialCompleted));
+
         if (!isTutorialCompleted) {
           return '/intro';
         }

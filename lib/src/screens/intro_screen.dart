@@ -1,6 +1,7 @@
 import 'package:app_settings/app_settings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:intro_slider/intro_slider.dart';
 import 'package:taukeet/main.dart';
 import 'package:taukeet/src/providers/settings_provider.dart';
@@ -160,7 +161,8 @@ class IntroScreen extends ConsumerWidget {
       backgroundColorAllTabs: Theme.of(context).colorScheme.secondary,
       onDonePress: () {
         ref.read(settingsProvider.notifier).completeTutorial();
-        // context.pushReplacementNamed('home');
+
+        context.replaceNamed('home');
       },
     );
   }
