@@ -16,11 +16,6 @@ class HomeScreen extends ConsumerWidget {
     final settingsState = ref.watch(settingsProvider);
     final homeState = ref.watch(homeProvider);
 
-    // Listen to settings changes to recalculate prayers
-    ref.listen(settingsProvider, (previous, next) {
-      ref.read(homeProvider.notifier).calculatePrayers();
-    });
-
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.primary,
       body: SafeArea(
@@ -55,7 +50,8 @@ class HomeScreen extends ConsumerWidget {
                                 overflow: TextOverflow.ellipsis,
                                 style: TextStyle(
                                   fontSize: sizeLibrary.appSize(12),
-                                  color: Theme.of(context).colorScheme.secondary,
+                                  color:
+                                      Theme.of(context).colorScheme.secondary,
                                 ),
                               ),
                             ),
@@ -160,7 +156,6 @@ class HomeScreen extends ConsumerWidget {
                           shrinkWrap: true,
                           itemBuilder: (context, index) {
                             final PrayerTime prayer = homeState.prayers[index];
-                            
                             return Row(
                               children: [
                                 Expanded(

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:taukeet/src/screens/adjustments_screen.dart';
 import 'package:taukeet/src/screens/home_screen.dart';
 import 'package:taukeet/src/screens/intro_screen.dart';
-import 'package:taukeet/src/screens/settings_screen.dart';
 import 'package:taukeet/src/screens/splash_screen.dart';
+import 'package:taukeet/src/screens/settings_screen.dart';
+import 'package:taukeet/src/screens/adjustments_screen.dart';
 import 'package:taukeet/src/providers/settings_provider.dart';
 
 final _router = GoRouter(
@@ -27,18 +27,14 @@ final _router = GoRouter(
       name: 'home',
       path: '/home',
       redirect: (context, state) {
-        // Access settingsProvider using ProviderContainer
         final container = ProviderContainer(
           parent: ProviderScope.containerOf(context),
         );
-
         final isTutorialCompleted = container
             .read(settingsProvider.select((s) => s.isTutorialCompleted));
-
         if (!isTutorialCompleted) {
           return '/intro';
         }
-
         return null;
       },
       builder: (context, state) => const HomeScreen(),

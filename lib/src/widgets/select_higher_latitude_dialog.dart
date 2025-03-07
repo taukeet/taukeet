@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:taukeet/main.dart';
+import 'package:taukeet/src/providers/prayer_time_provider.dart';
 import 'package:taukeet/src/providers/settings_provider.dart';
-import 'package:taukeet/src/services/prayer_time_service.dart';
 import 'package:taukeet/src/widgets/setting_tile.dart';
 
 class SelectHigherLatitudeDialog extends ConsumerWidget {
@@ -10,6 +10,8 @@ class SelectHigherLatitudeDialog extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final prayerService = ref.watch(prayerTimeProvider);
+
     return Dialog(
       child: Container(
         decoration: BoxDecoration(
@@ -18,7 +20,7 @@ class SelectHigherLatitudeDialog extends ConsumerWidget {
         ),
         child: SingleChildScrollView(
           child: Column(
-            children: getIt<PrayerTimeService>().higherLatitudes.map(
+            children: prayerService.higherLatitudes.map(
               (e) {
                 return SettingTile(
                   text: '${e["name"]}'.humanReadable(),
@@ -29,7 +31,6 @@ class SelectHigherLatitudeDialog extends ConsumerWidget {
                     ref
                         .read(settingsProvider.notifier)
                         .updateHigherLatitude(e["name"]!);
-
                     Navigator.pop(context);
                   },
                 );

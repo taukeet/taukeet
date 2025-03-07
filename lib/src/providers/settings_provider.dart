@@ -13,12 +13,11 @@ final settingsFutureProvider = FutureProvider<SettingsState>((ref) async {
   final prefs = await SharedPreferences.getInstance();
   const settingsKey = SettingsNotifier._settingsKey;
   final settingsJson = prefs.getString(settingsKey);
-
+  
   if (settingsJson != null) {
     final settingsMap = jsonDecode(settingsJson) as Map<String, dynamic>;
     return SettingsState.fromMap(settingsMap);
   }
-
   return SettingsState();
 });
 
@@ -27,7 +26,6 @@ final settingsProvider =
     StateNotifierProvider<SettingsNotifier, SettingsState>((ref) {
   final initialState =
       ref.watch(settingsFutureProvider).value ?? SettingsState();
-
   return SettingsNotifier.withInitialState(initialState);
 });
 
@@ -144,7 +142,6 @@ class SettingsNotifier extends StateNotifier<SettingsState> {
   // ignore: use_super_parameters
   SettingsNotifier.withInitialState(SettingsState initialState)
       : super(initialState) {
-    // Fixed to use initialState
     _initPrefs();
   }
 
@@ -154,7 +151,7 @@ class SettingsNotifier extends StateNotifier<SettingsState> {
 
   Future<void> _saveSettings() async {
     final settingsJson = jsonEncode(state.toMap());
-
+    
     await _prefs.setString(_settingsKey, settingsJson);
   }
 
@@ -190,8 +187,8 @@ class SettingsNotifier extends StateNotifier<SettingsState> {
       return false;
     } catch (e) {
       state = state.copyWith(isFetchingLocation: false);
-      await _saveSettings();
       
+      await _saveSettings();
       return false;
     }
   }

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:taukeet/main.dart';
+import 'package:taukeet/src/providers/prayer_time_provider.dart';
 import 'package:taukeet/src/providers/settings_provider.dart';
-import 'package:taukeet/src/services/prayer_time_service.dart';
 import 'package:taukeet/src/widgets/setting_tile.dart';
 
 class SelectCalculationMethodDialog extends ConsumerWidget {
@@ -10,6 +10,8 @@ class SelectCalculationMethodDialog extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final prayerService = ref.watch(prayerTimeProvider);
+
     return Dialog(
       child: Container(
         decoration: BoxDecoration(
@@ -18,11 +20,12 @@ class SelectCalculationMethodDialog extends ConsumerWidget {
         ),
         child: SingleChildScrollView(
           child: Column(
-            children: getIt<PrayerTimeService>().calculationMethods.map(
+            children: prayerService.calculationMethods.map(
               (e) {
                 return SettingTile(
                   text: '${e["name"]}'.humanReadable(),
-                  secodaryText: '${e["description"]}',
+                  secodaryText:
+                      e["description"] == null ? null : '${e["description"]}',
                   icon: Icons.arrow_right,
                   onPressed: () {
                     ref

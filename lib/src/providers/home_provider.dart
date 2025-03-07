@@ -1,15 +1,11 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:taukeet/main.dart';
 import 'package:taukeet/src/entities/prayer_time.dart';
-import 'package:taukeet/src/providers/settings_provider.dart';
-import 'package:taukeet/src/services/prayer_time_service.dart';
+import 'package:taukeet/src/providers/prayer_time_provider.dart';
 
-// Provider
 final homeProvider = StateNotifierProvider<HomeNotifier, HomeState>((ref) {
   return HomeNotifier(ref);
 });
 
-// State
 class HomeState {
   final List<PrayerTime> prayers;
   final PrayerTime? currentPrayer;
@@ -34,28 +30,17 @@ class HomeState {
   }
 }
 
-// Notifier
 class HomeNotifier extends StateNotifier<HomeState> {
   final Ref ref;
 
   HomeNotifier(this.ref) : super(HomeState(dateTime: DateTime.now())) {
-    calculatePrayers();
+    // Watch prayer providers instead of listening manually
+    _updatePrayers();
   }
 
-  void calculatePrayers() {
-    final settings = ref.read(settingsProvider);
-    final prayerService = getIt<PrayerTimeService>();
-    
-    prayerService.init(
-      settings.address,
-      settings.adjustments,
-      settings.calculationMethod,
-      settings.madhab,
-      settings.higherLatitude,
-    );
-
-    final prayers = prayerService.prayers(state.dateTime);
-    final currentPrayer = prayerService.currentPrayer();
+  void _updatePrayers() {
+    final prayers = ref.watch(prayerTimesProvider(state.dateTime));
+    final currentPrayer = ref.watch(currentPrayerProvider(state.dateTime));
 
     state = state.copyWith(
       prayers: prayers,
@@ -63,25 +48,26 @@ class HomeNotifier extends StateNotifier<HomeState> {
     );
   }
 
+  void calculatePrayers() {
+    _updatePrayers();
+  }
+
   void changeToPrevDate() {
     state = state.copyWith(
       dateTime: state.dateTime.subtract(const Duration(days: 1)),
     );
-
-    calculatePrayers();
+    _updatePrayers();
   }
 
   void changeToNextDate() {
     state = state.copyWith(
       dateTime: state.dateTime.add(const Duration(days: 1)),
     );
-
-    calculatePrayers();
+    _updatePrayers();
   }
 
   void changeToToday() {
     state = state.copyWith(dateTime: DateTime.now());
-    
-    calculatePrayers();
+    _updatePrayers();
   }
 }
