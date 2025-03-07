@@ -5,8 +5,7 @@ import 'package:taukeet/src/entities/address.dart';
 import 'package:taukeet/src/entities/adjustments.dart';
 import 'package:taukeet/src/exceptions/location_disabled_exception.dart';
 import 'package:taukeet/src/exceptions/location_permission_denied.dart';
-import 'package:taukeet/src/services/geo_location_service.dart';
-import 'package:get_it/get_it.dart';
+import 'package:taukeet/src/providers/geo_location_provider.dart';
 
 // FutureProvider to load settings from SharedPreferences
 final settingsFutureProvider = FutureProvider<SettingsState>((ref) async {
@@ -26,7 +25,7 @@ final settingsProvider =
     StateNotifierProvider<SettingsNotifier, SettingsState>((ref) {
   final initialState =
       ref.watch(settingsFutureProvider).value ?? SettingsState();
-  return SettingsNotifier.withInitialState(initialState);
+  return SettingsNotifier.withInitialState(ref, initialState);
 });
 
 // Provider for specific field (example)
@@ -134,13 +133,14 @@ class SettingsState {
 class SettingsNotifier extends StateNotifier<SettingsState> {
   static const _settingsKey = 'taukeet_settings';
   late SharedPreferences _prefs;
+  final Ref ref;
 
-  SettingsNotifier() : super(SettingsState()) {
+  SettingsNotifier(this.ref) : super(SettingsState()) {
     _initPrefs();
   }
 
   // ignore: use_super_parameters
-  SettingsNotifier.withInitialState(SettingsState initialState)
+  SettingsNotifier.withInitialState(this.ref, SettingsState initialState)
       : super(initialState) {
     _initPrefs();
   }
@@ -157,9 +157,11 @@ class SettingsNotifier extends StateNotifier<SettingsState> {
 
   Future<bool> fetchLocation() async {
     state = state.copyWith(isFetchingLocation: true);
-    final geoService = GetIt.I<GeoLocationService>();
+    final geoService = ref.read(geoLocationProvider);
+
     try {
       final address = await geoService.fetch();
+
       state = state.copyWith(
         isFetchingLocation: false,
         address: address,
@@ -168,6 +170,7 @@ class SettingsNotifier extends StateNotifier<SettingsState> {
         hasFetchedInitialLocation: true,
       );
       await _saveSettings();
+      
       return true;
     } on LocationDisabledException {
       state = state.copyWith(
@@ -176,6 +179,7 @@ class SettingsNotifier extends StateNotifier<SettingsState> {
         hasLocationPermission: true,
       );
       await _saveSettings();
+
       return false;
     } on LocationPermissionDenied {
       state = state.copyWith(
@@ -184,11 +188,12 @@ class SettingsNotifier extends StateNotifier<SettingsState> {
         hasLocationPermission: false,
       );
       await _saveSettings();
+
       return false;
     } catch (e) {
       state = state.copyWith(isFetchingLocation: false);
-      
       await _saveSettings();
+
       return false;
     }
   }

@@ -5,9 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get_it/get_it.dart';
 import 'package:taukeet/src/providers/prayer_time_provider.dart';
-import 'package:taukeet/src/services/geo_location_service.dart';
 import 'package:taukeet/src/app.dart';
-import 'package:taukeet/src/implementations/location_impl.dart';
 
 final getIt = GetIt.instance;
 
@@ -33,8 +31,6 @@ void main() async {
 
   String prayerJsonStr = await rootBundle.loadString('assets/data/prayer.json');
   Map<String, dynamic> prayerData = json.decode(prayerJsonStr);
-
-  getIt.registerSingleton<GeoLocationService>(LocationImpl());
 
   runApp(ProviderScope(
     overrides: [
