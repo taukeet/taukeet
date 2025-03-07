@@ -22,7 +22,14 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+    "adjustmentsResetSuccess": MessageLookupByLibrary.simpleMessage(
+      "Adjustments reset successfully",
+    ),
+    "adjustmentsSuccess": MessageLookupByLibrary.simpleMessage(
+      "Adjustments saved successfully",
+    ),
     "appTitle": MessageLookupByLibrary.simpleMessage("taukeet"),
+    "asr": MessageLookupByLibrary.simpleMessage("Asr"),
     "calculationMethodBtn": MessageLookupByLibrary.simpleMessage(
       "Change calculation method",
     ),
@@ -30,10 +37,29 @@ class MessageLookup extends MessageLookupByLibrary {
       "The calculation methods are algorithms used to determine accurate prayer schedules. To begin, please select one that is near to your location or the one you prefer.",
     ),
     "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
+    "changeAdjustmentsDesc": MessageLookupByLibrary.simpleMessage(
+      "Adjust the prayer times by minutes",
+    ),
+    "changeCalculationMethodDesc": MessageLookupByLibrary.simpleMessage(
+      "tap to change the calculation method",
+    ),
+    "changeLattitudeSetting": MessageLookupByLibrary.simpleMessage(
+      "In locations at higher latitude, twilight may persist throughout the night during some months of the year. In these abnormal periods, the determination of Fajr and Isha is not possible using the usual formulas, to overcome this problem, several solutions have been proposed, tap to change the method.",
+    ),
+    "changeMadhabDesc": MessageLookupByLibrary.simpleMessage(
+      "tap to change the madhab",
+    ),
+    "dhuhr": MessageLookupByLibrary.simpleMessage("Dhuhr"),
     "disableLocationMessage": MessageLookupByLibrary.simpleMessage(
       "Location is disabled, please enable to fetch the current location.",
     ),
     "disableLocationTitle": MessageLookupByLibrary.simpleMessage("Warning"),
+    "fajr": MessageLookupByLibrary.simpleMessage("Fajr"),
+    "fetchLocationDesc": MessageLookupByLibrary.simpleMessage(
+      "tap to get the current location",
+    ),
+    "isha": MessageLookupByLibrary.simpleMessage("Isha"),
+    "loading": MessageLookupByLibrary.simpleMessage("Loading..."),
     "locationFetchNetworkFail": MessageLookupByLibrary.simpleMessage(
       "Failed to fetch location. Please check your network and try again.",
     ),
@@ -52,6 +78,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "You can choose between Hanafi or Standard (Maliki, Shafi\'i, Hanbali) calculation methods for Asr prayer times. Hanafi starts Asr later when an object\'s shadow is twice its length.",
     ),
     "madhabIntroBtn": MessageLookupByLibrary.simpleMessage("Change madhab"),
+    "maghrib": MessageLookupByLibrary.simpleMessage("Maghrib"),
     "openSettings": MessageLookupByLibrary.simpleMessage("Open settings"),
     "permissionErrorMessage": MessageLookupByLibrary.simpleMessage(
       "Taukeet needs location permission to fetch the current location, with current location Taukeet calculates the prayer times.",
@@ -59,5 +86,12 @@ class MessageLookup extends MessageLookupByLibrary {
     "permissionErrorTitle": MessageLookupByLibrary.simpleMessage(
       "Permission Error",
     ),
+    "prayerSdjustments": MessageLookupByLibrary.simpleMessage(
+      "Prayer adjustments",
+    ),
+    "reset": MessageLookupByLibrary.simpleMessage("Reset"),
+    "saveAdjustments": MessageLookupByLibrary.simpleMessage("Save adjustments"),
+    "settings": MessageLookupByLibrary.simpleMessage("Settings"),
+    "sunrise": MessageLookupByLibrary.simpleMessage("Sunrise"),
   };
 }

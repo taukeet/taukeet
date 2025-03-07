@@ -77,7 +77,8 @@ class HomeScreen extends ConsumerWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          homeState.currentPrayer?.name.english ?? "Loading...",
+                          homeState.currentPrayer?.name.english ??
+                              S.of(context).loading,
                           style: TextStyle(
                             color: Theme.of(context).colorScheme.secondary,
                             fontSize: sizeLibrary.appSize(34),

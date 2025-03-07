@@ -209,6 +209,141 @@ class S {
       args: [],
     );
   }
+
+  /// `Loading...`
+  String get loading {
+    return Intl.message('Loading...', name: 'loading', desc: '', args: []);
+  }
+
+  /// `Settings`
+  String get settings {
+    return Intl.message('Settings', name: 'settings', desc: '', args: []);
+  }
+
+  /// `tap to get the current location`
+  String get fetchLocationDesc {
+    return Intl.message(
+      'tap to get the current location',
+      name: 'fetchLocationDesc',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `tap to change the madhab`
+  String get changeMadhabDesc {
+    return Intl.message(
+      'tap to change the madhab',
+      name: 'changeMadhabDesc',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `tap to change the calculation method`
+  String get changeCalculationMethodDesc {
+    return Intl.message(
+      'tap to change the calculation method',
+      name: 'changeCalculationMethodDesc',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `In locations at higher latitude, twilight may persist throughout the night during some months of the year. In these abnormal periods, the determination of Fajr and Isha is not possible using the usual formulas, to overcome this problem, several solutions have been proposed, tap to change the method.`
+  String get changeLattitudeSetting {
+    return Intl.message(
+      'In locations at higher latitude, twilight may persist throughout the night during some months of the year. In these abnormal periods, the determination of Fajr and Isha is not possible using the usual formulas, to overcome this problem, several solutions have been proposed, tap to change the method.',
+      name: 'changeLattitudeSetting',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Prayer adjustments`
+  String get prayerSdjustments {
+    return Intl.message(
+      'Prayer adjustments',
+      name: 'prayerSdjustments',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Adjust the prayer times by minutes`
+  String get changeAdjustmentsDesc {
+    return Intl.message(
+      'Adjust the prayer times by minutes',
+      name: 'changeAdjustmentsDesc',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Fajr`
+  String get fajr {
+    return Intl.message('Fajr', name: 'fajr', desc: '', args: []);
+  }
+
+  /// `Sunrise`
+  String get sunrise {
+    return Intl.message('Sunrise', name: 'sunrise', desc: '', args: []);
+  }
+
+  /// `Dhuhr`
+  String get dhuhr {
+    return Intl.message('Dhuhr', name: 'dhuhr', desc: '', args: []);
+  }
+
+  /// `Asr`
+  String get asr {
+    return Intl.message('Asr', name: 'asr', desc: '', args: []);
+  }
+
+  /// `Maghrib`
+  String get maghrib {
+    return Intl.message('Maghrib', name: 'maghrib', desc: '', args: []);
+  }
+
+  /// `Isha`
+  String get isha {
+    return Intl.message('Isha', name: 'isha', desc: '', args: []);
+  }
+
+  /// `Reset`
+  String get reset {
+    return Intl.message('Reset', name: 'reset', desc: '', args: []);
+  }
+
+  /// `Save adjustments`
+  String get saveAdjustments {
+    return Intl.message(
+      'Save adjustments',
+      name: 'saveAdjustments',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Adjustments saved successfully`
+  String get adjustmentsSuccess {
+    return Intl.message(
+      'Adjustments saved successfully',
+      name: 'adjustmentsSuccess',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Adjustments reset successfully`
+  String get adjustmentsResetSuccess {
+    return Intl.message(
+      'Adjustments reset successfully',
+      name: 'adjustmentsResetSuccess',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
