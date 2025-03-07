@@ -3,9 +3,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:taukeet/src/screens/home_screen.dart';
 import 'package:taukeet/src/screens/intro_screen.dart';
+import 'package:taukeet/src/screens/settings_screen.dart';
 import 'package:taukeet/src/screens/splash_screen.dart';
 import 'package:taukeet/src/views/adjustments_view.dart';
-import 'package:taukeet/src/views/settings_view.dart';
 import 'package:taukeet/src/providers/settings_provider.dart';
 
 final _router = GoRouter(
@@ -46,7 +46,7 @@ final _router = GoRouter(
     GoRoute(
       name: 'settings',
       path: '/settings',
-      builder: (context, state) => const SettingsView(),
+      builder: (context, state) => const SettingsScreen(),
       routes: [
         GoRoute(
           name: 'settings.adjustments',
