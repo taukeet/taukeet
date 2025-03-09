@@ -280,6 +280,16 @@ class S {
     );
   }
 
+  /// `Change language`
+  String get changeLanguage {
+    return Intl.message(
+      'Change language',
+      name: 'changeLanguage',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Fajr`
   String get fajr {
     return Intl.message('Fajr', name: 'fajr', desc: '', args: []);

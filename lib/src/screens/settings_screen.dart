@@ -9,6 +9,7 @@ import 'package:taukeet/src/widgets/primary_button.dart';
 import 'package:taukeet/src/widgets/secondary_button.dart';
 import 'package:taukeet/src/widgets/select_calculation_method_dialog.dart';
 import 'package:taukeet/src/widgets/select_higher_latitude_dialog.dart';
+import 'package:taukeet/src/widgets/select_locale_dialog.dart';
 import 'package:taukeet/src/widgets/select_madhab_dialog.dart';
 import 'package:taukeet/src/widgets/setting_tile.dart';
 import 'package:taukeet/src/widgets/warning_dialog.dart';
@@ -118,8 +119,7 @@ class SettingsScreen extends ConsumerWidget {
               ),
               SettingTile(
                 text: settingsState.higherLatitude.humanReadable(),
-                secodaryText:
-                    S.of(context).changeLattitudeSetting,
+                secodaryText: S.of(context).changeLattitudeSetting,
                 icon: Icons.keyboard_double_arrow_up,
                 onPressed: () {
                   showDialog(
@@ -134,6 +134,16 @@ class SettingsScreen extends ConsumerWidget {
                 icon: Icons.adjust,
                 onPressed: () {
                   context.pushNamed('settings.adjustments');
+                },
+              ),
+              SettingTile(
+                text: S.of(context).changeLanguage,
+                icon: Icons.translate,
+                onPressed: () {
+                  showDialog(
+                    context: context,
+                    builder: (context) => const SelectLocaleDialog(),
+                  );
                 },
               ),
             ],

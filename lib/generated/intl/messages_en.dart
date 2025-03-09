@@ -43,6 +43,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "changeCalculationMethodDesc": MessageLookupByLibrary.simpleMessage(
       "tap to change the calculation method",
     ),
+    "changeLanguage": MessageLookupByLibrary.simpleMessage("Change language"),
     "changeLattitudeSetting": MessageLookupByLibrary.simpleMessage(
       "In locations at higher latitude, twilight may persist throughout the night during some months of the year. In these abnormal periods, the determination of Fajr and Isha is not possible using the usual formulas, to overcome this problem, several solutions have been proposed, tap to change the method.",
     ),

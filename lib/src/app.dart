@@ -3,6 +3,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:taukeet/generated/l10n.dart';
+import 'package:taukeet/src/providers/locale_provider.dart';
 import 'package:taukeet/src/screens/home_screen.dart';
 import 'package:taukeet/src/screens/intro_screen.dart';
 import 'package:taukeet/src/screens/splash_screen.dart';
@@ -57,11 +58,13 @@ final _router = GoRouter(
   ],
 );
 
-class App extends StatelessWidget {
+class App extends ConsumerWidget {
   const App({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final localeState = ref.watch(localeProvider);
+
     return ProviderScope(
       child: MaterialApp.router(
         theme: ThemeData(
@@ -74,13 +77,14 @@ class App extends StatelessWidget {
           ),
         ),
         routerConfig: _router,
+        locale: localeState.locale,
         localizationsDelegates: [
           S.delegate,
           GlobalMaterialLocalizations.delegate,
           GlobalWidgetsLocalizations.delegate,
           GlobalCupertinoLocalizations.delegate,
         ],
-        supportedLocales: S.delegate.supportedLocales,
+        supportedLocales: localeState.supportedLocales,
       ),
     );
   }
