@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:taukeet/src/providers/locale_provider.dart';
+import 'package:taukeet/src/utils/locale_helper.dart';
 
 class SelectLocaleDialog extends ConsumerWidget {
   const SelectLocaleDialog({super.key});
@@ -19,7 +20,7 @@ class SelectLocaleDialog extends ConsumerWidget {
           child: Column(
             children: localeState.supportedLocales
                 .map((locale) => Text(
-                      locale.toString(),
+                      locale.fullName ?? 'Unknown Locale',
                     ))
                 .toList(),
           ),

@@ -1,8 +1,8 @@
 import 'package:adhan/adhan.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:taukeet/main.dart';
 import 'package:taukeet/src/providers/settings_provider.dart';
+import 'package:taukeet/src/utils/extensions.dart';
 import 'package:taukeet/src/widgets/setting_tile.dart';
 
 class SelectMadhabDialog extends ConsumerWidget {
@@ -24,7 +24,9 @@ class SelectMadhabDialog extends ConsumerWidget {
               secodaryText: "Later Asr time",
               icon: Icons.arrow_right,
               onPressed: () {
-                ref.read(settingsProvider.notifier).updateMadhab(Madhab.hanafi.name);
+                ref
+                    .read(settingsProvider.notifier)
+                    .updateMadhab(Madhab.hanafi.name);
                 Navigator.pop(context);
               },
             ),
@@ -33,7 +35,9 @@ class SelectMadhabDialog extends ConsumerWidget {
               secodaryText: "Maliki, Shafi'i, Hanbali - Earlier Asr time",
               icon: Icons.arrow_right,
               onPressed: () {
-                ref.read(settingsProvider.notifier).updateMadhab(Madhab.shafi.name);
+                ref
+                    .read(settingsProvider.notifier)
+                    .updateMadhab(Madhab.shafi.name);
                 Navigator.pop(context);
               },
             ),

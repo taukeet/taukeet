@@ -1,10 +1,10 @@
 import 'package:adhan/adhan.dart';
-import 'package:taukeet/main.dart';
 import 'package:taukeet/src/entities/address.dart';
 import 'package:taukeet/src/entities/adjustments.dart';
 import 'package:taukeet/src/entities/prayer_name.dart';
 import 'package:taukeet/src/entities/prayer_time.dart';
 import 'package:taukeet/src/services/prayer_time_service.dart';
+import 'package:taukeet/src/utils/extensions.dart';
 
 class AdhanImpl implements PrayerTimeService {
   final Map<String, dynamic> data;

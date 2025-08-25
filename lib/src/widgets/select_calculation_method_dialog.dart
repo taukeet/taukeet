@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:taukeet/main.dart';
 import 'package:taukeet/src/providers/prayer_time_provider.dart';
 import 'package:taukeet/src/providers/settings_provider.dart';
+import 'package:taukeet/src/utils/extensions.dart';
 import 'package:taukeet/src/widgets/setting_tile.dart';
 
 class SelectCalculationMethodDialog extends ConsumerWidget {
