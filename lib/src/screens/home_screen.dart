@@ -46,7 +46,7 @@ class HomeScreen extends ConsumerWidget {
                               width: sizeLibrary.appWidth(context, 60),
                               child: Text(
                                 settingsState.isFetchingLocation
-                                    ? S.of(context).locationIntroBtnLoading
+                                    ? S.of(context)!.locationIntroBtnLoading
                                     : settingsState.address.address,
                                 overflow: TextOverflow.ellipsis,
                                 style: TextStyle(
@@ -78,7 +78,7 @@ class HomeScreen extends ConsumerWidget {
                       children: [
                         Text(
                           homeState.currentPrayer?.name.english ??
-                              S.of(context).loading,
+                              S.of(context)!.loading,
                           style: TextStyle(
                             color: Theme.of(context).colorScheme.secondary,
                             fontSize: sizeLibrary.appSize(34),

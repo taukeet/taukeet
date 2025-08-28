@@ -27,16 +27,12 @@ class AdhanImpl implements PrayerTimeService {
   late String higherLatitude;
 
   @override
-  List<Map<String, String>> get calculationMethods =>
-      (data['methods'] as List<dynamic>)
-          .map((item) => Map<String, String>.from(item))
-          .toList();
+  List<String> get calculationMethods =>
+      List<String>.from(data['methods'] as List);
 
   @override
-  List<Map<String, String>> get higherLatitudes =>
-      (data['latitudes'] as List<dynamic>)
-          .map((item) => Map<String, String>.from(item))
-          .toList();
+  List<String> get higherLatitudes =>
+      List<String>.from(data['latitudes'] as List);
 
   @override
   List<Map<String, String>> get madhabs => throw UnimplementedError();

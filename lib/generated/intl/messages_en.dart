@@ -55,11 +55,29 @@ class MessageLookup extends MessageLookupByLibrary {
       "Location is disabled, please enable to fetch the current location.",
     ),
     "disableLocationTitle": MessageLookupByLibrary.simpleMessage("Warning"),
+    "dubai": MessageLookupByLibrary.simpleMessage("Dubai"),
+    "dubaiDesc": MessageLookupByLibrary.simpleMessage(
+      "Dubai method, specific to Dubai, United Arab Emirates.",
+    ),
+    "egyptian": MessageLookupByLibrary.simpleMessage("Egyptian"),
+    "egyptianDesc": MessageLookupByLibrary.simpleMessage(
+      "Egyptian General Authority of Survey method, commonly used in Egypt.",
+    ),
     "fajr": MessageLookupByLibrary.simpleMessage("Fajr"),
     "fetchLocationDesc": MessageLookupByLibrary.simpleMessage(
       "tap to get the current location",
     ),
+    "hanafi": MessageLookupByLibrary.simpleMessage("Hanfi"),
+    "hanafiDesc": MessageLookupByLibrary.simpleMessage("Later Asr Time"),
     "isha": MessageLookupByLibrary.simpleMessage("Isha"),
+    "karachi": MessageLookupByLibrary.simpleMessage("Karachi"),
+    "karachiDesc": MessageLookupByLibrary.simpleMessage(
+      "University of Islamic Sciences, Karachi method, widely used in Karachi, Pakistan.",
+    ),
+    "kuwait": MessageLookupByLibrary.simpleMessage("Kuwait"),
+    "kuwaitDesc": MessageLookupByLibrary.simpleMessage(
+      "Kuwait method, commonly used in Kuwait.",
+    ),
     "loading": MessageLookupByLibrary.simpleMessage("Loading..."),
     "locationFetchNetworkFail": MessageLookupByLibrary.simpleMessage(
       "Failed to fetch location. Please check your network and try again.",
@@ -80,7 +98,37 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "madhabIntroBtn": MessageLookupByLibrary.simpleMessage("Change madhab"),
     "maghrib": MessageLookupByLibrary.simpleMessage("Maghrib"),
+    "middleOfTheNight": MessageLookupByLibrary.simpleMessage(
+      "Middle of the Night",
+    ),
+    "middleOfTheNightDesc": MessageLookupByLibrary.simpleMessage(
+      "Fajr will never be earlier than the middle of the night and Isha will never be later than the middle of the night.",
+    ),
+    "moonsightingCommittee": MessageLookupByLibrary.simpleMessage(
+      "Moonsighting Committee",
+    ),
+    "moonsightingCommitteeDesc": MessageLookupByLibrary.simpleMessage(
+      "Moonsighting Committee method, based on moonsighting observations.",
+    ),
+    "muslimWorldLeague": MessageLookupByLibrary.simpleMessage(
+      "Muslim World League",
+    ),
+    "muslimWorldLeagueDesc": MessageLookupByLibrary.simpleMessage(
+      "Muslim World League (MWL) method, usually used in Europe, Far East, and parts of America. Default in most calculators.",
+    ),
+    "none": MessageLookupByLibrary.simpleMessage("None"),
+    "noneDesc": MessageLookupByLibrary.simpleMessage(
+      "No special latitude adjustment is applied.",
+    ),
+    "northAmerica": MessageLookupByLibrary.simpleMessage("North America"),
+    "northAmericaDesc": MessageLookupByLibrary.simpleMessage(
+      "Islamic Society of North America (ISNA) method, commonly used in North America.",
+    ),
     "openSettings": MessageLookupByLibrary.simpleMessage("Open settings"),
+    "other": MessageLookupByLibrary.simpleMessage("Other"),
+    "otherDesc": MessageLookupByLibrary.simpleMessage(
+      "Other or generic calculation method with no specific parameters.",
+    ),
     "permissionErrorMessage": MessageLookupByLibrary.simpleMessage(
       "Taukeet needs location permission to fetch the current location, with current location Taukeet calculates the prayer times.",
     ),
@@ -90,9 +138,43 @@ class MessageLookup extends MessageLookupByLibrary {
     "prayerSdjustments": MessageLookupByLibrary.simpleMessage(
       "Prayer adjustments",
     ),
+    "qatar": MessageLookupByLibrary.simpleMessage("Qatar"),
+    "qatarDesc": MessageLookupByLibrary.simpleMessage(
+      "Qatar method, specific to Qatar.",
+    ),
     "reset": MessageLookupByLibrary.simpleMessage("Reset"),
     "saveAdjustments": MessageLookupByLibrary.simpleMessage("Save adjustments"),
     "settings": MessageLookupByLibrary.simpleMessage("Settings"),
+    "seventhOfTheNight": MessageLookupByLibrary.simpleMessage(
+      "Seventh of the Night",
+    ),
+    "seventhOfTheNightDesc": MessageLookupByLibrary.simpleMessage(
+      "Fajr will never be earlier than the beginning of the last seventh of the night and Isha will never be later than the end of the first seventh of the night.",
+    ),
+    "shafi": MessageLookupByLibrary.simpleMessage("Standard"),
+    "shafiDesc": MessageLookupByLibrary.simpleMessage(
+      "Malki, Shafi, Hanbali - Earlier Asr Time",
+    ),
+    "singapore": MessageLookupByLibrary.simpleMessage("Singapore"),
+    "singaporeDesc": MessageLookupByLibrary.simpleMessage(
+      "Singapore method, specific to Singapore.",
+    ),
     "sunrise": MessageLookupByLibrary.simpleMessage("Sunrise"),
+    "tehran": MessageLookupByLibrary.simpleMessage("Tehran"),
+    "tehranDesc": MessageLookupByLibrary.simpleMessage(
+      "Tehran method, specific to Tehran.",
+    ),
+    "turkey": MessageLookupByLibrary.simpleMessage("Turkey"),
+    "turkeyDesc": MessageLookupByLibrary.simpleMessage(
+      "Turkey method, specific to Turkey.",
+    ),
+    "twilightAngle": MessageLookupByLibrary.simpleMessage("Twilight Angle"),
+    "twilightAngleDesc": MessageLookupByLibrary.simpleMessage(
+      "Similar to Seventh of the Night, but instead of 1/7, the fraction of the night used is fajrAngle/60 and ishaAngle/60.",
+    ),
+    "ummAlQura": MessageLookupByLibrary.simpleMessage("Umm al-Qura"),
+    "ummAlQuraDesc": MessageLookupByLibrary.simpleMessage(
+      "Umm al-Qura University, Makkah method, utilized in Makkah, Saudi Arabia.",
+    ),
   };
 }

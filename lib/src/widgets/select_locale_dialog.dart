@@ -18,11 +18,15 @@ class SelectLocaleDialog extends ConsumerWidget {
         ),
         child: SingleChildScrollView(
           child: Column(
-            children: localeState.supportedLocales
-                .map((locale) => Text(
-                      locale.fullName ?? 'Unknown Locale',
-                    ))
-                .toList(),
+            children: localeState.supportedLocales.map((locale) {
+              return ListTile(
+                title: Text(locale.fullName ?? 'Unknown Locale'),
+                onTap: () {
+                  ref.read(localeProvider.notifier).setLocale(locale);
+                  Navigator.pop(context);
+                },
+              );
+            }).toList(),
           ),
         ),
       ),

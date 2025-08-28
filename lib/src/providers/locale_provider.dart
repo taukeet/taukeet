@@ -28,7 +28,7 @@ class LocaleNotifier extends StateNotifier<LocaleState> {
       : super(
           LocaleState(
             locale: const Locale('en'),
-            supportedLocales: S.delegate.supportedLocales,
+            supportedLocales: S.supportedLocales,
           ),
         ) {
     _init();
@@ -37,13 +37,19 @@ class LocaleNotifier extends StateNotifier<LocaleState> {
   Future<void> _init() async {
     final prefs = await SharedPreferences.getInstance();
     final languageCode = prefs.getString('languageCode') ?? 'en';
-    state = state.copyWith(locale: Locale(languageCode));
+    state = state.copyWith(
+      locale: Locale(languageCode),
+      supportedLocales: S.supportedLocales,
+    );
   }
 
   Future<void> setLocale(Locale locale) async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setString('languageCode', locale.languageCode);
-    state = state.copyWith(locale: locale);
+    state = state.copyWith(
+      locale: locale,
+      supportedLocales: S.supportedLocales,
+    );
   }
 }
 

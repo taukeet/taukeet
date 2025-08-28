@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intro_slider/intro_slider.dart';
 import 'package:taukeet/generated/l10n.dart';
+import 'package:taukeet/generated/l10n.mapper.dart';
 import 'package:taukeet/src/providers/settings_provider.dart';
 import 'package:taukeet/src/providers/splash_provider.dart';
 import 'package:taukeet/src/utils/extensions.dart';
@@ -27,15 +28,15 @@ class IntroScreen extends ConsumerWidget {
           context: context,
           builder: (context) {
             return WarningDialog(
-              title: S.of(context).disableLocationTitle,
-              message: S.of(context).disableLocationMessage,
+              title: S.of(context)!.disableLocationTitle,
+              message: S.of(context)!.disableLocationMessage,
               actions: [
                 SecondaryButton(
-                  text: S.of(context).cancel,
+                  text: S.of(context)!.cancel,
                   onPressed: () => Navigator.pop(context),
                 ),
                 PrimaryButton(
-                  text: S.of(context).openSettings,
+                  text: S.of(context)!.openSettings,
                   onPressed: () {
                     AppSettings.openAppSettings(type: AppSettingsType.location);
                     Navigator.pop(context);
@@ -52,15 +53,15 @@ class IntroScreen extends ConsumerWidget {
           context: context,
           builder: (context) {
             return WarningDialog(
-              title: S.of(context).permissionErrorTitle,
-              message: S.of(context).permissionErrorMessage,
+              title: S.of(context)!.permissionErrorTitle,
+              message: S.of(context)!.permissionErrorMessage,
               actions: [
                 SecondaryButton(
-                  text: S.of(context).cancel,
+                  text: S.of(context)!.cancel,
                   onPressed: () => Navigator.pop(context),
                 ),
                 PrimaryButton(
-                  text: S.of(context).openSettings,
+                  text: S.of(context)!.openSettings,
                   onPressed: () {
                     AppSettings.openAppSettings(type: AppSettingsType.settings);
                     Navigator.pop(context);
@@ -90,24 +91,25 @@ class IntroScreen extends ConsumerWidget {
             );
             return SplashContainer(
               icon: Icons.location_on,
-              title: address.isEmpty ? S.of(context).locationText : address,
+              title: address.isEmpty ? S.of(context)!.locationText : address,
               description: address.isEmpty
-                  ? S.of(context).locationIntro
-                  : S.of(context).locationIntroNext,
+                  ? S.of(context)!.locationIntro
+                  : S.of(context)!.locationIntroNext,
               buttonText: isFetchingLocation
-                  ? S.of(context).locationIntroBtnLoading
-                  : S.of(context).locationIntroBtn,
+                  ? S.of(context)!.locationIntroBtnLoading
+                  : S.of(context)!.locationIntroBtn,
               onPressed: isFetchingLocation
                   ? null
                   : () async {
                       final success = await ref
                           .read(introProvider.notifier)
                           .fetchLocation();
+                      if (!context.mounted) return;
                       if (!success && !isFetchingLocation) {
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
                             content: Text(
-                              S.current.locationFetchNetworkFail,
+                              S.of(context)!.locationFetchNetworkFail,
                             ),
                             duration: Duration(seconds: 3),
                           ),
@@ -119,13 +121,13 @@ class IntroScreen extends ConsumerWidget {
         ),
         Consumer(
           builder: (context, ref, child) {
-            final madhabStr = ref.watch(
-              settingsProvider.select((state) => state.madhabStr),
+            final madhab = ref.watch(
+              settingsProvider.select((state) => state.madhab),
             );
             return SplashContainer(
-              title: madhabStr.capitalized(),
-              description: S.of(context).madhabIntro,
-              buttonText: S.of(context).madhabIntroBtn,
+              title: S.of(context)!.parseL10n(madhab.lowercaseFirstChar()),
+              description: S.of(context)!.madhabIntro,
+              buttonText: S.of(context)!.madhabIntroBtn,
               icon: Icons.people,
               onPressed: () {
                 showDialog(
@@ -143,8 +145,8 @@ class IntroScreen extends ConsumerWidget {
             );
             return SplashContainer(
               title: calculationMethod.humanReadable(),
-              description: S.of(context).calculationMethodIntro,
-              buttonText: S.of(context).calculationMethodBtn,
+              description: S.of(context)!.calculationMethodIntro,
+              buttonText: S.of(context)!.calculationMethodBtn,
               icon: Icons.people,
               onPressed: () {
                 showDialog(

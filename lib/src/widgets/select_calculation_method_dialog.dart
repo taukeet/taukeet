@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:taukeet/generated/l10n.mapper.dart';
 import 'package:taukeet/src/providers/prayer_time_provider.dart';
 import 'package:taukeet/src/providers/settings_provider.dart';
 import 'package:taukeet/src/utils/extensions.dart';
@@ -21,16 +22,16 @@ class SelectCalculationMethodDialog extends ConsumerWidget {
         child: SingleChildScrollView(
           child: Column(
             children: prayerService.calculationMethods.map(
-              (e) {
+              (String e) {
                 return SettingTile(
-                  text: '${e["name"]}'.humanReadable(),
+                  text: context.parseL10n(e.lowercaseFirstChar()),
                   secodaryText:
-                      e["description"] == null ? null : '${e["description"]}',
+                      context.parseL10n('${e.lowercaseFirstChar()}Desc'),
                   icon: Icons.arrow_right,
                   onPressed: () {
                     ref
                         .read(settingsProvider.notifier)
-                        .updateCalculationMethod(e["name"]!);
+                        .updateCalculationMethod(e);
                     Navigator.pop(context);
                   },
                 );

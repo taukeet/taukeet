@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:taukeet/generated/l10n.dart';
+import 'package:taukeet/generated/l10n.mapper.dart';
 import 'package:taukeet/src/providers/settings_provider.dart';
 import 'package:taukeet/src/utils/extensions.dart';
 import 'package:taukeet/src/widgets/primary_button.dart';
@@ -28,15 +29,15 @@ class SettingsScreen extends ConsumerWidget {
           context: context,
           builder: (context) {
             return WarningDialog(
-              title: S.of(context).disableLocationTitle,
-              message: S.of(context).disableLocationMessage,
+              title: S.of(context)!.disableLocationTitle,
+              message: S.of(context)!.disableLocationMessage,
               actions: [
                 SecondaryButton(
-                  text: S.of(context).cancel,
+                  text: S.of(context)!.cancel,
                   onPressed: () => Navigator.pop(context),
                 ),
                 PrimaryButton(
-                  text: S.of(context).openSettings,
+                  text: S.of(context)!.openSettings,
                   onPressed: () {
                     AppSettings.openAppSettings(type: AppSettingsType.location);
                     Navigator.pop(context);
@@ -53,15 +54,15 @@ class SettingsScreen extends ConsumerWidget {
           context: context,
           builder: (context) {
             return WarningDialog(
-              title: S.of(context).permissionErrorTitle,
-              message: S.of(context).permissionErrorMessage,
+              title: S.of(context)!.permissionErrorTitle,
+              message: S.of(context)!.permissionErrorMessage,
               actions: [
                 SecondaryButton(
-                  text: S.of(context).cancel,
+                  text: S.of(context)!.cancel,
                   onPressed: () => Navigator.pop(context),
                 ),
                 PrimaryButton(
-                  text: S.of(context).openSettings,
+                  text: S.of(context)!.openSettings,
                   onPressed: () {
                     AppSettings.openAppSettings(type: AppSettingsType.settings);
                     Navigator.pop(context);
@@ -77,7 +78,7 @@ class SettingsScreen extends ConsumerWidget {
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.secondary,
       appBar: AppBar(
-        title: Text(S.of(context).settings),
+        title: Text(S.of(context)!.settings),
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -86,18 +87,20 @@ class SettingsScreen extends ConsumerWidget {
             children: [
               SettingTile(
                 text: settingsState.isFetchingLocation
-                    ? S.of(context).locationIntroBtnLoading
+                    ? S.of(context)!.locationIntroBtnLoading
                     : settingsState.address.address,
                 secodaryText: settingsState.isFetchingLocation
                     ? null
-                    : S.of(context).fetchLocationDesc,
+                    : S.of(context)!.fetchLocationDesc,
                 icon: Icons.location_pin,
                 onPressed: () =>
                     ref.read(settingsProvider.notifier).fetchLocation(),
               ),
               SettingTile(
-                text: settingsState.madhabStr.capitalized(),
-                secodaryText: S.of(context).changeMadhabDesc,
+                text: S
+                    .of(context)!
+                    .parseL10n(settingsState.madhab.lowercaseFirstChar()),
+                secodaryText: S.of(context)!.changeMadhabDesc,
                 icon: Icons.domain,
                 onPressed: () {
                   showDialog(
@@ -107,8 +110,9 @@ class SettingsScreen extends ConsumerWidget {
                 },
               ),
               SettingTile(
-                text: settingsState.calculationMethod.humanReadable(),
-                secodaryText: S.of(context).changeCalculationMethodDesc,
+                text: S.of(context)!.parseL10n(
+                    settingsState.calculationMethod.lowercaseFirstChar()),
+                secodaryText: S.of(context)!.changeCalculationMethodDesc,
                 icon: Icons.timelapse,
                 onPressed: () {
                   showDialog(
@@ -118,8 +122,9 @@ class SettingsScreen extends ConsumerWidget {
                 },
               ),
               SettingTile(
-                text: settingsState.higherLatitude.humanReadable(),
-                secodaryText: S.of(context).changeLattitudeSetting,
+                text: S.of(context)!.parseL10n(
+                    settingsState.higherLatitude.lowercaseFirstChar()),
+                secodaryText: S.of(context)!.changeLattitudeSetting,
                 icon: Icons.keyboard_double_arrow_up,
                 onPressed: () {
                   showDialog(
@@ -129,15 +134,15 @@ class SettingsScreen extends ConsumerWidget {
                 },
               ),
               SettingTile(
-                text: S.of(context).prayerSdjustments,
-                secodaryText: S.of(context).changeAdjustmentsDesc,
+                text: S.of(context)!.prayerSdjustments,
+                secodaryText: S.of(context)!.changeAdjustmentsDesc,
                 icon: Icons.adjust,
                 onPressed: () {
                   context.pushNamed('settings.adjustments');
                 },
               ),
               SettingTile(
-                text: S.of(context).changeLanguage,
+                text: S.of(context)!.changeLanguage,
                 icon: Icons.translate,
                 onPressed: () {
                   showDialog(

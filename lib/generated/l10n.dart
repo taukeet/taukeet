@@ -1,381 +1,575 @@
-// GENERATED CODE - DO NOT MODIFY BY HAND
-import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
-import 'intl/messages_all.dart';
+import 'dart:async';
 
-// **************************************************************************
-// Generator: Flutter Intl IDE plugin
-// Made by Localizely
-// **************************************************************************
+import 'package:flutter/foundation.dart';
+import 'package:flutter/widgets.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:intl/intl.dart' as intl;
 
-// ignore_for_file: non_constant_identifier_names, lines_longer_than_80_chars
-// ignore_for_file: join_return_with_assignment, prefer_final_in_for_each
-// ignore_for_file: avoid_redundant_argument_values, avoid_escaping_inner_quotes
+import 'l10n_en.dart';
+import 'l10n_hi.dart';
 
-class S {
-  S();
+// ignore_for_file: type=lint
 
-  static S? _current;
+/// Callers can lookup localized strings with an instance of S
+/// returned by `S.of(context)`.
+///
+/// Applications need to include `S.delegate()` in their app's
+/// `localizationDelegates` list, and the locales they support in the app's
+/// `supportedLocales` list. For example:
+///
+/// ```dart
+/// import 'generated/l10n.dart';
+///
+/// return MaterialApp(
+///   localizationsDelegates: S.localizationsDelegates,
+///   supportedLocales: S.supportedLocales,
+///   home: MyApplicationHome(),
+/// );
+/// ```
+///
+/// ## Update pubspec.yaml
+///
+/// Please make sure to update your pubspec.yaml to include the following
+/// packages:
+///
+/// ```yaml
+/// dependencies:
+///   # Internationalization support.
+///   flutter_localizations:
+///     sdk: flutter
+///   intl: any # Use the pinned version from flutter_localizations
+///
+///   # Rest of dependencies
+/// ```
+///
+/// ## iOS Applications
+///
+/// iOS applications define key application metadata, including supported
+/// locales, in an Info.plist file that is built into the application bundle.
+/// To configure the locales supported by your app, you’ll need to edit this
+/// file.
+///
+/// First, open your project’s ios/Runner.xcworkspace Xcode workspace file.
+/// Then, in the Project Navigator, open the Info.plist file under the Runner
+/// project’s Runner folder.
+///
+/// Next, select the Information Property List item, select Add Item from the
+/// Editor menu, then select Localizations from the pop-up menu.
+///
+/// Select and expand the newly-created Localizations item then, for each
+/// locale your application supports, add a new item and select the locale
+/// you wish to add from the pop-up menu in the Value field. This list should
+/// be consistent with the languages listed in the S.supportedLocales
+/// property.
+abstract class S {
+  S(String locale)
+      : localeName = intl.Intl.canonicalizedLocale(locale.toString());
 
-  static S get current {
-    assert(
-      _current != null,
-      'No instance of S was loaded. Try to initialize the S delegate before accessing S.current.',
-    );
-    return _current!;
-  }
+  final String localeName;
 
-  static const AppLocalizationDelegate delegate = AppLocalizationDelegate();
-
-  static Future<S> load(Locale locale) {
-    final name =
-        (locale.countryCode?.isEmpty ?? false)
-            ? locale.languageCode
-            : locale.toString();
-    final localeName = Intl.canonicalizedLocale(name);
-    return initializeMessages(localeName).then((_) {
-      Intl.defaultLocale = localeName;
-      final instance = S();
-      S._current = instance;
-
-      return instance;
-    });
-  }
-
-  static S of(BuildContext context) {
-    final instance = S.maybeOf(context);
-    assert(
-      instance != null,
-      'No instance of S present in the widget tree. Did you add S.delegate in localizationsDelegates?',
-    );
-    return instance!;
-  }
-
-  static S? maybeOf(BuildContext context) {
+  static S? of(BuildContext context) {
     return Localizations.of<S>(context, S);
   }
 
-  /// `taukeet`
-  String get appTitle {
-    return Intl.message('taukeet', name: 'appTitle', desc: '', args: []);
-  }
+  static const LocalizationsDelegate<S> delegate = _SDelegate();
 
-  /// `Location`
-  String get locationText {
-    return Intl.message('Location', name: 'locationText', desc: '', args: []);
-  }
+  /// A list of this localizations delegate along with the default localizations
+  /// delegates.
+  ///
+  /// Returns a list of localizations delegates containing this delegate along with
+  /// GlobalMaterialLocalizations.delegate, GlobalCupertinoLocalizations.delegate,
+  /// and GlobalWidgetsLocalizations.delegate.
+  ///
+  /// Additional delegates can be added by appending to this list in
+  /// MaterialApp. This list does not have to be used at all if a custom list
+  /// of delegates is preferred or required.
+  static const List<LocalizationsDelegate<dynamic>> localizationsDelegates =
+      <LocalizationsDelegate<dynamic>>[
+    delegate,
+    GlobalMaterialLocalizations.delegate,
+    GlobalCupertinoLocalizations.delegate,
+    GlobalWidgetsLocalizations.delegate,
+  ];
 
-  /// `Taukeet's accuracy in calculating and providing prayer times depends on your location. Please share your current location for precise results.`
-  String get locationIntro {
-    return Intl.message(
-      'Taukeet\'s accuracy in calculating and providing prayer times depends on your location. Please share your current location for precise results.',
-      name: 'locationIntro',
-      desc: '',
-      args: [],
-    );
-  }
+  /// A list of this localizations delegate's supported locales.
+  static const List<Locale> supportedLocales = <Locale>[
+    Locale('en'),
+    Locale('hi')
+  ];
 
-  /// `Thank you for the location, click on "Next" to continue`
-  String get locationIntroNext {
-    return Intl.message(
-      'Thank you for the location, click on "Next" to continue',
-      name: 'locationIntroNext',
-      desc: '',
-      args: [],
-    );
-  }
+  /// No description provided for @appTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'taukeet'**
+  String get appTitle;
 
-  /// `Fetch location`
-  String get locationIntroBtn {
-    return Intl.message(
-      'Fetch location',
-      name: 'locationIntroBtn',
-      desc: '',
-      args: [],
-    );
-  }
+  /// No description provided for @locationText.
+  ///
+  /// In en, this message translates to:
+  /// **'Location'**
+  String get locationText;
 
-  /// `Fetching location...`
-  String get locationIntroBtnLoading {
-    return Intl.message(
-      'Fetching location...',
-      name: 'locationIntroBtnLoading',
-      desc: '',
-      args: [],
-    );
-  }
+  /// No description provided for @locationIntro.
+  ///
+  /// In en, this message translates to:
+  /// **'Taukeet\'s accuracy in calculating and providing prayer times depends on your location. Please share your current location for precise results.'**
+  String get locationIntro;
 
-  /// `Failed to fetch location. Please check your network and try again.`
-  String get locationFetchNetworkFail {
-    return Intl.message(
-      'Failed to fetch location. Please check your network and try again.',
-      name: 'locationFetchNetworkFail',
-      desc: '',
-      args: [],
-    );
-  }
+  /// No description provided for @locationIntroNext.
+  ///
+  /// In en, this message translates to:
+  /// **'Thank you for the location, click on \"Next\" to continue'**
+  String get locationIntroNext;
 
-  /// `You can choose between Hanafi or Standard (Maliki, Shafi'i, Hanbali) calculation methods for Asr prayer times. Hanafi starts Asr later when an object's shadow is twice its length.`
-  String get madhabIntro {
-    return Intl.message(
-      'You can choose between Hanafi or Standard (Maliki, Shafi\'i, Hanbali) calculation methods for Asr prayer times. Hanafi starts Asr later when an object\'s shadow is twice its length.',
-      name: 'madhabIntro',
-      desc: '',
-      args: [],
-    );
-  }
+  /// No description provided for @locationIntroBtn.
+  ///
+  /// In en, this message translates to:
+  /// **'Fetch location'**
+  String get locationIntroBtn;
 
-  /// `Change madhab`
-  String get madhabIntroBtn {
-    return Intl.message(
-      'Change madhab',
-      name: 'madhabIntroBtn',
-      desc: '',
-      args: [],
-    );
-  }
+  /// No description provided for @locationIntroBtnLoading.
+  ///
+  /// In en, this message translates to:
+  /// **'Fetching location...'**
+  String get locationIntroBtnLoading;
 
-  /// `The calculation methods are algorithms used to determine accurate prayer schedules. To begin, please select one that is near to your location or the one you prefer.`
-  String get calculationMethodIntro {
-    return Intl.message(
-      'The calculation methods are algorithms used to determine accurate prayer schedules. To begin, please select one that is near to your location or the one you prefer.',
-      name: 'calculationMethodIntro',
-      desc: '',
-      args: [],
-    );
-  }
+  /// No description provided for @locationFetchNetworkFail.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to fetch location. Please check your network and try again.'**
+  String get locationFetchNetworkFail;
 
-  /// `Change calculation method`
-  String get calculationMethodBtn {
-    return Intl.message(
-      'Change calculation method',
-      name: 'calculationMethodBtn',
-      desc: '',
-      args: [],
-    );
-  }
+  /// No description provided for @madhabIntro.
+  ///
+  /// In en, this message translates to:
+  /// **'You can choose between Hanafi or Standard (Maliki, Shafi\'i, Hanbali) calculation methods for Asr prayer times. Hanafi starts Asr later when an object\'s shadow is twice its length.'**
+  String get madhabIntro;
 
-  /// `Warning`
-  String get disableLocationTitle {
-    return Intl.message(
-      'Warning',
-      name: 'disableLocationTitle',
-      desc: '',
-      args: [],
-    );
-  }
+  /// No description provided for @madhabIntroBtn.
+  ///
+  /// In en, this message translates to:
+  /// **'Change madhab'**
+  String get madhabIntroBtn;
 
-  /// `Location is disabled, please enable to fetch the current location.`
-  String get disableLocationMessage {
-    return Intl.message(
-      'Location is disabled, please enable to fetch the current location.',
-      name: 'disableLocationMessage',
-      desc: '',
-      args: [],
-    );
-  }
+  /// No description provided for @calculationMethodIntro.
+  ///
+  /// In en, this message translates to:
+  /// **'The calculation methods are algorithms used to determine accurate prayer schedules. To begin, please select one that is near to your location or the one you prefer.'**
+  String get calculationMethodIntro;
 
-  /// `Permission Error`
-  String get permissionErrorTitle {
-    return Intl.message(
-      'Permission Error',
-      name: 'permissionErrorTitle',
-      desc: '',
-      args: [],
-    );
-  }
+  /// No description provided for @calculationMethodBtn.
+  ///
+  /// In en, this message translates to:
+  /// **'Change calculation method'**
+  String get calculationMethodBtn;
 
-  /// `Taukeet needs location permission to fetch the current location, with current location Taukeet calculates the prayer times.`
-  String get permissionErrorMessage {
-    return Intl.message(
-      'Taukeet needs location permission to fetch the current location, with current location Taukeet calculates the prayer times.',
-      name: 'permissionErrorMessage',
-      desc: '',
-      args: [],
-    );
-  }
+  /// No description provided for @disableLocationTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Warning'**
+  String get disableLocationTitle;
 
-  /// `Cancel`
-  String get cancel {
-    return Intl.message('Cancel', name: 'cancel', desc: '', args: []);
-  }
+  /// No description provided for @disableLocationMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Location is disabled, please enable to fetch the current location.'**
+  String get disableLocationMessage;
 
-  /// `Open settings`
-  String get openSettings {
-    return Intl.message(
-      'Open settings',
-      name: 'openSettings',
-      desc: '',
-      args: [],
-    );
-  }
+  /// No description provided for @permissionErrorTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Permission Error'**
+  String get permissionErrorTitle;
 
-  /// `Loading...`
-  String get loading {
-    return Intl.message('Loading...', name: 'loading', desc: '', args: []);
-  }
+  /// No description provided for @permissionErrorMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Taukeet needs location permission to fetch the current location, with current location Taukeet calculates the prayer times.'**
+  String get permissionErrorMessage;
 
-  /// `Settings`
-  String get settings {
-    return Intl.message('Settings', name: 'settings', desc: '', args: []);
-  }
+  /// No description provided for @cancel.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get cancel;
 
-  /// `tap to get the current location`
-  String get fetchLocationDesc {
-    return Intl.message(
-      'tap to get the current location',
-      name: 'fetchLocationDesc',
-      desc: '',
-      args: [],
-    );
-  }
+  /// No description provided for @openSettings.
+  ///
+  /// In en, this message translates to:
+  /// **'Open settings'**
+  String get openSettings;
 
-  /// `tap to change the madhab`
-  String get changeMadhabDesc {
-    return Intl.message(
-      'tap to change the madhab',
-      name: 'changeMadhabDesc',
-      desc: '',
-      args: [],
-    );
-  }
+  /// No description provided for @loading.
+  ///
+  /// In en, this message translates to:
+  /// **'Loading...'**
+  String get loading;
 
-  /// `tap to change the calculation method`
-  String get changeCalculationMethodDesc {
-    return Intl.message(
-      'tap to change the calculation method',
-      name: 'changeCalculationMethodDesc',
-      desc: '',
-      args: [],
-    );
-  }
+  /// No description provided for @settings.
+  ///
+  /// In en, this message translates to:
+  /// **'Settings'**
+  String get settings;
 
-  /// `In locations at higher latitude, twilight may persist throughout the night during some months of the year. In these abnormal periods, the determination of Fajr and Isha is not possible using the usual formulas, to overcome this problem, several solutions have been proposed, tap to change the method.`
-  String get changeLattitudeSetting {
-    return Intl.message(
-      'In locations at higher latitude, twilight may persist throughout the night during some months of the year. In these abnormal periods, the determination of Fajr and Isha is not possible using the usual formulas, to overcome this problem, several solutions have been proposed, tap to change the method.',
-      name: 'changeLattitudeSetting',
-      desc: '',
-      args: [],
-    );
-  }
+  /// No description provided for @fetchLocationDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'tap to get the current location'**
+  String get fetchLocationDesc;
 
-  /// `Prayer adjustments`
-  String get prayerSdjustments {
-    return Intl.message(
-      'Prayer adjustments',
-      name: 'prayerSdjustments',
-      desc: '',
-      args: [],
-    );
-  }
+  /// No description provided for @changeMadhabDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'tap to change the madhab'**
+  String get changeMadhabDesc;
 
-  /// `Adjust the prayer times by minutes`
-  String get changeAdjustmentsDesc {
-    return Intl.message(
-      'Adjust the prayer times by minutes',
-      name: 'changeAdjustmentsDesc',
-      desc: '',
-      args: [],
-    );
-  }
+  /// No description provided for @changeCalculationMethodDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'tap to change the calculation method'**
+  String get changeCalculationMethodDesc;
 
-  /// `Change language`
-  String get changeLanguage {
-    return Intl.message(
-      'Change language',
-      name: 'changeLanguage',
-      desc: '',
-      args: [],
-    );
-  }
+  /// No description provided for @changeLattitudeSetting.
+  ///
+  /// In en, this message translates to:
+  /// **'In locations at higher latitude, twilight may persist throughout the night during some months of the year. In these abnormal periods, the determination of Fajr and Isha is not possible using the usual formulas, to overcome this problem, several solutions have been proposed, tap to change the method.'**
+  String get changeLattitudeSetting;
 
-  /// `Fajr`
-  String get fajr {
-    return Intl.message('Fajr', name: 'fajr', desc: '', args: []);
-  }
+  /// No description provided for @prayerSdjustments.
+  ///
+  /// In en, this message translates to:
+  /// **'Prayer adjustments'**
+  String get prayerSdjustments;
 
-  /// `Sunrise`
-  String get sunrise {
-    return Intl.message('Sunrise', name: 'sunrise', desc: '', args: []);
-  }
+  /// No description provided for @changeAdjustmentsDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Adjust the prayer times by minutes'**
+  String get changeAdjustmentsDesc;
 
-  /// `Dhuhr`
-  String get dhuhr {
-    return Intl.message('Dhuhr', name: 'dhuhr', desc: '', args: []);
-  }
+  /// No description provided for @changeLanguage.
+  ///
+  /// In en, this message translates to:
+  /// **'Change language'**
+  String get changeLanguage;
 
-  /// `Asr`
-  String get asr {
-    return Intl.message('Asr', name: 'asr', desc: '', args: []);
-  }
+  /// No description provided for @fajr.
+  ///
+  /// In en, this message translates to:
+  /// **'Fajr'**
+  String get fajr;
 
-  /// `Maghrib`
-  String get maghrib {
-    return Intl.message('Maghrib', name: 'maghrib', desc: '', args: []);
-  }
+  /// No description provided for @sunrise.
+  ///
+  /// In en, this message translates to:
+  /// **'Sunrise'**
+  String get sunrise;
 
-  /// `Isha`
-  String get isha {
-    return Intl.message('Isha', name: 'isha', desc: '', args: []);
-  }
+  /// No description provided for @dhuhr.
+  ///
+  /// In en, this message translates to:
+  /// **'Dhuhr'**
+  String get dhuhr;
 
-  /// `Reset`
-  String get reset {
-    return Intl.message('Reset', name: 'reset', desc: '', args: []);
-  }
+  /// No description provided for @asr.
+  ///
+  /// In en, this message translates to:
+  /// **'Asr'**
+  String get asr;
 
-  /// `Save adjustments`
-  String get saveAdjustments {
-    return Intl.message(
-      'Save adjustments',
-      name: 'saveAdjustments',
-      desc: '',
-      args: [],
-    );
-  }
+  /// No description provided for @maghrib.
+  ///
+  /// In en, this message translates to:
+  /// **'Maghrib'**
+  String get maghrib;
 
-  /// `Adjustments saved successfully`
-  String get adjustmentsSuccess {
-    return Intl.message(
-      'Adjustments saved successfully',
-      name: 'adjustmentsSuccess',
-      desc: '',
-      args: [],
-    );
-  }
+  /// No description provided for @isha.
+  ///
+  /// In en, this message translates to:
+  /// **'Isha'**
+  String get isha;
 
-  /// `Adjustments reset successfully`
-  String get adjustmentsResetSuccess {
-    return Intl.message(
-      'Adjustments reset successfully',
-      name: 'adjustmentsResetSuccess',
-      desc: '',
-      args: [],
-    );
-  }
+  /// No description provided for @reset.
+  ///
+  /// In en, this message translates to:
+  /// **'Reset'**
+  String get reset;
+
+  /// No description provided for @saveAdjustments.
+  ///
+  /// In en, this message translates to:
+  /// **'Save adjustments'**
+  String get saveAdjustments;
+
+  /// No description provided for @adjustmentsSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Adjustments saved successfully'**
+  String get adjustmentsSuccess;
+
+  /// No description provided for @adjustmentsResetSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Adjustments reset successfully'**
+  String get adjustmentsResetSuccess;
+
+  /// No description provided for @muslimWorldLeague.
+  ///
+  /// In en, this message translates to:
+  /// **'Muslim World League'**
+  String get muslimWorldLeague;
+
+  /// No description provided for @muslimWorldLeagueDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Muslim World League (MWL) method, usually used in Europe, Far East, and parts of America. Default in most calculators.'**
+  String get muslimWorldLeagueDesc;
+
+  /// No description provided for @egyptian.
+  ///
+  /// In en, this message translates to:
+  /// **'Egyptian'**
+  String get egyptian;
+
+  /// No description provided for @egyptianDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Egyptian General Authority of Survey method, commonly used in Egypt.'**
+  String get egyptianDesc;
+
+  /// No description provided for @karachi.
+  ///
+  /// In en, this message translates to:
+  /// **'Karachi'**
+  String get karachi;
+
+  /// No description provided for @karachiDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'University of Islamic Sciences, Karachi method, widely used in Karachi, Pakistan.'**
+  String get karachiDesc;
+
+  /// No description provided for @ummAlQura.
+  ///
+  /// In en, this message translates to:
+  /// **'Umm al-Qura'**
+  String get ummAlQura;
+
+  /// No description provided for @ummAlQuraDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Umm al-Qura University, Makkah method, utilized in Makkah, Saudi Arabia.'**
+  String get ummAlQuraDesc;
+
+  /// No description provided for @dubai.
+  ///
+  /// In en, this message translates to:
+  /// **'Dubai'**
+  String get dubai;
+
+  /// No description provided for @dubaiDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Dubai method, specific to Dubai, United Arab Emirates.'**
+  String get dubaiDesc;
+
+  /// No description provided for @moonsightingCommittee.
+  ///
+  /// In en, this message translates to:
+  /// **'Moonsighting Committee'**
+  String get moonsightingCommittee;
+
+  /// No description provided for @moonsightingCommitteeDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Moonsighting Committee method, based on moonsighting observations.'**
+  String get moonsightingCommitteeDesc;
+
+  /// No description provided for @northAmerica.
+  ///
+  /// In en, this message translates to:
+  /// **'North America'**
+  String get northAmerica;
+
+  /// No description provided for @northAmericaDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Islamic Society of North America (ISNA) method, commonly used in North America.'**
+  String get northAmericaDesc;
+
+  /// No description provided for @kuwait.
+  ///
+  /// In en, this message translates to:
+  /// **'Kuwait'**
+  String get kuwait;
+
+  /// No description provided for @kuwaitDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Kuwait method, commonly used in Kuwait.'**
+  String get kuwaitDesc;
+
+  /// No description provided for @qatar.
+  ///
+  /// In en, this message translates to:
+  /// **'Qatar'**
+  String get qatar;
+
+  /// No description provided for @qatarDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Qatar method, specific to Qatar.'**
+  String get qatarDesc;
+
+  /// No description provided for @singapore.
+  ///
+  /// In en, this message translates to:
+  /// **'Singapore'**
+  String get singapore;
+
+  /// No description provided for @singaporeDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Singapore method, specific to Singapore.'**
+  String get singaporeDesc;
+
+  /// No description provided for @turkey.
+  ///
+  /// In en, this message translates to:
+  /// **'Turkey'**
+  String get turkey;
+
+  /// No description provided for @turkeyDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Turkey method, specific to Turkey.'**
+  String get turkeyDesc;
+
+  /// No description provided for @tehran.
+  ///
+  /// In en, this message translates to:
+  /// **'Tehran'**
+  String get tehran;
+
+  /// No description provided for @tehranDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Tehran method, specific to Tehran.'**
+  String get tehranDesc;
+
+  /// No description provided for @other.
+  ///
+  /// In en, this message translates to:
+  /// **'Other'**
+  String get other;
+
+  /// No description provided for @otherDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Other or generic calculation method with no specific parameters.'**
+  String get otherDesc;
+
+  /// No description provided for @none.
+  ///
+  /// In en, this message translates to:
+  /// **'None'**
+  String get none;
+
+  /// No description provided for @noneDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'No special latitude adjustment is applied.'**
+  String get noneDesc;
+
+  /// No description provided for @middleOfTheNight.
+  ///
+  /// In en, this message translates to:
+  /// **'Middle of the Night'**
+  String get middleOfTheNight;
+
+  /// No description provided for @middleOfTheNightDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Fajr will never be earlier than the middle of the night and Isha will never be later than the middle of the night.'**
+  String get middleOfTheNightDesc;
+
+  /// No description provided for @seventhOfTheNight.
+  ///
+  /// In en, this message translates to:
+  /// **'Seventh of the Night'**
+  String get seventhOfTheNight;
+
+  /// No description provided for @seventhOfTheNightDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Fajr will never be earlier than the beginning of the last seventh of the night and Isha will never be later than the end of the first seventh of the night.'**
+  String get seventhOfTheNightDesc;
+
+  /// No description provided for @twilightAngle.
+  ///
+  /// In en, this message translates to:
+  /// **'Twilight Angle'**
+  String get twilightAngle;
+
+  /// No description provided for @twilightAngleDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Similar to Seventh of the Night, but instead of 1/7, the fraction of the night used is fajrAngle/60 and ishaAngle/60.'**
+  String get twilightAngleDesc;
+
+  /// No description provided for @hanafi.
+  ///
+  /// In en, this message translates to:
+  /// **'Hanfi'**
+  String get hanafi;
+
+  /// No description provided for @hanafiDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Later Asr Time'**
+  String get hanafiDesc;
+
+  /// No description provided for @shafi.
+  ///
+  /// In en, this message translates to:
+  /// **'Standard'**
+  String get shafi;
+
+  /// No description provided for @shafiDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Malki, Shafi, Hanbali - Earlier Asr Time'**
+  String get shafiDesc;
 }
 
-class AppLocalizationDelegate extends LocalizationsDelegate<S> {
-  const AppLocalizationDelegate();
+class _SDelegate extends LocalizationsDelegate<S> {
+  const _SDelegate();
 
-  List<Locale> get supportedLocales {
-    return const <Locale>[Locale.fromSubtags(languageCode: 'en')];
+  @override
+  Future<S> load(Locale locale) {
+    return SynchronousFuture<S>(lookupS(locale));
   }
 
   @override
-  bool isSupported(Locale locale) => _isSupported(locale);
-  @override
-  Future<S> load(Locale locale) => S.load(locale);
-  @override
-  bool shouldReload(AppLocalizationDelegate old) => false;
+  bool isSupported(Locale locale) =>
+      <String>['en', 'hi'].contains(locale.languageCode);
 
-  bool _isSupported(Locale locale) {
-    for (var supportedLocale in supportedLocales) {
-      if (supportedLocale.languageCode == locale.languageCode) {
-        return true;
-      }
-    }
-    return false;
+  @override
+  bool shouldReload(_SDelegate old) => false;
+}
+
+S lookupS(Locale locale) {
+  // Lookup logic when only language code is specified.
+  switch (locale.languageCode) {
+    case 'en':
+      return SEn();
+    case 'hi':
+      return SHi();
   }
+
+  throw FlutterError(
+      'S.delegate failed to load unsupported locale "$locale". This is likely '
+      'an issue with the localizations generation tool. Please file an issue '
+      'on GitHub with a reproducible sample app and the gen-l10n configuration '
+      'that was used.');
 }

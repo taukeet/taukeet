@@ -1,8 +1,8 @@
 import 'package:adhan/adhan.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:taukeet/generated/l10n.dart';
 import 'package:taukeet/src/providers/settings_provider.dart';
-import 'package:taukeet/src/utils/extensions.dart';
 import 'package:taukeet/src/widgets/setting_tile.dart';
 
 class SelectMadhabDialog extends ConsumerWidget {
@@ -20,10 +20,11 @@ class SelectMadhabDialog extends ConsumerWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             SettingTile(
-              text: Madhab.hanafi.name.capitalized(),
-              secodaryText: "Later Asr time",
+              text: S.of(context)!.hanafi,
+              secodaryText: S.of(context)!.hanafiDesc,
               icon: Icons.arrow_right,
               onPressed: () {
+                print(Madhab.hanafi.name);
                 ref
                     .read(settingsProvider.notifier)
                     .updateMadhab(Madhab.hanafi.name);
@@ -31,10 +32,11 @@ class SelectMadhabDialog extends ConsumerWidget {
               },
             ),
             SettingTile(
-              text: "Standard",
-              secodaryText: "Maliki, Shafi'i, Hanbali - Earlier Asr time",
+              text: S.of(context)!.shafi,
+              secodaryText: S.of(context)!.shafiDesc,
               icon: Icons.arrow_right,
               onPressed: () {
+                print(Madhab.shafi.name);
                 ref
                     .read(settingsProvider.notifier)
                     .updateMadhab(Madhab.shafi.name);

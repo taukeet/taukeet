@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:taukeet/generated/l10n.dart';
+import 'package:taukeet/generated/l10n.mapper.dart';
 import 'package:taukeet/src/providers/prayer_time_provider.dart';
 import 'package:taukeet/src/providers/settings_provider.dart';
 import 'package:taukeet/src/utils/extensions.dart';
@@ -21,16 +23,14 @@ class SelectHigherLatitudeDialog extends ConsumerWidget {
         child: SingleChildScrollView(
           child: Column(
             children: prayerService.higherLatitudes.map(
-              (e) {
+              (String e) {
                 return SettingTile(
-                  text: '${e["name"]}'.humanReadable(),
+                  text: S.of(context)!.parseL10n(e.lowercaseFirstChar()),
                   secodaryText:
-                      e["description"] == null ? null : '${e["description"]}',
+                      S.of(context)!.parseL10n('${e.lowercaseFirstChar()}Desc'),
                   icon: Icons.arrow_right,
                   onPressed: () {
-                    ref
-                        .read(settingsProvider.notifier)
-                        .updateHigherLatitude(e["name"]!);
+                    ref.read(settingsProvider.notifier).updateHigherLatitude(e);
                     Navigator.pop(context);
                   },
                 );

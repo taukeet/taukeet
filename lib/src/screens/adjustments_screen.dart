@@ -18,7 +18,7 @@ class AdjustmentsScreen extends ConsumerWidget {
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.secondary,
       appBar: AppBar(
-        title: Text(S.of(context).prayerSdjustments),
+        title: Text(S.of(context)!.prayerSdjustments),
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -33,7 +33,7 @@ class AdjustmentsScreen extends ConsumerWidget {
               children: [
                 TextFormInput(
                   name: "fajr",
-                  label: S.of(context).fajr,
+                  label: S.of(context)!.fajr,
                   initialValue: settingsState.adjustments.fajr.toString(),
                   textInputType: TextInputType.number,
                   required: true,
@@ -41,7 +41,7 @@ class AdjustmentsScreen extends ConsumerWidget {
                 const SizedBox(height: 14),
                 TextFormInput(
                   name: "sunrise",
-                  label: S.of(context).sunrise,
+                  label: S.of(context)!.sunrise,
                   initialValue: settingsState.adjustments.sunrise.toString(),
                   textInputType: TextInputType.number,
                   required: true,
@@ -49,7 +49,7 @@ class AdjustmentsScreen extends ConsumerWidget {
                 const SizedBox(height: 14),
                 TextFormInput(
                   name: "dhuhr",
-                  label: S.of(context).dhuhr,
+                  label: S.of(context)!.dhuhr,
                   initialValue: settingsState.adjustments.dhuhr.toString(),
                   textInputType: TextInputType.number,
                   required: true,
@@ -57,7 +57,7 @@ class AdjustmentsScreen extends ConsumerWidget {
                 const SizedBox(height: 14),
                 TextFormInput(
                   name: "asr",
-                  label: S.of(context).asr,
+                  label: S.of(context)!.asr,
                   initialValue: settingsState.adjustments.asr.toString(),
                   textInputType: TextInputType.number,
                   required: true,
@@ -65,7 +65,7 @@ class AdjustmentsScreen extends ConsumerWidget {
                 const SizedBox(height: 14),
                 TextFormInput(
                   name: "maghrib",
-                  label: S.of(context).maghrib,
+                  label: S.of(context)!.maghrib,
                   initialValue: settingsState.adjustments.maghrib.toString(),
                   textInputType: TextInputType.number,
                   required: true,
@@ -73,7 +73,7 @@ class AdjustmentsScreen extends ConsumerWidget {
                 const SizedBox(height: 14),
                 TextFormInput(
                   name: "isha",
-                  label: S.of(context).isha,
+                  label: S.of(context)!.isha,
                   initialValue: settingsState.adjustments.isha.toString(),
                   textInputType: TextInputType.number,
                   required: true,
@@ -83,7 +83,7 @@ class AdjustmentsScreen extends ConsumerWidget {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     SecondaryButton(
-                      text: S.of(context).reset,
+                      text: S.of(context)!.reset,
                       onPressed: () {
                         ref.read(settingsProvider.notifier).updateAdjustments(
                               fajr: 0,
@@ -95,14 +95,15 @@ class AdjustmentsScreen extends ConsumerWidget {
                             );
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
-                            content: Text(S.of(context).adjustmentsResetSuccess),
+                            content:
+                                Text(S.of(context)!.adjustmentsResetSuccess),
                           ),
                         );
                         Navigator.pop(context);
                       },
                     ),
                     PrimaryButton(
-                      text: S.of(context).saveAdjustments,
+                      text: S.of(context)!.saveAdjustments,
                       onPressed: () {
                         if (formKey.currentState!.validate()) {
                           final fields = formKey.currentState?.fields;
@@ -119,7 +120,7 @@ class AdjustmentsScreen extends ConsumerWidget {
                               );
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(
-                              content: Text(S.of(context).adjustmentsSuccess),
+                              content: Text(S.of(context)!.adjustmentsSuccess),
                             ),
                           );
                           Navigator.pop(context);

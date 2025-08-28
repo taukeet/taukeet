@@ -17,7 +17,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    
+
     WidgetsBinding.instance.addPostFrameCallback((_) {
       setState(() => opacity = 1.0);
     });
@@ -54,7 +54,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
                 ),
                 const SizedBox(height: 4),
                 Text(
-                  S.of(context).appTitle,
+                  S.of(context)!.appTitle,
                   style: TextStyle(
                     fontSize: 36,
                     fontFamily: 'Lateef',

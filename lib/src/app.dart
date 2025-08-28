@@ -84,7 +84,7 @@ class App extends ConsumerWidget {
           GlobalWidgetsLocalizations.delegate,
           GlobalCupertinoLocalizations.delegate,
         ],
-        supportedLocales: localeState.supportedLocales,
+        supportedLocales: S.supportedLocales,
       ),
     );
   }

@@ -12,7 +12,7 @@ final settingsFutureProvider = FutureProvider<SettingsState>((ref) async {
   final prefs = await SharedPreferences.getInstance();
   const settingsKey = SettingsNotifier._settingsKey;
   final settingsJson = prefs.getString(settingsKey);
-  
+
   if (settingsJson != null) {
     final settingsMap = jsonDecode(settingsJson) as Map<String, dynamic>;
     return SettingsState.fromMap(settingsMap);
@@ -65,8 +65,6 @@ class SettingsState {
     this.calculationMethod = "Karachi",
     this.higherLatitude = "None",
   });
-
-  String get madhabStr => madhab == "shafi" ? "Standard" : "Hanafi";
 
   SettingsState copyWith({
     bool? isFetchingLocation,
@@ -151,7 +149,7 @@ class SettingsNotifier extends StateNotifier<SettingsState> {
 
   Future<void> _saveSettings() async {
     final settingsJson = jsonEncode(state.toMap());
-    
+
     await _prefs.setString(_settingsKey, settingsJson);
   }
 
@@ -170,7 +168,7 @@ class SettingsNotifier extends StateNotifier<SettingsState> {
         hasFetchedInitialLocation: true,
       );
       await _saveSettings();
-      
+
       return true;
     } on LocationDisabledException {
       state = state.copyWith(
