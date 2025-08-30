@@ -1,5 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:taukeet/src/entities/prayer_time.dart';
+import 'package:taukeet/features/prayer_times/domain/entities/prayer_time.dart';
 import 'package:taukeet/src/providers/prayer_time_provider.dart';
 
 final homeProvider = StateNotifierProvider<HomeNotifier, HomeState>((ref) {

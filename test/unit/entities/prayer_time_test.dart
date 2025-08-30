@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:taukeet/src/entities/prayer_name.dart';
-import 'package:taukeet/src/entities/prayer_time.dart';
+import 'package:taukeet/features/prayer_times/domain/entities/prayer_name.dart';
+import 'package:taukeet/features/prayer_times/domain/entities/prayer_time.dart';
 
 void main() {
   group('PrayerTime Entity Tests', () {

@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:taukeet/src/entities/adjustments.dart';
+import 'package:taukeet/features/prayer_times/domain/entities/adjustments.dart';
 
 void main() {
   group('Adjustments Entity Tests', () {

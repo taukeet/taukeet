@@ -3,7 +3,7 @@ import 'package:taukeet/core/errors/location_disabled_exception.dart';
 import 'package:taukeet/core/errors/location_permission_denied.dart';
 import 'package:taukeet/src/services/geo_location_service.dart';
 import 'package:location/location.dart' as geo_location;
-import 'package:taukeet/src/entities/address.dart';
+import 'package:taukeet/features/location/domain/entities/address.dart';
 
 class LocationImpl implements GeoLocationService {
   @override

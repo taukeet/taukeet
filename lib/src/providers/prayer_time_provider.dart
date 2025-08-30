@@ -1,5 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:taukeet/src/entities/prayer_time.dart';
+import 'package:taukeet/features/prayer_times/domain/entities/prayer_time.dart';
 import 'package:taukeet/src/implementations/adhan_impl.dart';
 import 'package:taukeet/src/providers/settings_provider.dart';
 import 'package:taukeet/src/services/prayer_time_service.dart';

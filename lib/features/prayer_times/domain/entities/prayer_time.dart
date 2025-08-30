@@ -1,4 +1,4 @@
-import 'package:taukeet/src/entities/prayer_name.dart';
+import 'package:taukeet/features/prayer_times/domain/entities/prayer_name.dart';
 
 class PrayerTime {
   final PrayerName name;

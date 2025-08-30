@@ -1,6 +1,6 @@
-import 'package:taukeet/src/entities/address.dart';
-import 'package:taukeet/src/entities/adjustments.dart';
-import 'package:taukeet/src/entities/prayer_time.dart';
+import 'package:taukeet/features/location/domain/entities/address.dart';
+import 'package:taukeet/features/prayer_times/domain/entities/adjustments.dart';
+import 'package:taukeet/features/prayer_times/domain/entities/prayer_time.dart';
 
 abstract class PrayerTimeService {
   List<String> get calculationMethods;

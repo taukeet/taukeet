@@ -1,4 +1,4 @@
-import 'package:taukeet/src/entities/address.dart';
+import 'package:taukeet/features/location/domain/entities/address.dart';
 
 abstract class GeoLocationService {
   Future<Address> fetch({String? locale});

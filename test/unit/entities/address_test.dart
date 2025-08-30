@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:taukeet/src/entities/address.dart';
+import 'package:taukeet/features/location/domain/entities/address.dart';
 
 void main() {
   group('Address Entity Tests', () {

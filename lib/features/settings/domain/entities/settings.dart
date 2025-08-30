@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:taukeet/src/entities/address.dart';
+import 'package:taukeet/features/location/domain/entities/address.dart';
 
 class Settings {
     final Address address;
