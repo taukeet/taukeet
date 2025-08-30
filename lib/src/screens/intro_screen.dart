@@ -11,6 +11,7 @@ import 'package:taukeet/src/utils/extensions.dart';
 import 'package:taukeet/src/widgets/primary_button.dart';
 import 'package:taukeet/src/widgets/secondary_button.dart';
 import 'package:taukeet/src/widgets/select_calculation_method_dialog.dart';
+import 'package:taukeet/src/widgets/select_locale_dialog.dart';
 import 'package:taukeet/src/widgets/select_madhab_dialog.dart';
 import 'package:taukeet/src/widgets/warning_dialog.dart';
 
@@ -78,6 +79,22 @@ class IntroScreen extends ConsumerWidget {
       listCustomTabs: [
         Consumer(
           builder: (context, ref, child) {
+            return SplashContainer(
+              title: S.of(context)!.chooseLanguage,
+              description: S.of(context)!.chooseLanguageDesc,
+              buttonText: S.of(context)!.chooseLanguageBtn,
+              icon: Icons.translate,
+              onPressed: () {
+                showDialog(
+                  context: context,
+                  builder: (context) => const SelectLocaleDialog(),
+                );
+              },
+            );
+          },
+        ),
+        Consumer(
+          builder: (context, ref, child) {
             final isFetchingLocation = ref.watch(
               settingsProvider.select((state) => state.isFetchingLocation),
             );
@@ -139,7 +156,9 @@ class IntroScreen extends ConsumerWidget {
               settingsProvider.select((state) => state.calculationMethod),
             );
             return SplashContainer(
-              title: calculationMethod.humanReadable(),
+              title: S
+                  .of(context)!
+                  .parseL10n(calculationMethod.lowercaseFirstChar()),
               description: S.of(context)!.calculationMethodIntro,
               buttonText: S.of(context)!.calculationMethodBtn,
               icon: Icons.people,

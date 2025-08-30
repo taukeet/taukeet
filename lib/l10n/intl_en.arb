@@ -102,5 +102,9 @@
     "hanafiDesc": "Later Asr Time",
 
     "shafi": "Standard",
-    "shafiDesc": "Malki, Shafi, Hanbali - Earlier Asr Time"
+    "shafiDesc": "Malki, Shafi, Hanbali - Earlier Asr Time",
+
+    "chooseLanguage": "Choose Language",
+    "chooseLanguageDesc": "Select your preferred language for the app",
+    "chooseLanguageBtn": "Select"
 }

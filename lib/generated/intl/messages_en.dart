@@ -50,6 +50,11 @@ class MessageLookup extends MessageLookupByLibrary {
     "changeMadhabDesc": MessageLookupByLibrary.simpleMessage(
       "tap to change the madhab",
     ),
+    "chooseLanguage": MessageLookupByLibrary.simpleMessage("Choose Language"),
+    "chooseLanguageBtn": MessageLookupByLibrary.simpleMessage("Select"),
+    "chooseLanguageDesc": MessageLookupByLibrary.simpleMessage(
+      "Select your preferred language for the app",
+    ),
     "dhuhr": MessageLookupByLibrary.simpleMessage("Dhuhr"),
     "disableLocationMessage": MessageLookupByLibrary.simpleMessage(
       "Location is disabled, please enable to fetch the current location.",

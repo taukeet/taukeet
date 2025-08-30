@@ -249,4 +249,13 @@ class SEn extends S {
 
   @override
   String get shafiDesc => 'Malki, Shafi, Hanbali - Earlier Asr Time';
+
+  @override
+  String get chooseLanguage => 'Choose Language';
+
+  @override
+  String get chooseLanguageDesc => 'Select your preferred language for the app';
+
+  @override
+  String get chooseLanguageBtn => 'Select';
 }

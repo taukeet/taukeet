@@ -117,6 +117,9 @@ class SMapper {
       'hanafiDesc': localizations.hanafiDesc,
       'shafi': localizations.shafi,
       'shafiDesc': localizations.shafiDesc,
+      'chooseLanguage': localizations.chooseLanguage,
+      'chooseLanguageDesc': localizations.chooseLanguageDesc,
+      'chooseLanguageBtn': localizations.chooseLanguageBtn,
     };
   }
 }

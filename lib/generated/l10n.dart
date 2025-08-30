@@ -540,6 +540,24 @@ abstract class S {
   /// In en, this message translates to:
   /// **'Malki, Shafi, Hanbali - Earlier Asr Time'**
   String get shafiDesc;
+
+  /// No description provided for @chooseLanguage.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose Language'**
+  String get chooseLanguage;
+
+  /// No description provided for @chooseLanguageDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Select your preferred language for the app'**
+  String get chooseLanguageDesc;
+
+  /// No description provided for @chooseLanguageBtn.
+  ///
+  /// In en, this message translates to:
+  /// **'Select'**
+  String get chooseLanguageBtn;
 }
 
 class _SDelegate extends LocalizationsDelegate<S> {

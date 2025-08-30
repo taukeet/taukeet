@@ -91,5 +91,9 @@
     "hanafiDesc": "बाद में अस्र का समय",
 
     "shafi": "मानक",
-    "shafiDesc": "मालिकी, शाफ़ी, हंबली - अस्र का पहले का समय"
+    "shafiDesc": "मालिकी, शाफ़ी, हंबली - अस्र का पहले का समय",
+
+      "chooseLanguage": "भाषा चुनें",
+  "chooseLanguageDesc": "एप के लिए अपनी पसंदीदा भाषा चुनें",
+  "chooseLanguageBtn": "चुनें"
 }

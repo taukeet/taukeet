@@ -252,4 +252,13 @@ class SHi extends S {
 
   @override
   String get shafiDesc => 'मालिकी, शाफ़ी, हंबली - अस्र का पहले का समय';
+
+  @override
+  String get chooseLanguage => 'भाषा चुनें';
+
+  @override
+  String get chooseLanguageDesc => 'एप के लिए अपनी पसंदीदा भाषा चुनें';
+
+  @override
+  String get chooseLanguageBtn => 'चुनें';
 }
