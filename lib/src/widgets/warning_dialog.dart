@@ -17,7 +17,7 @@ class WarningDialog extends StatelessWidget {
     return Dialog(
       child: Container(
         decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.secondary,
+          color: Theme.of(context).colorScheme.surface,
           borderRadius: const BorderRadius.all(Radius.circular(12.0)),
         ),
         child: Padding(
