@@ -1,36 +1,39 @@
 name: taukeet
 description: A new Flutter project.
-publish_to: 'none'
+publish_to: "none"
 version: 0.1.3+4
 
 environment:
-  sdk: '>=3.1.0 <4.0.0'
+  sdk: ">=3.1.0 <4.0.0"
 
 dependencies:
+  adhan: ^2.0.0
+  app_settings: ^5.0.0
+  carousel_slider: ^5.1.1
   flutter:
     sdk: flutter
+  flutter_form_builder: ^10.0.1
+  flutter_launcher_icons: ^0.14.1
   flutter_localizations:
     sdk: flutter
-  go_router: ^14.2.9
-  location: ^7.0.0
-  geocoding: ^3.0.0
   flutter_native_splash: ^2.3.2
-  flutter_launcher_icons: ^0.14.1
-  app_settings: ^5.0.0
-  flutter_form_builder: ^10.0.1
-  adhan: ^2.0.0
   flutter_riverpod: ^2.6.1
-  shared_preferences: ^2.5.2
+  geocoding: ^3.0.0
+  go_router: ^14.2.9
   intl: ^0.20.2
-  carousel_slider: ^5.1.1
+  location: ^7.0.0
+  shared_preferences: ^2.5.2
 
 dev_dependencies:
-  flutter_test:
-    sdk: flutter
-  flutter_lints: ^5.0.0
   build_runner: ^2.4.6
   change_app_package_name: ^1.1.0
+  fake_async: ^1.3.1
+  flutter_lints: ^5.0.0
+  flutter_test:
+    sdk: flutter
   l10n_mapper_generator: ^2.2.0
+  mocktail: ^1.0.0
+  riverpod_test: ^0.1.9
 
 flutter:
   generate: true
