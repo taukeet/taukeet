@@ -1,10 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
+import 'package:intl/intl.dart';
+import 'package:taukeet/generated/l10n.dart';
+import 'package:taukeet/src/providers/home_provider.dart';
+import 'package:taukeet/src/providers/settings_provider.dart';
 
-class HomeScreenNew extends StatelessWidget {
-  const HomeScreenNew({Key? key}) : super(key: key);
+class HomeScreenNew extends ConsumerWidget {
+  const HomeScreenNew({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final settingsState = ref.watch(settingsProvider);
+    final homeState = ref.watch(homeProvider);
+
     return Scaffold(
       backgroundColor: const Color(0xFF1A1A1A),
       body: SafeArea(
@@ -20,18 +29,34 @@ class HomeScreenNew extends StatelessWidget {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        'Hyderabad, India',
-                        style: TextStyle(
-                          color: Colors.white.withOpacity(0.8),
-                          fontSize: 18,
-                          fontWeight: FontWeight.w400,
-                        ),
+                      Row(
+                        children: [
+                          Icon(
+                            Icons.location_pin,
+                            size: 16,
+                            color: Colors.white.withOpacity(0.8),
+                          ),
+                          const SizedBox(width: 4),
+                          SizedBox(
+                            width: MediaQuery.of(context).size.width * 0.6,
+                            child: Text(
+                              settingsState.isFetchingLocation
+                                  ? S.of(context)!.locationIntroBtnLoading
+                                  : settingsState.address.address,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                color: Colors.white.withOpacity(0.8),
+                                fontSize: 18,
+                                fontWeight: FontWeight.w400,
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
                       const SizedBox(height: 8),
-                      const Text(
-                        '10:25 AM',
-                        style: TextStyle(
+                      Text(
+                        DateFormat('hh:mm a').format(DateTime.now()),
+                        style: const TextStyle(
                           color: Colors.white,
                           fontSize: 32,
                           fontWeight: FontWeight.w300,
@@ -39,10 +64,13 @@ class HomeScreenNew extends StatelessWidget {
                       ),
                     ],
                   ),
-                  Icon(
-                    Icons.settings,
-                    color: Colors.white.withOpacity(0.6),
-                    size: 28,
+                  InkWell(
+                    onTap: () => context.pushNamed('settings'),
+                    child: Icon(
+                      Icons.settings,
+                      color: Colors.white.withOpacity(0.6),
+                      size: 28,
+                    ),
                   ),
                 ],
               ),
@@ -58,9 +86,23 @@ class HomeScreenNew extends StatelessWidget {
                 ),
                 child: Row(
                   children: [
-                    _buildDateTab('28 Aug', false),
-                    _buildDateTab('29 Aug 2025', true),
-                    _buildDateTab('30 Aug', false),
+                    _buildDateTab(
+                      DateFormat('dd MMM').format(
+                          homeState.dateTime.subtract(const Duration(days: 1))),
+                      false,
+                      () => ref.read(homeProvider.notifier).changeToPrevDate(),
+                    ),
+                    _buildDateTab(
+                      DateFormat('dd MMM yyyy').format(homeState.dateTime),
+                      true,
+                      () => ref.read(homeProvider.notifier).changeToToday(),
+                    ),
+                    _buildDateTab(
+                      DateFormat('dd MMM').format(
+                          homeState.dateTime.add(const Duration(days: 1))),
+                      false,
+                      () => ref.read(homeProvider.notifier).changeToNextDate(),
+                    ),
                   ],
                 ),
               ),
@@ -69,57 +111,39 @@ class HomeScreenNew extends StatelessWidget {
 
               // Prayer Times Grid
               Expanded(
-                child: GridView.count(
-                  crossAxisCount: 2,
-                  crossAxisSpacing: 15,
-                  mainAxisSpacing: 15,
-                  childAspectRatio: 1.1,
-                  children: [
-                    _buildPrayerCard(
-                      'Fajr',
-                      '04:48',
-                      'AM',
-                      Icons.brightness_2,
-                      const Color(0xFF2A2A2A),
-                    ),
-                    _buildPrayerCard(
-                      'Sunrise',
-                      '06:02',
-                      'AM',
-                      Icons.wb_sunny,
-                      const Color(0xFF4A6CF7),
-                      isHighlighted: true,
-                    ),
-                    _buildPrayerCard(
-                      'Dhuhr',
-                      '12:18',
-                      'PM',
-                      Icons.wb_sunny,
-                      const Color(0xFF2A2A2A),
-                    ),
-                    _buildPrayerCard(
-                      'Asr',
-                      '03:35',
-                      'PM',
-                      Icons.account_balance,
-                      const Color(0xFF2A2A2A),
-                    ),
-                    _buildPrayerCard(
-                      'Maghrib',
-                      '06:32',
-                      'PM',
-                      Icons.brightness_2,
-                      const Color(0xFF2A2A2A),
-                    ),
-                    _buildPrayerCard(
-                      'Isha',
-                      '07:42',
-                      'PM',
-                      Icons.star,
-                      const Color(0xFF2A2A2A),
-                    ),
-                  ],
-                ),
+                child: homeState.prayers.isEmpty
+                    ? Center(
+                        child: Text(
+                          S.of(context)!.loading,
+                          style: TextStyle(
+                            color: Colors.white.withOpacity(0.8),
+                            fontSize: 18,
+                          ),
+                        ),
+                      )
+                    : GridView.builder(
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2,
+                          crossAxisSpacing: 15,
+                          mainAxisSpacing: 15,
+                          childAspectRatio: 1.1,
+                        ),
+                        itemCount: homeState.prayers.length,
+                        itemBuilder: (context, index) {
+                          final prayer = homeState.prayers[index];
+                          return _buildPrayerCard(
+                            prayer.name.english,
+                            DateFormat('hh:mm').format(prayer.startTime),
+                            DateFormat('a').format(prayer.startTime),
+                            _getIconForPrayer(prayer.name.english),
+                            prayer.isCurrentPrayer
+                                ? const Color(0xFF4A6CF7)
+                                : const Color(0xFF2A2A2A),
+                            isHighlighted: prayer.isCurrentPrayer,
+                          );
+                        },
+                      ),
               ),
             ],
           ),
@@ -128,24 +152,46 @@ class HomeScreenNew extends StatelessWidget {
     );
   }
 
-  Widget _buildDateTab(String text, bool isSelected) {
+  Widget _buildDateTab(String text, bool isSelected, VoidCallback onTap) {
     return Expanded(
-      child: Container(
-        alignment: Alignment.center,
-        decoration: BoxDecoration(
-          color: isSelected ? const Color(0xFF4A6CF7) : Colors.transparent,
-          borderRadius: BorderRadius.circular(25),
-        ),
-        child: Text(
-          text,
-          style: TextStyle(
-            color: isSelected ? Colors.white : Colors.white.withOpacity(0.6),
-            fontSize: 14,
-            fontWeight: isSelected ? FontWeight.w500 : FontWeight.w400,
+      child: InkWell(
+        onTap: onTap,
+        child: Container(
+          alignment: Alignment.center,
+          decoration: BoxDecoration(
+            color: isSelected ? const Color(0xFF4A6CF7) : Colors.transparent,
+            borderRadius: BorderRadius.circular(25),
+          ),
+          child: Text(
+            text,
+            style: TextStyle(
+              color: isSelected ? Colors.white : Colors.white.withOpacity(0.6),
+              fontSize: 14,
+              fontWeight: isSelected ? FontWeight.w500 : FontWeight.w400,
+            ),
           ),
         ),
       ),
     );
+  }
+
+  IconData _getIconForPrayer(String prayerName) {
+    switch (prayerName.toLowerCase()) {
+      case 'fajr':
+        return Icons.brightness_2;
+      case 'sunrise':
+        return Icons.wb_sunny;
+      case 'dhuhr':
+        return Icons.wb_sunny;
+      case 'asr':
+        return Icons.account_balance;
+      case 'maghrib':
+        return Icons.brightness_2;
+      case 'isha':
+        return Icons.star;
+      default:
+        return Icons.access_time;
+    }
   }
 
   Widget _buildPrayerCard(
@@ -170,12 +216,12 @@ class HomeScreenNew extends StatelessWidget {
         children: [
           // Background Icon
           Positioned(
-            bottom: 10,
-            right: 10,
+            bottom: 5,
+            right: 5,
             child: Icon(
               icon,
               color: Colors.white.withOpacity(0.08),
-              size: 80,
+              size: 70,
             ),
           ),
           // Content
@@ -192,7 +238,7 @@ class HomeScreenNew extends StatelessWidget {
                     fontWeight: FontWeight.w400,
                   ),
                 ),
-                const SizedBox(height: 12),
+                const SizedBox(height: 8),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
