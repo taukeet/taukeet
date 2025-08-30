@@ -7,7 +7,7 @@ import 'package:taukeet/src/entities/address.dart';
 
 class LocationImpl implements GeoLocationService {
   @override
-  Future<Address> fetch() async {
+  Future<Address> fetch({String? locale}) async {
     geo_location.Location location = geo_location.Location();
 
     // Check if location service is enable
@@ -30,16 +30,30 @@ class LocationImpl implements GeoLocationService {
     }
 
     final locationData = await location.getLocation();
-    final List<Placemark> placemarks = await placemarkFromCoordinates(
-        locationData.latitude!, locationData.longitude!);
+
+    return getAddress(
+      latitude: locationData.latitude!,
+      longitude: locationData.longitude!,
+      locale: locale,
+    );
+  }
+
+  @override
+  Future<Address> getAddress({
+    required double latitude,
+    required double longitude,
+    String? locale,
+  }) async {
+    await setLocaleIdentifier(locale ?? "en");
+
+    final List<Placemark> placemarks =
+        await placemarkFromCoordinates(latitude, longitude);
     final String addressStr = _makeAddress(placemarks.first);
 
     return Address(
-      latitude: locationData.latitude!,
-      longitude: locationData.longitude!,
-      address: addressStr.isEmpty
-          ? "${locationData.latitude}, ${locationData.longitude}"
-          : addressStr,
+      latitude: latitude,
+      longitude: longitude,
+      address: addressStr.isEmpty ? "$latitude, $longitude" : addressStr,
     );
   }
 

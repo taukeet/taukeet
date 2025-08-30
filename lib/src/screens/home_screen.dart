@@ -2,218 +2,293 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
-import 'package:taukeet/src/entities/prayer_time.dart';
+import 'package:taukeet/generated/l10n.dart';
+import 'package:taukeet/generated/l10n.mapper.dart';
+import 'package:taukeet/src/app.dart';
 import 'package:taukeet/src/providers/home_provider.dart';
 import 'package:taukeet/src/providers/settings_provider.dart';
-import 'package:taukeet/src/utils/size_library.dart';
+import 'package:taukeet/src/utils/extensions.dart';
 
 class HomeScreen extends ConsumerWidget {
   const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final SizeLibrary sizeLibrary = SizeLibrary(context);
     final settingsState = ref.watch(settingsProvider);
     final homeState = ref.watch(homeProvider);
 
+    final colorScheme = Theme.of(context).colorScheme;
+
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.primary,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: SafeArea(
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 16.0,
-              vertical: 8.0,
-            ),
-            child: Column(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          children: [
-                            Icon(
-                              Icons.location_pin,
-                              size: sizeLibrary.appSize(12),
-                              color: Theme.of(context).colorScheme.secondary,
-                            ),
-                            const SizedBox(width: 4),
-                            SizedBox(
-                              width: sizeLibrary.appWidth(context, 60),
-                              child: Text(
-                                settingsState.isFetchingLocation
-                                    ? "Fetching location..."
-                                    : settingsState.address.address,
-                                overflow: TextOverflow.ellipsis,
-                                style: TextStyle(
-                                  fontSize: sizeLibrary.appSize(12),
-                                  color:
-                                      Theme.of(context).colorScheme.secondary,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                    InkWell(
-                      child: Icon(
-                        Icons.settings,
-                        size: sizeLibrary.appSize(24),
-                        color: Theme.of(context).colorScheme.secondary,
-                      ),
-                      onTap: () => context.pushNamed('settings'),
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  height: sizeLibrary.appSize(200),
-                  child: Center(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          homeState.currentPrayer?.name.english ?? "Loading...",
-                          style: TextStyle(
-                            color: Theme.of(context).colorScheme.secondary,
-                            fontSize: sizeLibrary.appSize(34),
+        child: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // Header Section
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          Icon(
+                            Icons.location_pin,
+                            size: 16,
+                            color: colorScheme.onSurface.withValues(alpha: 0.8),
                           ),
-                        ),
-                        const SizedBox(height: 6),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              homeState.currentPrayer?.name.arabic ?? "",
+                          const SizedBox(width: 4),
+                          SizedBox(
+                            width: MediaQuery.of(context).size.width * 0.6,
+                            child: Text(
+                              settingsState.isFetchingLocation
+                                  ? S.of(context)!.locationIntroBtnLoading
+                                  : settingsState.address.address,
+                              overflow: TextOverflow.ellipsis,
                               style: TextStyle(
-                                color: Theme.of(context).colorScheme.secondary,
-                                fontSize: sizeLibrary.appSize(18),
-                                fontFamily: "Lateef",
+                                color: colorScheme.onSurface
+                                    .withValues(alpha: 0.8),
+                                fontSize: 18,
+                                fontWeight: FontWeight.w400,
                               ),
                             ),
-                          ],
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 8),
+                      Text(
+                        DateFormat('hh:mm a').format(DateTime.now()),
+                        style: TextStyle(
+                          color: colorScheme.onSurface,
+                          fontSize: 32,
+                          fontWeight: FontWeight.w300,
                         ),
-                      ],
+                      ),
+                    ],
+                  ),
+                  InkWell(
+                    onTap: () => context.pushNamed('settings'),
+                    child: Icon(
+                      Icons.settings,
+                      color: colorScheme.onSurface.withValues(alpha: 0.6),
+                      size: 28,
                     ),
                   ),
+                ],
+              ),
+
+              const SizedBox(height: 30),
+
+              // Date Selector
+              Container(
+                height: 50,
+                decoration: BoxDecoration(
+                  color: colorScheme.surface,
+                  borderRadius: BorderRadius.circular(25),
                 ),
-                Column(
+                child: Row(
                   children: [
-                    Row(
-                      children: [
-                        InkWell(
-                          onTap: () {
-                            ref.read(homeProvider.notifier).changeToPrevDate();
-                          },
-                          child: Icon(
-                            Icons.arrow_left_rounded,
-                            size: sizeLibrary.appSize(40),
-                            color: Theme.of(context).colorScheme.secondary,
-                          ),
-                        ),
-                        Expanded(
-                          child: InkWell(
-                            onTap: () {
-                              ref.read(homeProvider.notifier).changeToToday();
-                            },
-                            child: Text(
-                              DateFormat('EEE dd MMM, yyyy')
-                                  .format(homeState.dateTime)
-                                  .toUpperCase(),
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                color: Theme.of(context).colorScheme.secondary,
-                                fontSize: sizeLibrary.appSize(12),
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ),
-                        ),
-                        InkWell(
-                          onTap: () {
-                            ref.read(homeProvider.notifier).changeToNextDate();
-                          },
-                          child: Icon(
-                            Icons.arrow_right_rounded,
-                            size: sizeLibrary.appSize(40),
-                            color: Theme.of(context).colorScheme.secondary,
-                          ),
-                        ),
-                      ],
+                    _buildDateTab(
+                      context,
+                      DateFormat('dd MMM').format(
+                          homeState.dateTime.subtract(const Duration(days: 1))),
+                      false,
+                      () => ref.read(homeProvider.notifier).changeToPrevDate(),
                     ),
-                    const SizedBox(height: 10),
-                    Card(
-                      color: Theme.of(context).colorScheme.secondary,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: Padding(
-                        padding: EdgeInsets.all(sizeLibrary.appSize(12)),
-                        child: ListView.separated(
-                          shrinkWrap: true,
-                          itemBuilder: (context, index) {
-                            final PrayerTime prayer = homeState.prayers[index];
-                            return Row(
-                              children: [
-                                Expanded(
-                                  flex: 1,
-                                  child: Text(
-                                    prayer.name.english,
-                                    style: TextStyle(
-                                      fontSize: sizeLibrary.appSize(12),
-                                      fontWeight: prayer.isCurrentPrayer
-                                          ? FontWeight.bold
-                                          : FontWeight.normal,
-                                    ),
-                                  ),
-                                ),
-                                Expanded(
-                                  flex: 2,
-                                  child: Text(
-                                    DateFormat('hh:mm a')
-                                        .format(prayer.startTime),
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                      fontSize: sizeLibrary.appSize(16),
-                                      fontWeight: prayer.isCurrentPrayer
-                                          ? FontWeight.bold
-                                          : FontWeight.normal,
-                                    ),
-                                  ),
-                                ),
-                                Expanded(
-                                  flex: 1,
-                                  child: Text(
-                                    prayer.name.arabic,
-                                    textAlign: TextAlign.right,
-                                    style: TextStyle(
-                                      fontSize: sizeLibrary.appSize(16),
-                                      fontFamily: "Lateef",
-                                      fontWeight: prayer.isCurrentPrayer
-                                          ? FontWeight.bold
-                                          : FontWeight.normal,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            );
-                          },
-                          separatorBuilder: (context, index) {
-                            return const SizedBox(height: 12);
-                          },
-                          itemCount: homeState.prayers.length,
-                        ),
-                      ),
+                    _buildDateTab(
+                      context,
+                      DateFormat('dd MMM yyyy').format(homeState.dateTime),
+                      true,
+                      () => ref.read(homeProvider.notifier).changeToToday(),
+                    ),
+                    _buildDateTab(
+                      context,
+                      DateFormat('dd MMM').format(
+                          homeState.dateTime.add(const Duration(days: 1))),
+                      false,
+                      () => ref.read(homeProvider.notifier).changeToNextDate(),
                     ),
                   ],
                 ),
-              ],
+              ),
+
+              const SizedBox(height: 30),
+
+              // Prayer Times Grid
+              Expanded(
+                child: homeState.prayers.isEmpty
+                    ? Center(
+                        child: Text(
+                          S.of(context)!.loading,
+                          style: TextStyle(
+                            color: colorScheme.onSurface.withValues(alpha: 0.8),
+                            fontSize: 18,
+                          ),
+                        ),
+                      )
+                    : GridView.builder(
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2,
+                          crossAxisSpacing: 15,
+                          mainAxisSpacing: 15,
+                          childAspectRatio: 1.1,
+                        ),
+                        itemCount: homeState.prayers.length,
+                        itemBuilder: (context, index) {
+                          final prayer = homeState.prayers[index];
+                          return _buildPrayerCard(
+                            context,
+                            S.of(context)!.parseL10n(
+                                prayer.name.english.lowercaseFirstChar()),
+                            DateFormat('hh:mm').format(prayer.startTime),
+                            DateFormat('a').format(prayer.startTime),
+                            _getIconForPrayer(prayer.name.english),
+                            prayer.isCurrentPrayer
+                                ? AppColors.primary
+                                : colorScheme.surface,
+                            isHighlighted: prayer.isCurrentPrayer,
+                          );
+                        },
+                      ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildDateTab(
+      BuildContext context, String text, bool isSelected, VoidCallback onTap) {
+    final colorScheme = Theme.of(context).colorScheme;
+
+    return Expanded(
+      child: InkWell(
+        onTap: onTap,
+        child: Container(
+          alignment: Alignment.center,
+          decoration: BoxDecoration(
+            color: isSelected ? AppColors.primary : Colors.transparent,
+            borderRadius: BorderRadius.circular(25),
+          ),
+          child: Text(
+            text,
+            style: TextStyle(
+              color: isSelected
+                  ? Colors.white
+                  : colorScheme.onSurface.withValues(alpha: 0.6),
+              fontSize: 14,
+              fontWeight: isSelected ? FontWeight.w500 : FontWeight.w400,
             ),
           ),
         ),
+      ),
+    );
+  }
+
+  IconData _getIconForPrayer(String prayerName) {
+    switch (prayerName.toLowerCase()) {
+      case 'fajr':
+        return Icons.brightness_2;
+      case 'sunrise':
+        return Icons.wb_sunny;
+      case 'dhuhr':
+        return Icons.wb_sunny;
+      case 'asr':
+        return Icons.account_balance;
+      case 'maghrib':
+        return Icons.brightness_2;
+      case 'isha':
+        return Icons.star;
+      default:
+        return Icons.access_time;
+    }
+  }
+
+  Widget _buildPrayerCard(
+    BuildContext context,
+    String prayerName,
+    String time,
+    String period,
+    IconData icon,
+    Color backgroundColor, {
+    bool isHighlighted = false,
+  }) {
+    final colorScheme = Theme.of(context).colorScheme;
+
+    return Container(
+      decoration: BoxDecoration(
+        color: backgroundColor,
+        borderRadius: BorderRadius.circular(20),
+        border: isHighlighted
+            ? Border.all(
+                color: colorScheme.onSurface.withValues(alpha: 0.1), width: 1)
+            : null,
+      ),
+      clipBehavior: Clip.none,
+      child: Stack(
+        clipBehavior: Clip.none,
+        children: [
+          // Background Icon
+          Positioned(
+            bottom: 5,
+            right: 5,
+            child: Icon(
+              icon,
+              color: colorScheme.onSurface.withValues(alpha: 0.08),
+              size: 70,
+            ),
+          ),
+          // Content
+          Padding(
+            padding: const EdgeInsets.all(20),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  prayerName,
+                  style: TextStyle(
+                    color: colorScheme.onSurface.withValues(alpha: 0.8),
+                    fontSize: 16,
+                    fontWeight: FontWeight.w400,
+                  ),
+                ),
+                const SizedBox(height: 8),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    Text(
+                      time,
+                      style: TextStyle(
+                        color: colorScheme.onSurface,
+                        fontSize: 28,
+                        fontWeight: FontWeight.w300,
+                      ),
+                    ),
+                    const SizedBox(width: 4),
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 4),
+                      child: Text(
+                        period,
+                        style: TextStyle(
+                          color: colorScheme.onSurface.withValues(alpha: 0.8),
+                          fontSize: 14,
+                          fontWeight: FontWeight.w400,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                const Spacer(),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }

@@ -12,7 +12,7 @@ final settingsFutureProvider = FutureProvider<SettingsState>((ref) async {
   final prefs = await SharedPreferences.getInstance();
   const settingsKey = SettingsNotifier._settingsKey;
   final settingsJson = prefs.getString(settingsKey);
-  
+
   if (settingsJson != null) {
     final settingsMap = jsonDecode(settingsJson) as Map<String, dynamic>;
     return SettingsState.fromMap(settingsMap);
@@ -65,8 +65,6 @@ class SettingsState {
     this.calculationMethod = "Karachi",
     this.higherLatitude = "None",
   });
-
-  String get madhabStr => madhab == "shafi" ? "Standard" : "Hanafi";
 
   SettingsState copyWith({
     bool? isFetchingLocation,
@@ -151,16 +149,16 @@ class SettingsNotifier extends StateNotifier<SettingsState> {
 
   Future<void> _saveSettings() async {
     final settingsJson = jsonEncode(state.toMap());
-    
+
     await _prefs.setString(_settingsKey, settingsJson);
   }
 
-  Future<bool> fetchLocation() async {
+  Future<bool> fetchLocation(String locale) async {
     state = state.copyWith(isFetchingLocation: true);
     final geoService = ref.read(geoLocationProvider);
 
     try {
-      final address = await geoService.fetch();
+      final address = await geoService.fetch(locale: locale);
 
       state = state.copyWith(
         isFetchingLocation: false,
@@ -170,7 +168,7 @@ class SettingsNotifier extends StateNotifier<SettingsState> {
         hasFetchedInitialLocation: true,
       );
       await _saveSettings();
-      
+
       return true;
     } on LocationDisabledException {
       state = state.copyWith(
@@ -195,6 +193,28 @@ class SettingsNotifier extends StateNotifier<SettingsState> {
       await _saveSettings();
 
       return false;
+    }
+  }
+
+  Future<void> translateAddress(String locale) async {
+    // Only translate if we have valid coordinates
+    if (state.address.latitude == 0.0 && state.address.longitude == 0.0) {
+      return;
+    }
+
+    try {
+      final geoService = ref.read(geoLocationProvider);
+      final translatedAddress = await geoService.getAddress(
+        latitude: state.address.latitude,
+        longitude: state.address.longitude,
+        locale: locale,
+      );
+
+      state = state.copyWith(address: translatedAddress);
+      await _saveSettings();
+    } catch (e) {
+      // If translation fails, keep the current address
+      // Could add error handling here if needed
     }
   }
 

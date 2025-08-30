@@ -1,0 +1,22 @@
+[
+  {
+    "code": "en",
+    "name": "English",
+    "native": "English"
+  },
+  {
+    "code": "hi",
+    "name": "Hindi",
+    "native": "हिन्दी"
+  },
+  {
+    "code": "ur",
+    "name": "Urdu",
+    "native": "اُردو"
+  },
+  {
+    "code": "ar",
+    "name": "Arabic",
+    "native": "العربية"
+  }
+]

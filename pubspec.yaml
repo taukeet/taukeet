@@ -9,18 +9,20 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  intl: any
+  flutter_localizations:
+    sdk: flutter
   go_router: ^14.2.9
   location: ^7.0.0
   geocoding: ^3.0.0
   flutter_native_splash: ^2.3.2
   flutter_launcher_icons: ^0.14.1
   app_settings: ^5.0.0
-  flutter_form_builder: ^9.1.1
+  flutter_form_builder: ^10.0.1
   adhan: ^2.0.0
   intro_slider: ^4.2.1
   flutter_riverpod: ^2.6.1
   shared_preferences: ^2.5.2
+  intl: ^0.20.2
 
 dev_dependencies:
   flutter_test:
@@ -28,8 +30,10 @@ dev_dependencies:
   flutter_lints: ^5.0.0
   build_runner: ^2.4.6
   change_app_package_name: ^1.1.0
+  l10n_mapper_generator: ^2.2.0
 
 flutter:
+  generate: true
   uses-material-design: true
   assets:
     - assets/icons/
@@ -44,3 +48,5 @@ flutter_launcher_icons:
   ios: true
   image_path: "assets/icons/icon.png"
   min_sdk_android: 21 # android min sdk min:16, default 21
+flutter_intl:
+  enabled: true

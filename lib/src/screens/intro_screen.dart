@@ -3,12 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intro_slider/intro_slider.dart';
-import 'package:taukeet/main.dart';
+import 'package:taukeet/generated/l10n.dart';
+import 'package:taukeet/generated/l10n.mapper.dart';
 import 'package:taukeet/src/providers/settings_provider.dart';
 import 'package:taukeet/src/providers/splash_provider.dart';
+import 'package:taukeet/src/utils/extensions.dart';
 import 'package:taukeet/src/widgets/primary_button.dart';
 import 'package:taukeet/src/widgets/secondary_button.dart';
 import 'package:taukeet/src/widgets/select_calculation_method_dialog.dart';
+import 'package:taukeet/src/widgets/select_locale_dialog.dart';
 import 'package:taukeet/src/widgets/select_madhab_dialog.dart';
 import 'package:taukeet/src/widgets/warning_dialog.dart';
 
@@ -19,57 +22,50 @@ class IntroScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final introState = ref.watch(introProvider);
 
-    // Listen to settings changes for location/permission dialogs
+    // Listen for location/permission dialogs
     ref.listen(settingsProvider, (previous, next) {
       if (!next.isFetchingLocation && !next.isLocationEnabled) {
         showDialog(
           context: context,
-          builder: (context) {
-            return WarningDialog(
-              title: "Warning",
-              message:
-                  "Location is disabled, please enable to fetch the current location.",
-              actions: [
-                SecondaryButton(
-                  text: "Cancel",
-                  onPressed: () => Navigator.pop(context),
-                ),
-                PrimaryButton(
-                  text: "Open Settings",
-                  onPressed: () {
-                    AppSettings.openAppSettings(type: AppSettingsType.location);
-                    Navigator.pop(context);
-                  },
-                ),
-              ],
-            );
-          },
+          builder: (context) => WarningDialog(
+            title: S.of(context)!.disableLocationTitle,
+            message: S.of(context)!.disableLocationMessage,
+            actions: [
+              SecondaryButton(
+                text: S.of(context)!.cancel,
+                onPressed: () => Navigator.pop(context),
+              ),
+              PrimaryButton(
+                text: S.of(context)!.openSettings,
+                onPressed: () {
+                  AppSettings.openAppSettings(type: AppSettingsType.location);
+                  Navigator.pop(context);
+                },
+              ),
+            ],
+          ),
         );
       }
-
       if (!next.isFetchingLocation && !next.hasLocationPermission) {
         showDialog(
           context: context,
-          builder: (context) {
-            return WarningDialog(
-              title: "Permission Error",
-              message:
-                  "Taukeet needs location permission to fetch the current location, with current location Taukeet calculates the prayer times.",
-              actions: [
-                SecondaryButton(
-                  text: "Cancel",
-                  onPressed: () => Navigator.pop(context),
-                ),
-                PrimaryButton(
-                  text: "Open App Settings",
-                  onPressed: () {
-                    AppSettings.openAppSettings(type: AppSettingsType.settings);
-                    Navigator.pop(context);
-                  },
-                ),
-              ],
-            );
-          },
+          builder: (context) => WarningDialog(
+            title: S.of(context)!.permissionErrorTitle,
+            message: S.of(context)!.permissionErrorMessage,
+            actions: [
+              SecondaryButton(
+                text: S.of(context)!.cancel,
+                onPressed: () => Navigator.pop(context),
+              ),
+              PrimaryButton(
+                text: S.of(context)!.openSettings,
+                onPressed: () {
+                  AppSettings.openAppSettings(type: AppSettingsType.settings);
+                  Navigator.pop(context);
+                },
+              ),
+            ],
+          ),
         );
       }
     });
@@ -83,6 +79,22 @@ class IntroScreen extends ConsumerWidget {
       listCustomTabs: [
         Consumer(
           builder: (context, ref, child) {
+            return SplashContainer(
+              title: S.of(context)!.chooseLanguage,
+              description: S.of(context)!.chooseLanguageDesc,
+              buttonText: S.of(context)!.chooseLanguageBtn,
+              icon: Icons.translate,
+              onPressed: () {
+                showDialog(
+                  context: context,
+                  builder: (context) => const SelectLocaleDialog(),
+                );
+              },
+            );
+          },
+        ),
+        Consumer(
+          builder: (context, ref, child) {
             final isFetchingLocation = ref.watch(
               settingsProvider.select((state) => state.isFetchingLocation),
             );
@@ -91,25 +103,27 @@ class IntroScreen extends ConsumerWidget {
             );
             return SplashContainer(
               icon: Icons.location_on,
-              title: address.isEmpty ? "Location" : address,
+              title: address.isEmpty ? S.of(context)!.locationText : address,
               description: address.isEmpty
-                  ? "Taukeet's accuracy in calculating and providing prayer times depends on your location. Please share your current location for precise results."
-                  : "Thank you for the location, click on \"Next\" to continue",
-              buttonText:
-                  isFetchingLocation ? "Fetching location" : "Fetch location",
+                  ? S.of(context)!.locationIntro
+                  : S.of(context)!.locationIntroNext,
+              buttonText: isFetchingLocation
+                  ? S.of(context)!.locationIntroBtnLoading
+                  : S.of(context)!.locationIntroBtn,
               onPressed: isFetchingLocation
                   ? null
                   : () async {
                       final success = await ref
                           .read(introProvider.notifier)
                           .fetchLocation();
+                      if (!context.mounted) return;
                       if (!success && !isFetchingLocation) {
                         ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                            content: Text(
-                              "Failed to fetch location. Please check your network and try again.",
-                            ),
-                            duration: Duration(seconds: 3),
+                          SnackBar(
+                            content:
+                                Text(S.of(context)!.locationFetchNetworkFail),
+                            duration: const Duration(seconds: 3),
+                            backgroundColor: Colors.grey[850],
                           ),
                         );
                       }
@@ -119,14 +133,13 @@ class IntroScreen extends ConsumerWidget {
         ),
         Consumer(
           builder: (context, ref, child) {
-            final madhabStr = ref.watch(
-              settingsProvider.select((state) => state.madhabStr),
+            final madhab = ref.watch(
+              settingsProvider.select((state) => state.madhab),
             );
             return SplashContainer(
-              title: madhabStr.capitalized(),
-              description:
-                  "You can choose between Hanafi or Standard (Maliki, Shafi'i, Hanbali) calculation methods for Asr prayer times. Hanafi starts Asr later when an object's shadow is twice its length.",
-              buttonText: "Change madhab",
+              title: S.of(context)!.parseL10n(madhab.lowercaseFirstChar()),
+              description: S.of(context)!.madhabIntro,
+              buttonText: S.of(context)!.madhabIntroBtn,
               icon: Icons.people,
               onPressed: () {
                 showDialog(
@@ -143,10 +156,11 @@ class IntroScreen extends ConsumerWidget {
               settingsProvider.select((state) => state.calculationMethod),
             );
             return SplashContainer(
-              title: calculationMethod.humanReadable(),
-              description:
-                  "The calculation methods are algorithms used to determine accurate prayer schedules. To begin, please select one that is near to your location or the one you prefer.",
-              buttonText: "Change calculation method",
+              title: S
+                  .of(context)!
+                  .parseL10n(calculationMethod.lowercaseFirstChar()),
+              description: S.of(context)!.calculationMethodIntro,
+              buttonText: S.of(context)!.calculationMethodBtn,
               icon: Icons.people,
               onPressed: () {
                 showDialog(
@@ -158,10 +172,9 @@ class IntroScreen extends ConsumerWidget {
           },
         ),
       ],
-      backgroundColorAllTabs: Theme.of(context).colorScheme.secondary,
+      backgroundColorAllTabs: const Color(0xFF1A1A1A),
       onDonePress: () {
         ref.read(settingsProvider.notifier).completeTutorial();
-
         context.replaceNamed('home');
       },
     );
@@ -188,32 +201,39 @@ class SplashContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16),
+        padding: const EdgeInsets.symmetric(horizontal: 20),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisSize: MainAxisSize.min,
               children: [
-                Icon(icon),
-                const SizedBox(width: 4),
-                Text(
-                  title,
-                  style: const TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.w500,
+                Icon(icon, color: Colors.white, size: 28),
+                const SizedBox(width: 6),
+                Flexible(
+                  child: Text(
+                    title,
+                    style: const TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.w600,
+                      color: Colors.white,
+                    ),
+                    overflow: TextOverflow.ellipsis,
                   ),
                 ),
               ],
             ),
-            const SizedBox(height: 10),
+            const SizedBox(height: 12),
             Text(
               description,
               textAlign: TextAlign.center,
-              style: const TextStyle(fontSize: 16),
+              style: TextStyle(
+                fontSize: 16,
+                color: Colors.white.withOpacity(0.8),
+              ),
             ),
-            const SizedBox(height: 10),
+            const SizedBox(height: 20),
             PrimaryButton(
               text: buttonText,
               onPressed: onPressed,

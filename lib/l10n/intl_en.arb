@@ -1,0 +1,110 @@
+{
+    "appTitle": "taukeet",
+    
+    "locationText": "Location",
+    
+    "locationIntro": "Taukeet's accuracy in calculating and providing prayer times depends on your location. Please share your current location for precise results.",
+    "locationIntroNext": "Thank you for the location, click on \"Next\" to continue",
+    "locationIntroBtn": "Fetch location",
+    "locationIntroBtnLoading": "Fetching location...",
+    "locationFetchNetworkFail": "Failed to fetch location. Please check your network and try again.",
+    
+    "madhabIntro": "You can choose between Hanafi or Standard (Maliki, Shafi'i, Hanbali) calculation methods for Asr prayer times. Hanafi starts Asr later when an object's shadow is twice its length.",
+    "madhabIntroBtn": "Change madhab",
+    
+    "calculationMethodIntro": "The calculation methods are algorithms used to determine accurate prayer schedules. To begin, please select one that is near to your location or the one you prefer.",
+    "calculationMethodBtn": "Change calculation method",
+
+    "disableLocationTitle": "Warning",
+    "disableLocationMessage": "Location is disabled, please enable to fetch the current location.",
+
+    "permissionErrorTitle": "Permission Error",
+    "permissionErrorMessage": "Taukeet needs location permission to fetch the current location, with current location Taukeet calculates the prayer times.",
+    
+    "cancel": "Cancel",
+    "openSettings": "Open settings",
+
+    "loading": "Loading...",
+
+    "settings": "Settings",
+    "fetchLocationDesc": "tap to get the current location",
+    "changeMadhabDesc": "tap to change the madhab",
+    "changeCalculationMethodDesc": "tap to change the calculation method",
+    "changeLattitudeSetting": "In locations at higher latitude, twilight may persist throughout the night during some months of the year. In these abnormal periods, the determination of Fajr and Isha is not possible using the usual formulas, to overcome this problem, several solutions have been proposed, tap to change the method.",
+    "prayerSdjustments": "Prayer adjustments",
+    "changeAdjustmentsDesc": "Adjust the prayer times by minutes",
+    "changeLanguage": "Change language",
+
+    "fajr": "Fajr",
+    "sunrise": "Sunrise",
+    "dhuhr": "Dhuhr",
+    "asr": "Asr",
+    "maghrib": "Maghrib",
+    "isha": "Isha",
+
+    "reset": "Reset",
+    "saveAdjustments": "Save adjustments",
+    "adjustmentsSuccess": "Adjustments saved successfully",
+    "adjustmentsResetSuccess": "Adjustments reset successfully",
+
+    "muslimWorldLeague": "Muslim World League",
+    "muslimWorldLeagueDesc": "Muslim World League (MWL) method, usually used in Europe, Far East, and parts of America. Default in most calculators.",
+
+    "egyptian": "Egyptian",
+    "egyptianDesc": "Egyptian General Authority of Survey method, commonly used in Egypt.",
+
+    "karachi": "Karachi",
+    "karachiDesc": "University of Islamic Sciences, Karachi method, widely used in Karachi, Pakistan.",
+
+    "ummAlQura": "Umm al-Qura",
+    "ummAlQuraDesc": "Umm al-Qura University, Makkah method, utilized in Makkah, Saudi Arabia.",
+
+    "dubai": "Dubai",
+    "dubaiDesc": "Dubai method, specific to Dubai, United Arab Emirates.",
+
+    "moonsightingCommittee": "Moonsighting Committee",
+    "moonsightingCommitteeDesc": "Moonsighting Committee method, based on moonsighting observations.",
+
+    "northAmerica": "North America",
+    "northAmericaDesc": "Islamic Society of North America (ISNA) method, commonly used in North America.",
+
+    "kuwait": "Kuwait",
+    "kuwaitDesc": "Kuwait method, commonly used in Kuwait.",
+
+    "qatar": "Qatar",
+    "qatarDesc": "Qatar method, specific to Qatar.",
+
+    "singapore": "Singapore",
+    "singaporeDesc": "Singapore method, specific to Singapore.",
+
+    "turkey": "Turkey",
+    "turkeyDesc": "Turkey method, specific to Turkey.",
+
+    "tehran": "Tehran",
+    "tehranDesc": "Tehran method, specific to Tehran.",
+
+    "other": "Other",
+    "otherDesc": "Other or generic calculation method with no specific parameters.",
+    
+    "none": "None",
+    "noneDesc": "No special latitude adjustment is applied.",
+
+    "middleOfTheNight": "Middle of the Night",
+    "middleOfTheNightDesc": "Fajr will never be earlier than the middle of the night and Isha will never be later than the middle of the night.",
+
+    "seventhOfTheNight": "Seventh of the Night",
+    "seventhOfTheNightDesc": "Fajr will never be earlier than the beginning of the last seventh of the night and Isha will never be later than the end of the first seventh of the night.",
+
+    "twilightAngle": "Twilight Angle",
+    "twilightAngleDesc": "Similar to Seventh of the Night, but instead of 1/7, the fraction of the night used is fajrAngle/60 and ishaAngle/60.",
+
+    "hanafi": "Hanfi",
+    "hanafiDesc": "Later Asr Time",
+
+    "shafi": "Standard",
+    "shafiDesc": "Malki, Shafi, Hanbali - Earlier Asr Time",
+
+    "chooseLanguage": "Choose Language",
+    "chooseLanguageDesc": "Select your preferred language for the app",
+    "chooseLanguageBtn": "Select"
+}

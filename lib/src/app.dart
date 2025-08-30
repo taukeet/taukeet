@@ -1,12 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:taukeet/generated/l10n.dart';
+import 'package:taukeet/src/providers/locale_provider.dart';
 import 'package:taukeet/src/screens/home_screen.dart';
 import 'package:taukeet/src/screens/intro_screen.dart';
 import 'package:taukeet/src/screens/splash_screen.dart';
 import 'package:taukeet/src/screens/settings_screen.dart';
 import 'package:taukeet/src/screens/adjustments_screen.dart';
 import 'package:taukeet/src/providers/settings_provider.dart';
+
+class AppColors {
+  static const primary = Color(0xFF4A6CF7); // Blue highlight
+  static const secondary = Color(0xFFF0E7D8); // Accent cream
+  static const background = Color(0xFF1A1A1A); // Dark background
+  static const surface = Color(0xFF2A2A2A); // Card/dark surface
+}
 
 final _router = GoRouter(
   redirect: (context, state) {
@@ -36,6 +46,7 @@ final _router = GoRouter(
         if (!isTutorialCompleted) {
           return '/intro';
         }
+
         return null;
       },
       builder: (context, state) => const HomeScreen(),
@@ -55,23 +66,46 @@ final _router = GoRouter(
   ],
 );
 
-class App extends StatelessWidget {
+class App extends ConsumerWidget {
   const App({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final localeState = ref.watch(localeProvider);
+
     return ProviderScope(
       child: MaterialApp.router(
         theme: ThemeData(
-          appBarTheme: Theme.of(context).appBarTheme.copyWith(
-                backgroundColor: const Color(0xFFF0E7D8),
-              ),
-          colorScheme: ColorScheme.fromSwatch().copyWith(
-            primary: const Color(0xFF191923),
-            secondary: const Color(0xFFF0E7D8),
+          useMaterial3: true,
+          brightness: Brightness.dark,
+          colorScheme: ColorScheme.fromSeed(
+            seedColor: AppColors.primary,
+            brightness: Brightness.dark,
+          ).copyWith(
+            surface: AppColors.surface,
+            secondary: AppColors.secondary,
+          ),
+          scaffoldBackgroundColor: AppColors.background,
+          appBarTheme: const AppBarTheme(
+            backgroundColor: AppColors.surface,
+            foregroundColor: Colors.white,
+            elevation: 0,
+          ),
+          textTheme: const TextTheme(
+            bodyLarge: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
+            bodyMedium: TextStyle(fontSize: 14),
+            bodySmall: TextStyle(fontSize: 12),
           ),
         ),
         routerConfig: _router,
+        locale: localeState.locale,
+        localizationsDelegates: const [
+          S.delegate,
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
+        ],
+        supportedLocales: S.supportedLocales,
       ),
     );
   }

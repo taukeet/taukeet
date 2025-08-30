@@ -2,12 +2,17 @@ import 'package:app_settings/app_settings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:taukeet/main.dart';
+import 'package:taukeet/generated/l10n.dart';
+import 'package:taukeet/generated/l10n.mapper.dart';
+import 'package:taukeet/src/app.dart';
+import 'package:taukeet/src/providers/locale_provider.dart';
 import 'package:taukeet/src/providers/settings_provider.dart';
+import 'package:taukeet/src/utils/extensions.dart';
 import 'package:taukeet/src/widgets/primary_button.dart';
 import 'package:taukeet/src/widgets/secondary_button.dart';
 import 'package:taukeet/src/widgets/select_calculation_method_dialog.dart';
 import 'package:taukeet/src/widgets/select_higher_latitude_dialog.dart';
+import 'package:taukeet/src/widgets/select_locale_dialog.dart';
 import 'package:taukeet/src/widgets/select_madhab_dialog.dart';
 import 'package:taukeet/src/widgets/setting_tile.dart';
 import 'package:taukeet/src/widgets/warning_dialog.dart';
@@ -18,6 +23,16 @@ class SettingsScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final settingsState = ref.watch(settingsProvider);
+    final localeState = ref.watch(localeProvider);
+
+    // Listen to locale changes for address translation
+    ref.listen(localeProvider, (previous, next) {
+      if (previous != null && previous.locale != next.locale) {
+        ref
+            .read(settingsProvider.notifier)
+            .translateAddress(next.locale.languageCode);
+      }
+    });
 
     // Listen to settings changes for dialogs
     ref.listen(settingsProvider, (previous, next) {
@@ -26,16 +41,15 @@ class SettingsScreen extends ConsumerWidget {
           context: context,
           builder: (context) {
             return WarningDialog(
-              title: "Warning",
-              message:
-                  "Location is disabled, please enable to fetch the current location.",
+              title: S.of(context)!.disableLocationTitle,
+              message: S.of(context)!.disableLocationMessage,
               actions: [
                 SecondaryButton(
-                  text: "Cancel",
+                  text: S.of(context)!.cancel,
                   onPressed: () => Navigator.pop(context),
                 ),
                 PrimaryButton(
-                  text: "Open Settings",
+                  text: S.of(context)!.openSettings,
                   onPressed: () {
                     AppSettings.openAppSettings(type: AppSettingsType.location);
                     Navigator.pop(context);
@@ -52,16 +66,15 @@ class SettingsScreen extends ConsumerWidget {
           context: context,
           builder: (context) {
             return WarningDialog(
-              title: "Permission Error",
-              message:
-                  "Taukeet needs location permission to fetch the current location, with current location Taukeet calculates the prayer times.",
+              title: S.of(context)!.permissionErrorTitle,
+              message: S.of(context)!.permissionErrorMessage,
               actions: [
                 SecondaryButton(
-                  text: "Cancel",
+                  text: S.of(context)!.cancel,
                   onPressed: () => Navigator.pop(context),
                 ),
                 PrimaryButton(
-                  text: "Open App Settings",
+                  text: S.of(context)!.openSettings,
                   onPressed: () {
                     AppSettings.openAppSettings(type: AppSettingsType.settings);
                     Navigator.pop(context);
@@ -75,29 +88,41 @@ class SettingsScreen extends ConsumerWidget {
     });
 
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.secondary,
+      backgroundColor: AppColors.background, // Dark background
       appBar: AppBar(
-        title: const Text('Settings'),
+        backgroundColor: AppColors.surface, // Card-like app bar
+        elevation: 1,
+        title: Text(
+          S.of(context)!.settings,
+          style: const TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.w500,
+          ),
+        ),
+        iconTheme: const IconThemeData(color: Colors.white),
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 12),
+          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 16),
           child: Column(
             children: [
               SettingTile(
                 text: settingsState.isFetchingLocation
-                    ? "Fetching your location..."
+                    ? S.of(context)!.locationIntroBtnLoading
                     : settingsState.address.address,
                 secodaryText: settingsState.isFetchingLocation
                     ? null
-                    : "tap to get the current location",
+                    : S.of(context)!.fetchLocationDesc,
                 icon: Icons.location_pin,
-                onPressed: () =>
-                    ref.read(settingsProvider.notifier).fetchLocation(),
+                onPressed: () => ref
+                    .read(settingsProvider.notifier)
+                    .fetchLocation(localeState.locale.languageCode),
               ),
               SettingTile(
-                text: settingsState.madhabStr.capitalized(),
-                secodaryText: "tap to change the madhab",
+                text: S
+                    .of(context)!
+                    .parseL10n(settingsState.madhab.lowercaseFirstChar()),
+                secodaryText: S.of(context)!.changeMadhabDesc,
                 icon: Icons.domain,
                 onPressed: () {
                   showDialog(
@@ -107,8 +132,9 @@ class SettingsScreen extends ConsumerWidget {
                 },
               ),
               SettingTile(
-                text: settingsState.calculationMethod.humanReadable(),
-                secodaryText: "tap to change the calculation method",
+                text: S.of(context)!.parseL10n(
+                    settingsState.calculationMethod.lowercaseFirstChar()),
+                secodaryText: S.of(context)!.changeCalculationMethodDesc,
                 icon: Icons.timelapse,
                 onPressed: () {
                   showDialog(
@@ -118,9 +144,9 @@ class SettingsScreen extends ConsumerWidget {
                 },
               ),
               SettingTile(
-                text: settingsState.higherLatitude.humanReadable(),
-                secodaryText:
-                    "In locations at higher latitude, twilight may persist throughout the night during some months of the year. In these abnormal periods, the determination of Fajr and Isha is not possible using the usual formulas, to overcome this problem, several solutions have been proposed, tap to change the method.",
+                text: S.of(context)!.parseL10n(
+                    settingsState.higherLatitude.lowercaseFirstChar()),
+                secodaryText: S.of(context)!.changeLattitudeSetting,
                 icon: Icons.keyboard_double_arrow_up,
                 onPressed: () {
                   showDialog(
@@ -130,11 +156,21 @@ class SettingsScreen extends ConsumerWidget {
                 },
               ),
               SettingTile(
-                text: "Adjustments",
-                secodaryText: "Adjust the prayer times by minutes",
+                text: S.of(context)!.prayerSdjustments,
+                secodaryText: S.of(context)!.changeAdjustmentsDesc,
                 icon: Icons.adjust,
                 onPressed: () {
                   context.pushNamed('settings.adjustments');
+                },
+              ),
+              SettingTile(
+                text: S.of(context)!.changeLanguage,
+                icon: Icons.translate,
+                onPressed: () {
+                  showDialog(
+                    context: context,
+                    builder: (context) => const SelectLocaleDialog(),
+                  );
                 },
               ),
             ],
