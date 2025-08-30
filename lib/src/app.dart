@@ -39,6 +39,7 @@ final _router = GoRouter(
         if (!isTutorialCompleted) {
           return '/intro';
         }
+
         return null;
       },
       builder: (context, state) => const HomeScreen(),
