@@ -153,12 +153,12 @@ class SettingsNotifier extends StateNotifier<SettingsState> {
     await _prefs.setString(_settingsKey, settingsJson);
   }
 
-  Future<bool> fetchLocation() async {
+  Future<bool> fetchLocation(String locale) async {
     state = state.copyWith(isFetchingLocation: true);
     final geoService = ref.read(geoLocationProvider);
 
     try {
-      final address = await geoService.fetch();
+      final address = await geoService.fetch(locale: locale);
 
       state = state.copyWith(
         isFetchingLocation: false,

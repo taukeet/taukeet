@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:taukeet/generated/l10n.dart';
 import 'package:taukeet/generated/l10n.mapper.dart';
+import 'package:taukeet/src/providers/locale_provider.dart';
 import 'package:taukeet/src/providers/settings_provider.dart';
 import 'package:taukeet/src/utils/extensions.dart';
 import 'package:taukeet/src/widgets/primary_button.dart';
@@ -21,6 +22,7 @@ class SettingsScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final settingsState = ref.watch(settingsProvider);
+    final localeState = ref.watch(localeProvider);
 
     // Listen to settings changes for dialogs
     ref.listen(settingsProvider, (previous, next) {
@@ -93,8 +95,9 @@ class SettingsScreen extends ConsumerWidget {
                     ? null
                     : S.of(context)!.fetchLocationDesc,
                 icon: Icons.location_pin,
-                onPressed: () =>
-                    ref.read(settingsProvider.notifier).fetchLocation(),
+                onPressed: () => ref
+                    .read(settingsProvider.notifier)
+                    .fetchLocation(localeState.locale.languageCode),
               ),
               SettingTile(
                 text: S
