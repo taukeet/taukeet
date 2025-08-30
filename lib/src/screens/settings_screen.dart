@@ -24,6 +24,14 @@ class SettingsScreen extends ConsumerWidget {
     final settingsState = ref.watch(settingsProvider);
     final localeState = ref.watch(localeProvider);
 
+    // Listen to locale changes for address translation
+    ref.listen(localeProvider, (previous, next) {
+      // Only translate if locale actually changed and we have a previous locale
+      if (previous != null && previous.locale != next.locale) {
+        ref.read(settingsProvider.notifier).translateAddress(next.locale.languageCode);
+      }
+    });
+
     // Listen to settings changes for dialogs
     ref.listen(settingsProvider, (previous, next) {
       if (!next.isFetchingLocation && !next.isLocationEnabled) {

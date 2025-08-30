@@ -196,6 +196,28 @@ class SettingsNotifier extends StateNotifier<SettingsState> {
     }
   }
 
+  Future<void> translateAddress(String locale) async {
+    // Only translate if we have valid coordinates
+    if (state.address.latitude == 0.0 && state.address.longitude == 0.0) {
+      return;
+    }
+
+    try {
+      final geoService = ref.read(geoLocationProvider);
+      final translatedAddress = await geoService.getAddress(
+        latitude: state.address.latitude,
+        longitude: state.address.longitude,
+        locale: locale,
+      );
+
+      state = state.copyWith(address: translatedAddress);
+      await _saveSettings();
+    } catch (e) {
+      // If translation fails, keep the current address
+      // Could add error handling here if needed
+    }
+  }
+
   void completeTutorial() {
     state = state.copyWith(isTutorialCompleted: true);
     _saveSettings();
