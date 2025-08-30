@@ -4,7 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:taukeet/generated/l10n.dart';
 import 'package:taukeet/src/providers/locale_provider.dart';
-import 'package:taukeet/src/screens/home_screen_new.dart';
+import 'package:taukeet/src/screens/home_screen.dart';
 import 'package:taukeet/src/screens/intro_screen.dart';
 import 'package:taukeet/src/screens/splash_screen.dart';
 import 'package:taukeet/src/screens/settings_screen.dart';
@@ -49,7 +49,7 @@ final _router = GoRouter(
 
         return null;
       },
-      builder: (context, state) => const HomeScreenNew(),
+      builder: (context, state) => const HomeScreen(),
     ),
     GoRoute(
       name: 'settings',

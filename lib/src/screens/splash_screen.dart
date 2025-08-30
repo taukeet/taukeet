@@ -40,7 +40,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
 
     return settingsAsync.when(
       data: (settings) => Scaffold(
-        backgroundColor: Theme.of(context).colorScheme.secondary,
+        backgroundColor: Theme.of(context).colorScheme.surface,
         body: Center(
           child: AnimatedOpacity(
             opacity: opacity,

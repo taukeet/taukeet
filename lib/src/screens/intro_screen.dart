@@ -21,55 +21,50 @@ class IntroScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final introState = ref.watch(introProvider);
 
-    // Listen to settings changes for location/permission dialogs
+    // Listen for location/permission dialogs
     ref.listen(settingsProvider, (previous, next) {
       if (!next.isFetchingLocation && !next.isLocationEnabled) {
         showDialog(
           context: context,
-          builder: (context) {
-            return WarningDialog(
-              title: S.of(context)!.disableLocationTitle,
-              message: S.of(context)!.disableLocationMessage,
-              actions: [
-                SecondaryButton(
-                  text: S.of(context)!.cancel,
-                  onPressed: () => Navigator.pop(context),
-                ),
-                PrimaryButton(
-                  text: S.of(context)!.openSettings,
-                  onPressed: () {
-                    AppSettings.openAppSettings(type: AppSettingsType.location);
-                    Navigator.pop(context);
-                  },
-                ),
-              ],
-            );
-          },
+          builder: (context) => WarningDialog(
+            title: S.of(context)!.disableLocationTitle,
+            message: S.of(context)!.disableLocationMessage,
+            actions: [
+              SecondaryButton(
+                text: S.of(context)!.cancel,
+                onPressed: () => Navigator.pop(context),
+              ),
+              PrimaryButton(
+                text: S.of(context)!.openSettings,
+                onPressed: () {
+                  AppSettings.openAppSettings(type: AppSettingsType.location);
+                  Navigator.pop(context);
+                },
+              ),
+            ],
+          ),
         );
       }
-
       if (!next.isFetchingLocation && !next.hasLocationPermission) {
         showDialog(
           context: context,
-          builder: (context) {
-            return WarningDialog(
-              title: S.of(context)!.permissionErrorTitle,
-              message: S.of(context)!.permissionErrorMessage,
-              actions: [
-                SecondaryButton(
-                  text: S.of(context)!.cancel,
-                  onPressed: () => Navigator.pop(context),
-                ),
-                PrimaryButton(
-                  text: S.of(context)!.openSettings,
-                  onPressed: () {
-                    AppSettings.openAppSettings(type: AppSettingsType.settings);
-                    Navigator.pop(context);
-                  },
-                ),
-              ],
-            );
-          },
+          builder: (context) => WarningDialog(
+            title: S.of(context)!.permissionErrorTitle,
+            message: S.of(context)!.permissionErrorMessage,
+            actions: [
+              SecondaryButton(
+                text: S.of(context)!.cancel,
+                onPressed: () => Navigator.pop(context),
+              ),
+              PrimaryButton(
+                text: S.of(context)!.openSettings,
+                onPressed: () {
+                  AppSettings.openAppSettings(type: AppSettingsType.settings);
+                  Navigator.pop(context);
+                },
+              ),
+            ],
+          ),
         );
       }
     });
@@ -108,10 +103,10 @@ class IntroScreen extends ConsumerWidget {
                       if (!success && !isFetchingLocation) {
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
-                            content: Text(
-                              S.of(context)!.locationFetchNetworkFail,
-                            ),
-                            duration: Duration(seconds: 3),
+                            content:
+                                Text(S.of(context)!.locationFetchNetworkFail),
+                            duration: const Duration(seconds: 3),
+                            backgroundColor: Colors.grey[850],
                           ),
                         );
                       }
@@ -158,10 +153,9 @@ class IntroScreen extends ConsumerWidget {
           },
         ),
       ],
-      backgroundColorAllTabs: Theme.of(context).colorScheme.secondary,
+      backgroundColorAllTabs: const Color(0xFF1A1A1A),
       onDonePress: () {
         ref.read(settingsProvider.notifier).completeTutorial();
-
         context.replaceNamed('home');
       },
     );
@@ -188,32 +182,39 @@ class SplashContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16),
+        padding: const EdgeInsets.symmetric(horizontal: 20),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisSize: MainAxisSize.min,
               children: [
-                Icon(icon),
-                const SizedBox(width: 4),
-                Text(
-                  title,
-                  style: const TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.w500,
+                Icon(icon, color: Colors.white, size: 28),
+                const SizedBox(width: 6),
+                Flexible(
+                  child: Text(
+                    title,
+                    style: const TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.w600,
+                      color: Colors.white,
+                    ),
+                    overflow: TextOverflow.ellipsis,
                   ),
                 ),
               ],
             ),
-            const SizedBox(height: 10),
+            const SizedBox(height: 12),
             Text(
               description,
               textAlign: TextAlign.center,
-              style: const TextStyle(fontSize: 16),
+              style: TextStyle(
+                fontSize: 16,
+                color: Colors.white.withOpacity(0.8),
+              ),
             ),
-            const SizedBox(height: 10),
+            const SizedBox(height: 20),
             PrimaryButton(
               text: buttonText,
               onPressed: onPressed,

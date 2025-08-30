@@ -23,7 +23,10 @@ class PrimaryButton extends StatelessWidget {
           ),
         ),
       ),
-      child: Text(text),
+      child: Text(
+        text,
+        style: TextStyle(color: Colors.white),
+      ),
     );
   }
 }
