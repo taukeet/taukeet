@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:taukeet/generated/l10n.dart';
 import 'package:taukeet/generated/l10n.mapper.dart';
+import 'package:taukeet/src/app.dart';
 import 'package:taukeet/src/providers/prayer_time_provider.dart';
 import 'package:taukeet/src/providers/settings_provider.dart';
 import 'package:taukeet/src/utils/extensions.dart';
@@ -17,7 +18,7 @@ class SelectHigherLatitudeDialog extends ConsumerWidget {
     return Dialog(
       child: Container(
         decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.secondary,
+          color: AppColors.background,
           borderRadius: const BorderRadius.all(Radius.circular(12.0)),
         ),
         child: SingleChildScrollView(

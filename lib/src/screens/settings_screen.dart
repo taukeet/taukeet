@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:taukeet/generated/l10n.dart';
 import 'package:taukeet/generated/l10n.mapper.dart';
+import 'package:taukeet/src/app.dart';
 import 'package:taukeet/src/providers/locale_provider.dart';
 import 'package:taukeet/src/providers/settings_provider.dart';
 import 'package:taukeet/src/utils/extensions.dart';
@@ -26,9 +27,10 @@ class SettingsScreen extends ConsumerWidget {
 
     // Listen to locale changes for address translation
     ref.listen(localeProvider, (previous, next) {
-      // Only translate if locale actually changed and we have a previous locale
       if (previous != null && previous.locale != next.locale) {
-        ref.read(settingsProvider.notifier).translateAddress(next.locale.languageCode);
+        ref
+            .read(settingsProvider.notifier)
+            .translateAddress(next.locale.languageCode);
       }
     });
 
@@ -86,13 +88,22 @@ class SettingsScreen extends ConsumerWidget {
     });
 
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.secondary,
+      backgroundColor: AppColors.background, // Dark background
       appBar: AppBar(
-        title: Text(S.of(context)!.settings),
+        backgroundColor: AppColors.surface, // Card-like app bar
+        elevation: 1,
+        title: Text(
+          S.of(context)!.settings,
+          style: const TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.w500,
+          ),
+        ),
+        iconTheme: const IconThemeData(color: Colors.white),
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 12),
+          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 16),
           child: Column(
             children: [
               SettingTile(

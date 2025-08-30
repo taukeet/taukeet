@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:taukeet/src/app.dart';
 
 class PrimaryButton extends StatelessWidget {
   const PrimaryButton({
@@ -15,6 +16,7 @@ class PrimaryButton extends StatelessWidget {
     return ElevatedButton(
       onPressed: onPressed,
       style: ElevatedButton.styleFrom(
+        backgroundColor: AppColors.primary,
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.all(
             Radius.circular(10),

@@ -2,6 +2,7 @@ import 'package:adhan/adhan.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:taukeet/generated/l10n.dart';
+import 'package:taukeet/src/app.dart';
 import 'package:taukeet/src/providers/settings_provider.dart';
 import 'package:taukeet/src/widgets/setting_tile.dart';
 
@@ -13,7 +14,7 @@ class SelectMadhabDialog extends ConsumerWidget {
     return Dialog(
       child: Container(
         decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.secondary,
+          color: AppColors.background,
           borderRadius: const BorderRadius.all(Radius.circular(12.0)),
         ),
         child: Column(

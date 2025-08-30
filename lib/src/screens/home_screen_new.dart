@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:taukeet/generated/l10n.dart';
+import 'package:taukeet/src/app.dart';
 import 'package:taukeet/src/providers/home_provider.dart';
 import 'package:taukeet/src/providers/settings_provider.dart';
 
@@ -14,8 +15,10 @@ class HomeScreenNew extends ConsumerWidget {
     final settingsState = ref.watch(settingsProvider);
     final homeState = ref.watch(homeProvider);
 
+    final colorScheme = Theme.of(context).colorScheme;
+
     return Scaffold(
-      backgroundColor: const Color(0xFF1A1A1A),
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(20.0),
@@ -34,7 +37,7 @@ class HomeScreenNew extends ConsumerWidget {
                           Icon(
                             Icons.location_pin,
                             size: 16,
-                            color: Colors.white.withOpacity(0.8),
+                            color: colorScheme.onSurface.withValues(alpha: 0.8),
                           ),
                           const SizedBox(width: 4),
                           SizedBox(
@@ -45,7 +48,8 @@ class HomeScreenNew extends ConsumerWidget {
                                   : settingsState.address.address,
                               overflow: TextOverflow.ellipsis,
                               style: TextStyle(
-                                color: Colors.white.withOpacity(0.8),
+                                color: colorScheme.onSurface
+                                    .withValues(alpha: 0.8),
                                 fontSize: 18,
                                 fontWeight: FontWeight.w400,
                               ),
@@ -56,8 +60,8 @@ class HomeScreenNew extends ConsumerWidget {
                       const SizedBox(height: 8),
                       Text(
                         DateFormat('hh:mm a').format(DateTime.now()),
-                        style: const TextStyle(
-                          color: Colors.white,
+                        style: TextStyle(
+                          color: colorScheme.onSurface,
                           fontSize: 32,
                           fontWeight: FontWeight.w300,
                         ),
@@ -68,7 +72,7 @@ class HomeScreenNew extends ConsumerWidget {
                     onTap: () => context.pushNamed('settings'),
                     child: Icon(
                       Icons.settings,
-                      color: Colors.white.withOpacity(0.6),
+                      color: colorScheme.onSurface.withValues(alpha: 0.6),
                       size: 28,
                     ),
                   ),
@@ -81,23 +85,26 @@ class HomeScreenNew extends ConsumerWidget {
               Container(
                 height: 50,
                 decoration: BoxDecoration(
-                  color: const Color(0xFF2A2A2A),
+                  color: colorScheme.surface,
                   borderRadius: BorderRadius.circular(25),
                 ),
                 child: Row(
                   children: [
                     _buildDateTab(
+                      context,
                       DateFormat('dd MMM').format(
                           homeState.dateTime.subtract(const Duration(days: 1))),
                       false,
                       () => ref.read(homeProvider.notifier).changeToPrevDate(),
                     ),
                     _buildDateTab(
+                      context,
                       DateFormat('dd MMM yyyy').format(homeState.dateTime),
                       true,
                       () => ref.read(homeProvider.notifier).changeToToday(),
                     ),
                     _buildDateTab(
+                      context,
                       DateFormat('dd MMM').format(
                           homeState.dateTime.add(const Duration(days: 1))),
                       false,
@@ -116,7 +123,7 @@ class HomeScreenNew extends ConsumerWidget {
                         child: Text(
                           S.of(context)!.loading,
                           style: TextStyle(
-                            color: Colors.white.withOpacity(0.8),
+                            color: colorScheme.onSurface.withValues(alpha: 0.8),
                             fontSize: 18,
                           ),
                         ),
@@ -133,13 +140,14 @@ class HomeScreenNew extends ConsumerWidget {
                         itemBuilder: (context, index) {
                           final prayer = homeState.prayers[index];
                           return _buildPrayerCard(
+                            context,
                             prayer.name.english,
                             DateFormat('hh:mm').format(prayer.startTime),
                             DateFormat('a').format(prayer.startTime),
                             _getIconForPrayer(prayer.name.english),
                             prayer.isCurrentPrayer
-                                ? const Color(0xFF4A6CF7)
-                                : const Color(0xFF2A2A2A),
+                                ? AppColors.primary
+                                : colorScheme.surface,
                             isHighlighted: prayer.isCurrentPrayer,
                           );
                         },
@@ -152,20 +160,25 @@ class HomeScreenNew extends ConsumerWidget {
     );
   }
 
-  Widget _buildDateTab(String text, bool isSelected, VoidCallback onTap) {
+  Widget _buildDateTab(
+      BuildContext context, String text, bool isSelected, VoidCallback onTap) {
+    final colorScheme = Theme.of(context).colorScheme;
+
     return Expanded(
       child: InkWell(
         onTap: onTap,
         child: Container(
           alignment: Alignment.center,
           decoration: BoxDecoration(
-            color: isSelected ? const Color(0xFF4A6CF7) : Colors.transparent,
+            color: isSelected ? AppColors.primary : Colors.transparent,
             borderRadius: BorderRadius.circular(25),
           ),
           child: Text(
             text,
             style: TextStyle(
-              color: isSelected ? Colors.white : Colors.white.withOpacity(0.6),
+              color: isSelected
+                  ? Colors.white
+                  : colorScheme.onSurface.withValues(alpha: 0.6),
               fontSize: 14,
               fontWeight: isSelected ? FontWeight.w500 : FontWeight.w400,
             ),
@@ -195,6 +208,7 @@ class HomeScreenNew extends ConsumerWidget {
   }
 
   Widget _buildPrayerCard(
+    BuildContext context,
     String prayerName,
     String time,
     String period,
@@ -202,12 +216,15 @@ class HomeScreenNew extends ConsumerWidget {
     Color backgroundColor, {
     bool isHighlighted = false,
   }) {
+    final colorScheme = Theme.of(context).colorScheme;
+
     return Container(
       decoration: BoxDecoration(
         color: backgroundColor,
         borderRadius: BorderRadius.circular(20),
         border: isHighlighted
-            ? Border.all(color: Colors.white.withOpacity(0.1), width: 1)
+            ? Border.all(
+                color: colorScheme.onSurface.withValues(alpha: 0.1), width: 1)
             : null,
       ),
       clipBehavior: Clip.none,
@@ -220,7 +237,7 @@ class HomeScreenNew extends ConsumerWidget {
             right: 5,
             child: Icon(
               icon,
-              color: Colors.white.withOpacity(0.08),
+              color: colorScheme.onSurface.withValues(alpha: 0.08),
               size: 70,
             ),
           ),
@@ -233,7 +250,7 @@ class HomeScreenNew extends ConsumerWidget {
                 Text(
                   prayerName,
                   style: TextStyle(
-                    color: Colors.white.withOpacity(0.8),
+                    color: colorScheme.onSurface.withValues(alpha: 0.8),
                     fontSize: 16,
                     fontWeight: FontWeight.w400,
                   ),
@@ -244,8 +261,8 @@ class HomeScreenNew extends ConsumerWidget {
                   children: [
                     Text(
                       time,
-                      style: const TextStyle(
-                        color: Colors.white,
+                      style: TextStyle(
+                        color: colorScheme.onSurface,
                         fontSize: 28,
                         fontWeight: FontWeight.w300,
                       ),
@@ -256,7 +273,7 @@ class HomeScreenNew extends ConsumerWidget {
                       child: Text(
                         period,
                         style: TextStyle(
-                          color: Colors.white.withOpacity(0.8),
+                          color: colorScheme.onSurface.withValues(alpha: 0.8),
                           fontSize: 14,
                           fontWeight: FontWeight.w400,
                         ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:taukeet/src/app.dart';
 import 'package:taukeet/src/providers/locale_provider.dart';
 import 'package:taukeet/src/utils/locale_helper.dart';
 
@@ -13,7 +14,7 @@ class SelectLocaleDialog extends ConsumerWidget {
     return Dialog(
       child: Container(
         decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.secondary,
+          color: AppColors.background,
           borderRadius: const BorderRadius.all(Radius.circular(12.0)),
         ),
         child: SingleChildScrollView(
