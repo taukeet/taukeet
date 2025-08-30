@@ -3,8 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:taukeet/src/entities/address.dart';
 import 'package:taukeet/src/entities/adjustments.dart';
-import 'package:taukeet/src/exceptions/location_disabled_exception.dart';
-import 'package:taukeet/src/exceptions/location_permission_denied.dart';
+import 'package:taukeet/core/errors/location_disabled_exception.dart';
+import 'package:taukeet/core/errors/location_permission_denied.dart';
 import 'package:taukeet/src/providers/geo_location_provider.dart';
 
 // FutureProvider to load settings from SharedPreferences

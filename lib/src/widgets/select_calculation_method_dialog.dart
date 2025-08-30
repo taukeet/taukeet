@@ -4,7 +4,7 @@ import 'package:taukeet/generated/l10n.mapper.dart';
 import 'package:taukeet/src/app.dart';
 import 'package:taukeet/src/providers/prayer_time_provider.dart';
 import 'package:taukeet/src/providers/settings_provider.dart';
-import 'package:taukeet/src/utils/extensions.dart';
+import 'package:taukeet/core/utils/extensions.dart';
 import 'package:taukeet/src/widgets/setting_tile.dart';
 
 class SelectCalculationMethodDialog extends ConsumerWidget {

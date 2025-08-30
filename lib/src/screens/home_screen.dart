@@ -7,7 +7,7 @@ import 'package:taukeet/generated/l10n.mapper.dart';
 import 'package:taukeet/src/app.dart';
 import 'package:taukeet/src/providers/home_provider.dart';
 import 'package:taukeet/src/providers/settings_provider.dart';
-import 'package:taukeet/src/utils/extensions.dart';
+import 'package:taukeet/core/utils/extensions.dart';
 
 class HomeScreen extends ConsumerWidget {
   const HomeScreen({super.key});

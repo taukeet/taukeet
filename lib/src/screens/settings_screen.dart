@@ -7,7 +7,7 @@ import 'package:taukeet/generated/l10n.mapper.dart';
 import 'package:taukeet/src/app.dart';
 import 'package:taukeet/src/providers/locale_provider.dart';
 import 'package:taukeet/src/providers/settings_provider.dart';
-import 'package:taukeet/src/utils/extensions.dart';
+import 'package:taukeet/core/utils/extensions.dart';
 import 'package:taukeet/src/widgets/primary_button.dart';
 import 'package:taukeet/src/widgets/secondary_button.dart';
 import 'package:taukeet/src/widgets/select_calculation_method_dialog.dart';

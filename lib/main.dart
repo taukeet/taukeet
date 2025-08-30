@@ -5,7 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:taukeet/src/providers/prayer_time_provider.dart';
 import 'package:taukeet/src/app.dart';
-import 'package:taukeet/src/utils/locale_helper.dart';
+import 'package:taukeet/shared/l10n/locale_helper.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
