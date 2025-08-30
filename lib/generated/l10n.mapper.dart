@@ -120,6 +120,9 @@ class SMapper {
       'chooseLanguage': localizations.chooseLanguage,
       'chooseLanguageDesc': localizations.chooseLanguageDesc,
       'chooseLanguageBtn': localizations.chooseLanguageBtn,
+      'previous': localizations.previous,
+      'next': localizations.next,
+      'done': localizations.done,
     };
   }
 }

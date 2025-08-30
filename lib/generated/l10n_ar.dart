@@ -254,4 +254,13 @@ class SAr extends S {
 
   @override
   String get chooseLanguageBtn => 'اختر';
+
+  @override
+  String get previous => 'السابق';
+
+  @override
+  String get next => 'التالي';
+
+  @override
+  String get done => 'تم';
 }

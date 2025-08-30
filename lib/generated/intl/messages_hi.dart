@@ -60,6 +60,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "स्थान अक्षम है, कृपया वर्तमान स्थान प्राप्त करने के लिए सक्षम करें।",
     ),
     "disableLocationTitle": MessageLookupByLibrary.simpleMessage("चेतावनी"),
+    "done": MessageLookupByLibrary.simpleMessage("पूर्ण"),
     "dubai": MessageLookupByLibrary.simpleMessage("दुबई"),
     "dubaiDesc": MessageLookupByLibrary.simpleMessage(
       "दुबई विधि, विशेष रूप से दुबई, संयुक्त अरब अमीरात के लिए।",
@@ -121,6 +122,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "muslimWorldLeagueDesc": MessageLookupByLibrary.simpleMessage(
       "मुस्लिम वर्ल्ड लीग (MWL) विधि, आमतौर पर यूरोप, सुदूर पूर्व और अमेरिका के कुछ हिस्सों में उपयोग की जाती है। अधिकांश कैलकुलेटर में डिफ़ॉल्ट विधि है।",
     ),
+    "next": MessageLookupByLibrary.simpleMessage("आगे"),
     "none": MessageLookupByLibrary.simpleMessage("कोई नहीं"),
     "noneDesc": MessageLookupByLibrary.simpleMessage(
       "कोई विशेष अक्षांश समायोजन लागू नहीं किया गया है।",
@@ -143,6 +145,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "prayerSdjustments": MessageLookupByLibrary.simpleMessage(
       "प्रार्थना समायोजन",
     ),
+    "previous": MessageLookupByLibrary.simpleMessage("पिछला"),
     "qatar": MessageLookupByLibrary.simpleMessage("क़तर"),
     "qatarDesc": MessageLookupByLibrary.simpleMessage(
       "क़तर विधि, जो विशेष रूप से क़तर में उपयोग होती है।",

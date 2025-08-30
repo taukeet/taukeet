@@ -60,6 +60,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "الموقع معطل، يرجى تمكينه لجلب الموقع الحالي.",
     ),
     "disableLocationTitle": MessageLookupByLibrary.simpleMessage("تحذير"),
+    "done": MessageLookupByLibrary.simpleMessage("تم"),
     "dubai": MessageLookupByLibrary.simpleMessage("دبي"),
     "dubaiDesc": MessageLookupByLibrary.simpleMessage(
       "طريقة دبي، خاصة بدبي، الإمارات العربية المتحدة.",
@@ -119,6 +120,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "muslimWorldLeagueDesc": MessageLookupByLibrary.simpleMessage(
       "طريقة رابطة العالم الإسلامي (MWL)، تُستخدم عادة في أوروبا والشرق الأقصى وأجزاء من أمريكا. هي الافتراضية في معظم الحاسبات.",
     ),
+    "next": MessageLookupByLibrary.simpleMessage("التالي"),
     "none": MessageLookupByLibrary.simpleMessage("لا شيء"),
     "noneDesc": MessageLookupByLibrary.simpleMessage(
       "لا يتم تطبيق أي تعديل خاص بخط العرض.",
@@ -139,6 +141,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "خطأ في الصلاحيات",
     ),
     "prayerSdjustments": MessageLookupByLibrary.simpleMessage("تعديلات الصلاة"),
+    "previous": MessageLookupByLibrary.simpleMessage("السابق"),
     "qatar": MessageLookupByLibrary.simpleMessage("قطر"),
     "qatarDesc": MessageLookupByLibrary.simpleMessage("طريقة قطر، خاصة بقطر."),
     "reset": MessageLookupByLibrary.simpleMessage("إعادة ضبط"),

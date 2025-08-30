@@ -562,6 +562,24 @@ abstract class S {
   /// In en, this message translates to:
   /// **'Select'**
   String get chooseLanguageBtn;
+
+  /// No description provided for @previous.
+  ///
+  /// In en, this message translates to:
+  /// **'Previous'**
+  String get previous;
+
+  /// No description provided for @next.
+  ///
+  /// In en, this message translates to:
+  /// **'Next'**
+  String get next;
+
+  /// No description provided for @done.
+  ///
+  /// In en, this message translates to:
+  /// **'Done'**
+  String get done;
 }
 
 class _SDelegate extends LocalizationsDelegate<S> {

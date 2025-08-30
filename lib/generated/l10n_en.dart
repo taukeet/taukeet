@@ -258,4 +258,13 @@ class SEn extends S {
 
   @override
   String get chooseLanguageBtn => 'Select';
+
+  @override
+  String get previous => 'Previous';
+
+  @override
+  String get next => 'Next';
+
+  @override
+  String get done => 'Done';
 }

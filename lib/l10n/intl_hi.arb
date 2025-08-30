@@ -93,7 +93,11 @@
     "shafi": "मानक",
     "shafiDesc": "मालिकी, शाफ़ी, हंबली - अस्र का पहले का समय",
 
-      "chooseLanguage": "भाषा चुनें",
-  "chooseLanguageDesc": "एप के लिए अपनी पसंदीदा भाषा चुनें",
-  "chooseLanguageBtn": "चुनें"
+    "chooseLanguage": "भाषा चुनें",
+    "chooseLanguageDesc": "एप के लिए अपनी पसंदीदा भाषा चुनें",
+    "chooseLanguageBtn": "चुनें",
+
+    "previous": "पिछला",
+    "next": "आगे", 
+    "done": "पूर्ण"
 }

@@ -60,6 +60,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Location is disabled, please enable to fetch the current location.",
     ),
     "disableLocationTitle": MessageLookupByLibrary.simpleMessage("Warning"),
+    "done": MessageLookupByLibrary.simpleMessage("Done"),
     "dubai": MessageLookupByLibrary.simpleMessage("Dubai"),
     "dubaiDesc": MessageLookupByLibrary.simpleMessage(
       "Dubai method, specific to Dubai, United Arab Emirates.",
@@ -121,6 +122,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "muslimWorldLeagueDesc": MessageLookupByLibrary.simpleMessage(
       "Muslim World League (MWL) method, usually used in Europe, Far East, and parts of America. Default in most calculators.",
     ),
+    "next": MessageLookupByLibrary.simpleMessage("Next"),
     "none": MessageLookupByLibrary.simpleMessage("None"),
     "noneDesc": MessageLookupByLibrary.simpleMessage(
       "No special latitude adjustment is applied.",
@@ -143,6 +145,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "prayerSdjustments": MessageLookupByLibrary.simpleMessage(
       "Prayer adjustments",
     ),
+    "previous": MessageLookupByLibrary.simpleMessage("Previous"),
     "qatar": MessageLookupByLibrary.simpleMessage("Qatar"),
     "qatarDesc": MessageLookupByLibrary.simpleMessage(
       "Qatar method, specific to Qatar.",

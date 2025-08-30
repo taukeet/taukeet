@@ -106,5 +106,9 @@
 
   "chooseLanguage": "اختر اللغة",
   "chooseLanguageDesc": "اختر اللغة المفضلة للتطبيق",
-  "chooseLanguageBtn": "اختر"
+  "chooseLanguageBtn": "اختر",
+
+  "previous": "السابق",
+  "next": "التالي", 
+  "done": "تم"
 }

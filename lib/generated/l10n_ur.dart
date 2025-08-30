@@ -259,4 +259,13 @@ class SUr extends S {
 
   @override
   String get chooseLanguageBtn => 'منتخب کریں';
+
+  @override
+  String get previous => 'پچھلا';
+
+  @override
+  String get next => 'آگے';
+
+  @override
+  String get done => 'مکمل';
 }

@@ -60,6 +60,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "مقام غیر فعال ہے، موجودہ مقام حاصل کرنے کے لیے اسے فعال کریں۔",
     ),
     "disableLocationTitle": MessageLookupByLibrary.simpleMessage("خبردار"),
+    "done": MessageLookupByLibrary.simpleMessage("مکمل"),
     "dubai": MessageLookupByLibrary.simpleMessage("دبئی"),
     "dubaiDesc": MessageLookupByLibrary.simpleMessage(
       "دبئی طریقہ، متحدہ عرب امارات کے دبئی کے لیے مخصوص۔",
@@ -117,6 +118,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "muslimWorldLeagueDesc": MessageLookupByLibrary.simpleMessage(
       "مسلم ورلڈ لیگ (MWL) طریقہ، عام طور پر یورپ، دورِ مشرق اور امریکہ کے کچھ حصوں میں استعمال ہوتا ہے۔ زیادہ تر کیلکولیٹرز میں ڈیفالٹ۔",
     ),
+    "next": MessageLookupByLibrary.simpleMessage("آگے"),
     "none": MessageLookupByLibrary.simpleMessage("کوئی نہیں"),
     "noneDesc": MessageLookupByLibrary.simpleMessage(
       "کوئی خاص latitude adjustment لاگو نہیں۔",
@@ -139,6 +141,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "prayerSdjustments": MessageLookupByLibrary.simpleMessage(
       "نماز میں تبدیلیاں",
     ),
+    "previous": MessageLookupByLibrary.simpleMessage("پچھلا"),
     "qatar": MessageLookupByLibrary.simpleMessage("قطر"),
     "qatarDesc": MessageLookupByLibrary.simpleMessage(
       "قطر طریقہ، قطر کے لیے مخصوص۔",

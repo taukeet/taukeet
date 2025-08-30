@@ -106,5 +106,9 @@
 
     "chooseLanguage": "Choose Language",
     "chooseLanguageDesc": "Select your preferred language for the app",
-    "chooseLanguageBtn": "Select"
+    "chooseLanguageBtn": "Select",
+
+    "previous": "Previous",
+    "next": "Next", 
+    "done": "Done"
 }

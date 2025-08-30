@@ -261,4 +261,13 @@ class SHi extends S {
 
   @override
   String get chooseLanguageBtn => 'चुनें';
+
+  @override
+  String get previous => 'पिछला';
+
+  @override
+  String get next => 'आगे';
+
+  @override
+  String get done => 'पूर्ण';
 }

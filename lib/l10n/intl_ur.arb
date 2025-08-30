@@ -106,5 +106,9 @@
 
     "chooseLanguage": "زبان منتخب کریں",
     "chooseLanguageDesc": "ایپ کے لیے اپنی پسندیدہ زبان منتخب کریں",
-    "chooseLanguageBtn": "منتخب کریں"
+    "chooseLanguageBtn": "منتخب کریں",
+
+    "previous": "پچھلا",
+    "next": "آگے", 
+    "done": "مکمل"
 }
