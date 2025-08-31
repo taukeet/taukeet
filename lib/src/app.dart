@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:taukeet/features/onboarding/presentation/pages/onboarding_page.dart';
+import 'package:taukeet/features/onboarding/presentation/pages/splash_page.dart';
+import 'package:taukeet/features/prayer_times/presentation/pages/home_page.dart';
+import 'package:taukeet/features/settings/presentation/pages/adjustments_page.dart';
+import 'package:taukeet/features/settings/presentation/pages/settings_page.dart';
 import 'package:taukeet/generated/l10n.dart';
 import 'package:taukeet/src/providers/locale_provider.dart';
-import 'package:taukeet/src/screens/home_screen.dart';
-import 'package:taukeet/src/screens/intro_screen.dart';
-import 'package:taukeet/src/screens/splash_screen.dart';
-import 'package:taukeet/src/screens/settings_screen.dart';
-import 'package:taukeet/src/screens/adjustments_screen.dart';
 import 'package:taukeet/src/providers/settings_provider.dart';
 
 class AppColors {
@@ -26,12 +26,12 @@ final _router = GoRouter(
     GoRoute(
       name: 'splash',
       path: '/',
-      builder: (context, state) => const SplashScreen(),
+      builder: (context, state) => const SplashPage(),
     ),
     GoRoute(
       name: 'intro',
       path: '/intro',
-      builder: (context, state) => const IntroScreen(),
+      builder: (context, state) => const OnboardingPage(),
     ),
     GoRoute(
       name: 'home',
@@ -49,17 +49,17 @@ final _router = GoRouter(
 
         return null;
       },
-      builder: (context, state) => const HomeScreen(),
+      builder: (context, state) => const HomePage(),
     ),
     GoRoute(
       name: 'settings',
       path: '/settings',
-      builder: (context, state) => const SettingsScreen(),
+      builder: (context, state) => const SettingsPage(),
       routes: [
         GoRoute(
           name: 'settings.adjustments',
           path: 'adjustments',
-          builder: (context, state) => const AdjustmentsScreen(),
+          builder: (context, state) => const AdjustmentsPage(),
         ),
       ],
     ),

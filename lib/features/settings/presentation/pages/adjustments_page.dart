@@ -7,8 +7,8 @@ import 'package:taukeet/shared/widgets/primary_button.dart';
 import 'package:taukeet/shared/widgets/secondary_button.dart';
 import 'package:taukeet/shared/widgets/text_form_input.dart';
 
-class AdjustmentsScreen extends ConsumerWidget {
-  const AdjustmentsScreen({super.key});
+class AdjustmentsPage extends ConsumerWidget {
+  const AdjustmentsPage({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

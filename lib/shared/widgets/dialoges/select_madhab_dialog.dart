@@ -4,7 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:taukeet/generated/l10n.dart';
 import 'package:taukeet/src/app.dart';
 import 'package:taukeet/src/providers/settings_provider.dart';
-import 'package:taukeet/src/widgets/setting_tile.dart';
+import 'package:taukeet/shared/widgets/setting_tile.dart';
 
 class SelectMadhabDialog extends ConsumerWidget {
   const SelectMadhabDialog({super.key});

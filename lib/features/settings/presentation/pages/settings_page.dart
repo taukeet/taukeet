@@ -17,8 +17,8 @@ import 'package:taukeet/shared/widgets/dialoges/select_madhab_dialog.dart';
 import 'package:taukeet/shared/widgets/setting_tile.dart';
 import 'package:taukeet/shared/widgets/dialoges/warning_dialog.dart';
 
-class SettingsScreen extends ConsumerWidget {
-  const SettingsScreen({super.key});
+class SettingsPage extends ConsumerWidget {
+  const SettingsPage({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

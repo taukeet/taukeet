@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:taukeet/src/widgets/primary_button.dart';
+import 'package:taukeet/shared/widgets/primary_button.dart';
 
 void main() {
   group('PrimaryButton Widget Tests', () {
@@ -55,7 +55,8 @@ void main() {
       expect(buttonPressed, isTrue);
     });
 
-    testWidgets('should be disabled when onPressed is null', (WidgetTester tester) async {
+    testWidgets('should be disabled when onPressed is null',
+        (WidgetTester tester) async {
       // Arrange
       const buttonText = 'Disabled Button';
 
@@ -80,7 +81,8 @@ void main() {
       expect(elevatedButton.onPressed, isNull);
     });
 
-    testWidgets('should have correct styling properties', (WidgetTester tester) async {
+    testWidgets('should have correct styling properties',
+        (WidgetTester tester) async {
       // Arrange
       const buttonText = 'Styled Button';
 
@@ -110,9 +112,11 @@ void main() {
       expect(find.text(buttonText), findsOneWidget);
     });
 
-    testWidgets('should handle long text gracefully', (WidgetTester tester) async {
+    testWidgets('should handle long text gracefully',
+        (WidgetTester tester) async {
       // Arrange
-      const longButtonText = 'This is a very long button text that should be handled properly by the button widget';
+      const longButtonText =
+          'This is a very long button text that should be handled properly by the button widget';
 
       // Act
       await tester.pumpWidget(
@@ -164,7 +168,8 @@ void main() {
       expect(find.byType(ElevatedButton), findsOneWidget);
     });
 
-    testWidgets('should work with special characters and Unicode', (WidgetTester tester) async {
+    testWidgets('should work with special characters and Unicode',
+        (WidgetTester tester) async {
       // Arrange
       const arabicButtonText = 'صلاة الظهر';
       const emojiButtonText = '🕌 Prayer Time';
@@ -198,7 +203,8 @@ void main() {
       expect(find.text(emojiButtonText), findsOneWidget);
     });
 
-    testWidgets('should handle rapid taps correctly', (WidgetTester tester) async {
+    testWidgets('should handle rapid taps correctly',
+        (WidgetTester tester) async {
       // Arrange
       const buttonText = 'Rapid Tap Test';
       var tapCount = 0;
@@ -226,7 +232,8 @@ void main() {
       expect(tapCount, equals(3));
     });
 
-    testWidgets('should maintain state through rebuilds', (WidgetTester tester) async {
+    testWidgets('should maintain state through rebuilds',
+        (WidgetTester tester) async {
       // Arrange
       var rebuilds = 0;
       const buttonText = 'Rebuild Test';

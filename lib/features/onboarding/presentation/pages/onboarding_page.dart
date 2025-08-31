@@ -15,14 +15,14 @@ import 'package:taukeet/shared/widgets/dialoges/select_locale_dialog.dart';
 import 'package:taukeet/shared/widgets/dialoges/select_madhab_dialog.dart';
 import 'package:taukeet/shared/widgets/dialoges/warning_dialog.dart';
 
-class IntroScreen extends ConsumerStatefulWidget {
-  const IntroScreen({super.key});
+class OnboardingPage extends ConsumerStatefulWidget {
+  const OnboardingPage({super.key});
 
   @override
-  ConsumerState<IntroScreen> createState() => _IntroScreenState();
+  ConsumerState<OnboardingPage> createState() => _OnboardingPageState();
 }
 
-class _IntroScreenState extends ConsumerState<IntroScreen> {
+class _OnboardingPageState extends ConsumerState<OnboardingPage> {
   final CarouselSliderController _carouselController =
       CarouselSliderController();
   int _currentIndex = 0;
