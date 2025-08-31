@@ -116,11 +116,6 @@ final settingsProvider =
   return SettingsNotifier(ref, initialSettings);
 });
 
-// Provider for specific field (example)
-final madhabProvider = Provider<String>((ref) {
-  return ref.watch(settingsProvider).settings.madhab;
-});
-
 // Settings Notifier
 class SettingsNotifier extends StateNotifier<SettingsState> {
   final Ref ref;

@@ -7,7 +7,6 @@ import 'package:taukeet/generated/l10n.dart';
 import 'package:taukeet/generated/l10n.mapper.dart';
 import 'package:taukeet/src/app.dart';
 
-
 import 'package:taukeet/features/settings/presentation/providers/settings_provider.dart';
 import 'package:taukeet/core/utils/extensions.dart';
 
@@ -16,9 +15,8 @@ class HomePage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    print('HomePage: build method called');
     final settingsState = ref.watch(settingsProvider);
-    final homeState = ref.watch(homepageProvider);
+    final homeState = ref.watch(homePageProvider);
 
     final colorScheme = Theme.of(context).colorScheme;
 
@@ -100,20 +98,24 @@ class HomePage extends ConsumerWidget {
                       DateFormat('dd MMM').format(
                           homeState.dateTime.subtract(const Duration(days: 1))),
                       false,
-                      () => ref.read(homepageProvider.notifier).changeToPrevDate(),
+                      () => ref
+                          .read(homePageProvider.notifier)
+                          .changeToPrevDate(),
                     ),
                     _buildDateTab(
                       context,
                       DateFormat('dd MMM yyyy').format(homeState.dateTime),
                       true,
-                      () => ref.read(homepageProvider.notifier).changeToToday(),
+                      () => ref.read(homePageProvider.notifier).changeToToday(),
                     ),
                     _buildDateTab(
                       context,
                       DateFormat('dd MMM').format(
                           homeState.dateTime.add(const Duration(days: 1))),
                       false,
-                      () => ref.read(homepageProvider.notifier).changeToNextDate(),
+                      () => ref
+                          .read(homePageProvider.notifier)
+                          .changeToNextDate(),
                     ),
                   ],
                 ),

@@ -5,7 +5,7 @@ import 'package:taukeet/features/prayer_times/domain/usecases/get_calculation_me
 import 'package:taukeet/features/prayer_times/domain/usecases/get_current_prayer.dart';
 import 'package:taukeet/features/prayer_times/domain/usecases/get_higher_latitudes.dart';
 import 'package:taukeet/features/prayer_times/domain/usecases/get_prayer_times.dart';
-import 'package:taukeet/src/providers/settings_provider.dart';
+import 'package:taukeet/features/settings/presentation/providers/settings_provider.dart';
 
 // Provider for prayer data (loaded in main.dart)
 final prayerDataProvider = Provider<Map<String, dynamic>>((ref) {
@@ -42,7 +42,10 @@ final getHigherLatitudesUseCaseProvider = Provider<GetHigherLatitudes>((ref) {
 final prayerTimesProvider =
     FutureProvider.family<List<PrayerTime>, DateTime>((ref, dateTime) async {
   final useCase = ref.watch(getPrayerTimesUseCaseProvider);
-  final settings = ref.watch(settingsProvider);
+  final settings = ref.watch(settingsProvider).settings;
+
+  print(settings.calculationMethod);
+  print(settings.madhab);
 
   final params = GetPrayerTimesParams(
     date: dateTime,
@@ -65,7 +68,7 @@ final prayerTimesProvider =
 final currentPrayerProvider =
     FutureProvider.family<PrayerTime?, DateTime>((ref, dateTime) async {
   final useCase = ref.watch(getCurrentPrayerUseCaseProvider);
-  final settings = ref.watch(settingsProvider);
+  final settings = ref.watch(settingsProvider).settings;
 
   final params = GetCurrentPrayerParams(
     location: settings.address,

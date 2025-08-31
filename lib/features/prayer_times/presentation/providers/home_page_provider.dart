@@ -2,8 +2,9 @@ import 'dart:async';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:taukeet/features/prayer_times/domain/entities/prayer_time.dart';
 import 'package:taukeet/features/prayer_times/presentation/providers/prayer_times_provider.dart';
+import 'package:taukeet/features/settings/presentation/providers/settings_provider.dart';
 
-final homepageProvider =
+final homePageProvider =
     StateNotifierProvider<HomePageNotifier, HomePageState>((ref) {
   return HomePageNotifier(ref);
 });
@@ -38,10 +39,11 @@ class HomePageNotifier extends StateNotifier<HomePageState> {
 
   HomePageNotifier(this.ref) : super(HomePageState(dateTime: DateTime.now())) {
     // Listen to settings changes
-    // _settingsListener =
-    //     ref.listen<SettingsState>(settingsProvider, (prev, next) {
-    //   _updatePrayers(); // Re-fetch prayers whenever settings change
-    // });
+    ref.listen<SettingsState>(settingsProvider, (prev, next) {
+      if (prev?.settings != next.settings) {
+        _updatePrayers();
+      }
+    });
 
     _updatePrayers();
   }
@@ -54,6 +56,13 @@ class HomePageNotifier extends StateNotifier<HomePageState> {
     );
 
     try {
+      // Invalidate the cached providers first
+      ref.invalidate(prayerTimesProvider(state.dateTime));
+      ref.invalidate(currentPrayerProvider(state.dateTime));
+
+      // Wait for invalidation to complete
+      await Future.delayed(const Duration(milliseconds: 10));
+
       // Fetch the prayers and current prayer
       final prayersResult =
           await ref.read(prayerTimesProvider(state.dateTime).future);
