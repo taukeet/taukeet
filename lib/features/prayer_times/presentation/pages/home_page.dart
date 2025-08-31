@@ -5,7 +5,7 @@ import 'package:intl/intl.dart';
 import 'package:taukeet/features/prayer_times/presentation/providers/home_page_provider.dart';
 import 'package:taukeet/generated/l10n.dart';
 import 'package:taukeet/generated/l10n.mapper.dart';
-import 'package:taukeet/src/app.dart';
+import 'package:taukeet/app/app.dart';
 
 import 'package:taukeet/features/settings/presentation/providers/settings_provider.dart';
 import 'package:taukeet/core/utils/extensions.dart';

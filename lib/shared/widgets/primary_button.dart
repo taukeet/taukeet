@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:taukeet/src/app.dart';
+import 'package:taukeet/app/app.dart';
 
 class PrimaryButton extends StatelessWidget {
   const PrimaryButton({

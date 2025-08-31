@@ -4,7 +4,7 @@ import 'package:taukeet/features/prayer_times/presentation/providers/prayer_time
 import 'package:taukeet/features/settings/presentation/providers/settings_provider.dart';
 import 'package:taukeet/generated/l10n.dart';
 import 'package:taukeet/generated/l10n.mapper.dart';
-import 'package:taukeet/src/app.dart';
+import 'package:taukeet/app/app.dart';
 import 'package:taukeet/core/utils/extensions.dart';
 import 'package:taukeet/shared/widgets/setting_tile.dart';
 

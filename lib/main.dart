@@ -18,7 +18,7 @@ import 'package:taukeet/features/settings/domain/usecases/get_settings.dart';
 import 'package:taukeet/features/settings/domain/usecases/update_settings.dart';
 import 'package:taukeet/features/settings/domain/usecases/reset_settings.dart';
 import 'package:taukeet/features/settings/presentation/providers/settings_provider.dart';
-import 'package:taukeet/src/app.dart';
+import 'package:taukeet/app/app.dart';
 import 'package:taukeet/shared/l10n/locale_helper.dart';
 
 void main() async {

@@ -47,7 +47,7 @@ final _router = GoRouter(
           return '/intro';
         }
 
-        return '/intro';
+        return null;
       },
       builder: (context, state) => const HomePage(),
     ),

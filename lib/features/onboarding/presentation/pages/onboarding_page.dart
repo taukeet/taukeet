@@ -271,6 +271,7 @@ class _OnboardingPageState extends ConsumerState<OnboardingPage> {
                                     ref
                                         .read(settingsProvider.notifier)
                                         .completeTutorial();
+
                                     context.replaceNamed('home');
                                   }
                                 : null,
