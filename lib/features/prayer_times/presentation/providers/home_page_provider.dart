@@ -49,12 +49,6 @@ class HomePageNotifier extends StateNotifier<HomePageState> {
   }
 
   Future<void> _updatePrayers() async {
-    // Set loading state
-    state = state.copyWith(
-      prayers: const AsyncValue.loading(),
-      currentPrayer: const AsyncValue.loading(),
-    );
-
     try {
       // Invalidate the cached providers first
       ref.invalidate(prayerTimesProvider(state.dateTime));
