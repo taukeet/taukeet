@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:taukeet/features/settings/presentation/providers/settings_provider.dart';
 import 'package:taukeet/generated/l10n.dart';
-import 'package:taukeet/src/providers/settings_provider.dart';
 import 'package:taukeet/shared/widgets/primary_button.dart';
 import 'package:taukeet/shared/widgets/secondary_button.dart';
 import 'package:taukeet/shared/widgets/text_form_input.dart';
@@ -13,7 +13,7 @@ class AdjustmentsPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final formKey = GlobalKey<FormBuilderState>();
-    final settingsState = ref.watch(settingsProvider);
+    final settingsState = ref.watch(settingsProvider).settings;
 
     return Scaffold(
       backgroundColor: const Color(0xFF1A1A1A), // dark background
@@ -101,7 +101,6 @@ class AdjustmentsPage extends ConsumerWidget {
                             SnackBar(
                               content:
                                   Text(S.of(context)!.adjustmentsResetSuccess),
-                              backgroundColor: Colors.grey[850],
                             ),
                           );
                           Navigator.pop(context);
@@ -134,7 +133,6 @@ class AdjustmentsPage extends ConsumerWidget {
                               SnackBar(
                                 content:
                                     Text(S.of(context)!.adjustmentsSuccess),
-                                backgroundColor: Colors.grey[850],
                               ),
                             );
                             Navigator.pop(context);
