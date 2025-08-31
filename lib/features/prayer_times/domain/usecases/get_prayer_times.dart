@@ -24,10 +24,10 @@ class GetPrayerTimes extends UseCase<List<PrayerTime>, GetPrayerTimesParams> {
         params.madhab,
         params.higherLatitude,
       );
-      
+
       // Get prayer times for the specified date
       final prayerTimes = repository.prayers(params.date);
-      
+
       return Right(prayerTimes);
     } catch (e) {
       return Left(ServerFailure());

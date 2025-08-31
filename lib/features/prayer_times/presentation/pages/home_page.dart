@@ -6,8 +6,9 @@ import 'package:taukeet/features/prayer_times/presentation/providers/home_page_p
 import 'package:taukeet/generated/l10n.dart';
 import 'package:taukeet/generated/l10n.mapper.dart';
 import 'package:taukeet/src/app.dart';
-import 'package:taukeet/src/providers/home_provider.dart';
-import 'package:taukeet/src/providers/settings_provider.dart';
+
+
+import 'package:taukeet/features/settings/presentation/providers/settings_provider.dart';
 import 'package:taukeet/core/utils/extensions.dart';
 
 class HomePage extends ConsumerWidget {
@@ -15,6 +16,7 @@ class HomePage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    print('HomePage: build method called');
     final settingsState = ref.watch(settingsProvider);
     final homeState = ref.watch(homepageProvider);
 
@@ -48,7 +50,7 @@ class HomePage extends ConsumerWidget {
                             child: Text(
                               settingsState.isFetchingLocation
                                   ? S.of(context)!.locationIntroBtnLoading
-                                  : settingsState.address.address,
+                                  : settingsState.settings.address.address,
                               overflow: TextOverflow.ellipsis,
                               style: TextStyle(
                                 color: colorScheme.onSurface
@@ -98,20 +100,20 @@ class HomePage extends ConsumerWidget {
                       DateFormat('dd MMM').format(
                           homeState.dateTime.subtract(const Duration(days: 1))),
                       false,
-                      () => ref.read(homeProvider.notifier).changeToPrevDate(),
+                      () => ref.read(homepageProvider.notifier).changeToPrevDate(),
                     ),
                     _buildDateTab(
                       context,
                       DateFormat('dd MMM yyyy').format(homeState.dateTime),
                       true,
-                      () => ref.read(homeProvider.notifier).changeToToday(),
+                      () => ref.read(homepageProvider.notifier).changeToToday(),
                     ),
                     _buildDateTab(
                       context,
                       DateFormat('dd MMM').format(
                           homeState.dateTime.add(const Duration(days: 1))),
                       false,
-                      () => ref.read(homeProvider.notifier).changeToNextDate(),
+                      () => ref.read(homepageProvider.notifier).changeToNextDate(),
                     ),
                   ],
                 ),
@@ -119,44 +121,104 @@ class HomePage extends ConsumerWidget {
 
               const SizedBox(height: 30),
 
-              // Prayer Times Grid
               Expanded(
-                child: homeState.prayers.isEmpty
-                    ? Center(
+                child: homeState.prayers.when(
+                  data: (prayers) {
+                    if (prayers.isEmpty) {
+                      return Center(
                         child: Text(
-                          S.of(context)!.loading,
+                          S.of(context)!.loading, // or "No prayers found"
                           style: TextStyle(
                             color: colorScheme.onSurface.withValues(alpha: 0.8),
                             fontSize: 18,
                           ),
                         ),
-                      )
-                    : GridView.builder(
-                        gridDelegate:
-                            const SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2,
-                          crossAxisSpacing: 15,
-                          mainAxisSpacing: 15,
-                          childAspectRatio: 1.1,
-                        ),
-                        itemCount: homeState.prayers.length,
-                        itemBuilder: (context, index) {
-                          final prayer = homeState.prayers[index];
-                          return _buildPrayerCard(
-                            context,
-                            S.of(context)!.parseL10n(
-                                prayer.name.english.lowercaseFirstChar()),
-                            DateFormat('hh:mm').format(prayer.startTime),
-                            DateFormat('a').format(prayer.startTime),
-                            _getIconForPrayer(prayer.name.english),
-                            prayer.isCurrentPrayer
-                                ? AppColors.primary
-                                : colorScheme.surface,
-                            isHighlighted: prayer.isCurrentPrayer,
-                          );
-                        },
+                      );
+                    }
+
+                    return GridView.builder(
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        crossAxisSpacing: 15,
+                        mainAxisSpacing: 15,
+                        childAspectRatio: 1.1,
                       ),
-              ),
+                      itemCount: prayers.length,
+                      itemBuilder: (context, index) {
+                        final prayer = prayers[index];
+                        return _buildPrayerCard(
+                          context,
+                          S.of(context)!.parseL10n(
+                                prayer.name.english.lowercaseFirstChar(),
+                              ),
+                          DateFormat('hh:mm').format(prayer.startTime),
+                          DateFormat('a').format(prayer.startTime),
+                          _getIconForPrayer(prayer.name.english),
+                          prayer.isCurrentPrayer
+                              ? AppColors.primary
+                              : colorScheme.surface,
+                          isHighlighted: prayer.isCurrentPrayer,
+                        );
+                      },
+                    );
+                  },
+                  loading: () => Center(
+                    child: Text(
+                      S.of(context)!.loading,
+                      style: TextStyle(
+                        color: colorScheme.onSurface.withValues(alpha: 0.8),
+                        fontSize: 18,
+                      ),
+                    ),
+                  ),
+                  error: (err, stack) => Center(
+                    child: Text(
+                      'Error: $err',
+                      style: TextStyle(color: colorScheme.error),
+                    ),
+                  ),
+                ),
+              )
+
+              // Prayer Times Grid
+              // Expanded(
+              //   child: homeState.prayers.isEmpty
+              //       ? Center(
+              //           child: Text(
+              //             S.of(context)!.loading,
+              //             style: TextStyle(
+              //               color: colorScheme.onSurface.withValues(alpha: 0.8),
+              //               fontSize: 18,
+              //             ),
+              //           ),
+              //         )
+              //       : GridView.builder(
+              //           gridDelegate:
+              //               const SliverGridDelegateWithFixedCrossAxisCount(
+              //             crossAxisCount: 2,
+              //             crossAxisSpacing: 15,
+              //             mainAxisSpacing: 15,
+              //             childAspectRatio: 1.1,
+              //           ),
+              //           itemCount: homeState.prayers.length,
+              //           itemBuilder: (context, index) {
+              //             final prayer = homeState.prayers[index];
+              //             return _buildPrayerCard(
+              //               context,
+              //               S.of(context)!.parseL10n(
+              //                   prayer.name.english.lowercaseFirstChar()),
+              //               DateFormat('hh:mm').format(prayer.startTime),
+              //               DateFormat('a').format(prayer.startTime),
+              //               _getIconForPrayer(prayer.name.english),
+              //               prayer.isCurrentPrayer
+              //                   ? AppColors.primary
+              //                   : colorScheme.surface,
+              //               isHighlighted: prayer.isCurrentPrayer,
+              //             );
+              //           },
+              //         ),
+              // ),
             ],
           ),
         ),
