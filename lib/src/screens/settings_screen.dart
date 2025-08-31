@@ -5,7 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:taukeet/generated/l10n.dart';
 import 'package:taukeet/generated/l10n.mapper.dart';
 import 'package:taukeet/src/app.dart';
-import 'package:taukeet/src/providers/locale_provider.dart';
+import 'package:taukeet/features/settings/presentation/providers/locale_provider.dart';
 import 'package:taukeet/src/providers/settings_provider.dart';
 import 'package:taukeet/core/utils/extensions.dart';
 import 'package:taukeet/shared/widgets/primary_button.dart';

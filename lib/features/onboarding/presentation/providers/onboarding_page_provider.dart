@@ -1,27 +1,28 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:taukeet/features/settings/presentation/providers/locale_provider.dart';
-import 'package:taukeet/src/providers/settings_provider.dart';
+import 'package:taukeet/features/settings/presentation/providers/settings_provider.dart';
 
 // Provider
-final introProvider = StateNotifierProvider<IntroNotifier, IntroState>((ref) {
-  return IntroNotifier(ref);
+final onboardingPageProvider =
+    StateNotifierProvider<OnboardingPageNotifier, OnboardingPageState>((ref) {
+  return OnboardingPageNotifier(ref);
 });
 
 // State
-class IntroState {
+class OnboardingPageState {
   final bool showNextButton;
   final int currentSlide;
 
-  IntroState({
+  OnboardingPageState({
     this.showNextButton = true, // Start with true for language slide
     this.currentSlide = 0,
   });
 
-  IntroState copyWith({
+  OnboardingPageState copyWith({
     bool? showNextButton,
     int? currentSlide,
   }) {
-    return IntroState(
+    return OnboardingPageState(
       showNextButton: showNextButton ?? this.showNextButton,
       currentSlide: currentSlide ?? this.currentSlide,
     );
@@ -29,10 +30,10 @@ class IntroState {
 }
 
 // Notifier
-class IntroNotifier extends StateNotifier<IntroState> {
+class OnboardingPageNotifier extends StateNotifier<OnboardingPageState> {
   final Ref ref;
 
-  IntroNotifier(this.ref) : super(IntroState()) {
+  OnboardingPageNotifier(this.ref) : super(OnboardingPageState()) {
     // Listen to settings changes to update button state
     ref.listen(settingsProvider, (previous, next) {
       _updateButtonState();
@@ -54,8 +55,8 @@ class IntroNotifier extends StateNotifier<IntroState> {
       case 1: // Location slide - enabled only if address is selected
       case 2: // Madhab slide - enabled only if address is selected
       case 3: // Calculation method slide - enabled only if address is selected
-        final address = ref.read(settingsProvider).address.address;
-        shouldShowNext = address.isNotEmpty;
+        shouldShowNext =
+            ref.read(settingsProvider).settings.hasFetchedInitialLocation;
         break;
       default:
         shouldShowNext = true;

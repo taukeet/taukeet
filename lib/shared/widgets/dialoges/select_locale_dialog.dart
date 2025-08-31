@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:taukeet/src/app.dart';
-import 'package:taukeet/src/providers/locale_provider.dart';
+import 'package:taukeet/features/settings/presentation/providers/locale_provider.dart';
 import 'package:taukeet/shared/l10n/locale_helper.dart';
 
 class SelectLocaleDialog extends ConsumerWidget {

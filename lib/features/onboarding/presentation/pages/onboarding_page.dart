@@ -3,11 +3,11 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:taukeet/core/utils/extensions.dart';
+import 'package:taukeet/features/onboarding/presentation/providers/onboarding_page_provider.dart';
+import 'package:taukeet/features/settings/presentation/providers/settings_provider.dart';
 import 'package:taukeet/generated/l10n.dart';
 import 'package:taukeet/generated/l10n.mapper.dart';
-import 'package:taukeet/src/providers/settings_provider.dart';
-import 'package:taukeet/src/providers/splash_provider.dart';
-import 'package:taukeet/core/utils/extensions.dart';
 import 'package:taukeet/shared/widgets/primary_button.dart';
 import 'package:taukeet/shared/widgets/secondary_button.dart';
 import 'package:taukeet/shared/widgets/dialoges/select_calculation_method_dialog.dart';
@@ -79,7 +79,7 @@ class _OnboardingPageState extends ConsumerState<OnboardingPage> {
 
     return Consumer(
       builder: (context, ref, _) {
-        final introState = ref.watch(introProvider);
+        final introState = ref.watch(onboardingPageProvider);
 
         final slides = [
           // Slide 1: Language selection
@@ -107,7 +107,8 @@ class _OnboardingPageState extends ConsumerState<OnboardingPage> {
                 settingsProvider.select((state) => state.isFetchingLocation),
               );
               final address = ref.watch(
-                settingsProvider.select((state) => state.address.address),
+                settingsProvider
+                    .select((state) => state.settings.address.address),
               );
               return SplashContainer(
                 icon: Icons.location_on,
@@ -122,7 +123,7 @@ class _OnboardingPageState extends ConsumerState<OnboardingPage> {
                     ? null
                     : () async {
                         final success = await ref
-                            .read(introProvider.notifier)
+                            .read(onboardingPageProvider.notifier)
                             .fetchLocation();
                         if (!context.mounted) return;
                         if (!success && !isFetchingLocation) {
@@ -144,7 +145,7 @@ class _OnboardingPageState extends ConsumerState<OnboardingPage> {
           Consumer(
             builder: (context, ref, child) {
               final madhab = ref.watch(
-                settingsProvider.select((state) => state.madhab),
+                settingsProvider.select((state) => state.settings.madhab),
               );
               return SplashContainer(
                 title: S.of(context)!.parseL10n(madhab.lowercaseFirstChar()),
@@ -165,7 +166,8 @@ class _OnboardingPageState extends ConsumerState<OnboardingPage> {
           Consumer(
             builder: (context, ref, child) {
               final calculationMethod = ref.watch(
-                settingsProvider.select((state) => state.calculationMethod),
+                settingsProvider
+                    .select((state) => state.settings.calculationMethod),
               );
               return SplashContainer(
                 title: S
@@ -203,7 +205,7 @@ class _OnboardingPageState extends ConsumerState<OnboardingPage> {
                       });
                       // Update the intro provider with current slide
                       ref
-                          .read(introProvider.notifier)
+                          .read(onboardingPageProvider.notifier)
                           .updateCurrentSlide(index);
                     },
                   ),
@@ -228,7 +230,7 @@ class _OnboardingPageState extends ConsumerState<OnboardingPage> {
                             shape: BoxShape.circle,
                             color: _currentIndex == entry.key
                                 ? Colors.white
-                                : Colors.white.withOpacity(0.4),
+                                : Colors.white.withValues(alpha: 0.4),
                           ),
                         );
                       }).toList(),
@@ -336,7 +338,7 @@ class SplashContainer extends StatelessWidget {
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: 16,
-                color: Colors.white.withOpacity(0.8),
+                color: Colors.white.withValues(alpha: 0.8),
               ),
             ),
             const SizedBox(height: 20),

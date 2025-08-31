@@ -7,9 +7,9 @@ import 'package:taukeet/features/onboarding/presentation/pages/splash_page.dart'
 import 'package:taukeet/features/prayer_times/presentation/pages/home_page.dart';
 import 'package:taukeet/features/settings/presentation/pages/adjustments_page.dart';
 import 'package:taukeet/features/settings/presentation/pages/settings_page.dart';
+import 'package:taukeet/features/settings/presentation/providers/settings_provider.dart';
 import 'package:taukeet/generated/l10n.dart';
-import 'package:taukeet/src/providers/locale_provider.dart';
-import 'package:taukeet/src/providers/settings_provider.dart';
+import 'package:taukeet/features/settings/presentation/providers/locale_provider.dart';
 
 class AppColors {
   static const primary = Color(0xFF4A6CF7); // Blue highlight
@@ -40,14 +40,14 @@ final _router = GoRouter(
         final container = ProviderContainer(
           parent: ProviderScope.containerOf(context),
         );
-        final isTutorialCompleted = container
-            .read(settingsProvider.select((s) => s.isTutorialCompleted));
+        final isTutorialCompleted = container.read(
+            settingsProvider.select((s) => s.settings.isTutorialCompleted));
 
         if (!isTutorialCompleted) {
           return '/intro';
         }
 
-        return null;
+        return '/intro';
       },
       builder: (context, state) => const HomePage(),
     ),

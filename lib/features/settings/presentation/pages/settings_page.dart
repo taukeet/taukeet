@@ -15,7 +15,7 @@ import 'package:taukeet/shared/widgets/dialoges/select_madhab_dialog.dart';
 import 'package:taukeet/shared/widgets/setting_tile.dart';
 import 'package:taukeet/shared/widgets/dialoges/warning_dialog.dart';
 import 'package:taukeet/src/app.dart';
-import 'package:taukeet/src/providers/locale_provider.dart';
+import 'package:taukeet/features/settings/presentation/providers/locale_provider.dart';
 
 class SettingsPage extends ConsumerWidget {
   const SettingsPage({super.key});
