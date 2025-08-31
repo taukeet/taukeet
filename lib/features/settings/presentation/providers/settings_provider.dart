@@ -11,30 +11,36 @@ import 'package:taukeet/features/location/domain/usecases/get_address_from_coord
 
 // Use case providers (to be overridden with dependency injection)
 final getSettingsUseCaseProvider = Provider<GetSettings>((ref) {
-  throw UnimplementedError('getSettingsUseCaseProvider must be overridden with dependency injection');
+  throw UnimplementedError(
+      'getSettingsUseCaseProvider must be overridden with dependency injection');
 });
 
 final updateSettingsUseCaseProvider = Provider<UpdateSettings>((ref) {
-  throw UnimplementedError('updateSettingsUseCaseProvider must be overridden with dependency injection');
+  throw UnimplementedError(
+      'updateSettingsUseCaseProvider must be overridden with dependency injection');
 });
 
 final resetSettingsUseCaseProvider = Provider<ResetSettings>((ref) {
-  throw UnimplementedError('resetSettingsUseCaseProvider must be overridden with dependency injection');
+  throw UnimplementedError(
+      'resetSettingsUseCaseProvider must be overridden with dependency injection');
 });
 
 final getCurrentLocationUseCaseProvider = Provider<GetCurrentLocation>((ref) {
-  throw UnimplementedError('getCurrentLocationUseCaseProvider must be overridden with dependency injection');
+  throw UnimplementedError(
+      'getCurrentLocationUseCaseProvider must be overridden with dependency injection');
 });
 
-final getAddressFromCoordinatesUseCaseProvider = Provider<GetAddressFromCoordinates>((ref) {
-  throw UnimplementedError('getAddressFromCoordinatesUseCaseProvider must be overridden with dependency injection');
+final getAddressFromCoordinatesUseCaseProvider =
+    Provider<GetAddressFromCoordinates>((ref) {
+  throw UnimplementedError(
+      'getAddressFromCoordinatesUseCaseProvider must be overridden with dependency injection');
 });
 
 // FutureProvider to load settings
 final settingsFutureProvider = FutureProvider<Settings>((ref) async {
   final useCase = ref.watch(getSettingsUseCaseProvider);
   final result = await useCase(NoParams());
-  
+
   return result.fold(
     (failure) => const Settings(
       address: Address(latitude: 0.0, longitude: 0.0, address: ""),
@@ -79,31 +85,34 @@ class SettingsState {
     return SettingsState(
       isFetchingLocation: isFetchingLocation ?? this.isFetchingLocation,
       isLocationEnabled: isLocationEnabled ?? this.isLocationEnabled,
-      hasLocationPermission: hasLocationPermission ?? this.hasLocationPermission,
+      hasLocationPermission:
+          hasLocationPermission ?? this.hasLocationPermission,
       settings: settings ?? this.settings,
     );
   }
 }
 
 // Main settings provider
-final settingsProvider = StateNotifierProvider<SettingsNotifier, SettingsState>((ref) {
-  final initialSettings = ref.watch(settingsFutureProvider).value ?? const Settings(
-    address: Address(latitude: 0.0, longitude: 0.0, address: ""),
-    adjustments: Adjustments(
-      fajr: 0,
-      sunrise: 0,
-      dhuhr: 0,
-      asr: 0,
-      maghrib: 0,
-      isha: 0,
-    ),
-    madhab: "hanafi",
-    calculationMethod: "Karachi",
-    higherLatitude: "None",
-    hasFetchedInitialLocation: false,
-    isTutorialCompleted: false,
-  );
-  
+final settingsProvider =
+    StateNotifierProvider<SettingsNotifier, SettingsState>((ref) {
+  final initialSettings = ref.watch(settingsFutureProvider).value ??
+      const Settings(
+        address: Address(latitude: 0.0, longitude: 0.0, address: ""),
+        adjustments: Adjustments(
+          fajr: 0,
+          sunrise: 0,
+          dhuhr: 0,
+          asr: 0,
+          maghrib: 0,
+          isha: 0,
+        ),
+        madhab: "hanafi",
+        calculationMethod: "Karachi",
+        higherLatitude: "None",
+        hasFetchedInitialLocation: false,
+        isTutorialCompleted: false,
+      );
+
   return SettingsNotifier(ref, initialSettings);
 });
 
@@ -116,7 +125,7 @@ final madhabProvider = Provider<String>((ref) {
 class SettingsNotifier extends StateNotifier<SettingsState> {
   final Ref ref;
 
-  SettingsNotifier(this.ref, Settings initialSettings) 
+  SettingsNotifier(this.ref, Settings initialSettings)
       : super(SettingsState(settings: initialSettings));
 
   Future<void> _saveSettings(Settings settings) async {
@@ -126,14 +135,13 @@ class SettingsNotifier extends StateNotifier<SettingsState> {
   }
 
   Future<bool> fetchLocation(String locale) async {
-    print('SettingsNotifier: fetchLocation called');
     state = state.copyWith(isFetchingLocation: true);
     final useCase = ref.read(getCurrentLocationUseCaseProvider);
     final params = GetCurrentLocationParams(locale: locale);
 
     try {
       final result = await useCase(params);
-      
+
       return result.fold(
         (failure) {
           // Handle different types of failures
@@ -149,14 +157,14 @@ class SettingsNotifier extends StateNotifier<SettingsState> {
             address: address,
             hasFetchedInitialLocation: true,
           );
-          
+
           state = state.copyWith(
             isFetchingLocation: false,
             isLocationEnabled: true,
             hasLocationPermission: true,
             settings: updatedSettings,
           );
-          
+
           await _saveSettings(updatedSettings);
           return true;
         },
@@ -170,7 +178,7 @@ class SettingsNotifier extends StateNotifier<SettingsState> {
   Future<void> translateAddress(String locale) async {
     print('SettingsNotifier: translateAddress called');
     // Only translate if we have valid coordinates
-    if (state.settings.address.latitude == 0.0 && 
+    if (state.settings.address.latitude == 0.0 &&
         state.settings.address.longitude == 0.0) {
       return;
     }
@@ -184,13 +192,14 @@ class SettingsNotifier extends StateNotifier<SettingsState> {
       );
 
       final result = await useCase(params);
-      
+
       result.fold(
         (failure) {
           // If translation fails, keep the current address
         },
         (translatedAddress) async {
-          final updatedSettings = state.settings.copyWith(address: translatedAddress);
+          final updatedSettings =
+              state.settings.copyWith(address: translatedAddress);
           state = state.copyWith(settings: updatedSettings);
           await _saveSettings(updatedSettings);
         },
@@ -222,8 +231,9 @@ class SettingsNotifier extends StateNotifier<SettingsState> {
       maghrib: maghrib,
       isha: isha,
     );
-    
-    final updatedSettings = state.settings.copyWith(adjustments: newAdjustments);
+
+    final updatedSettings =
+        state.settings.copyWith(adjustments: newAdjustments);
     state = state.copyWith(settings: updatedSettings);
     _saveSettings(updatedSettings);
   }
@@ -249,7 +259,7 @@ class SettingsNotifier extends StateNotifier<SettingsState> {
   Future<void> resetToDefaults() async {
     final useCase = ref.read(resetSettingsUseCaseProvider);
     await useCase(NoParams());
-    
+
     // Reset to default settings
     const defaultSettings = Settings(
       address: Address(latitude: 0.0, longitude: 0.0, address: ""),
@@ -267,7 +277,7 @@ class SettingsNotifier extends StateNotifier<SettingsState> {
       hasFetchedInitialLocation: false,
       isTutorialCompleted: false,
     );
-    
+
     state = state.copyWith(settings: defaultSettings);
   }
 }

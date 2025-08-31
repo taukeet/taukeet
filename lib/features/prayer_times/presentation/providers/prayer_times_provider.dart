@@ -1,6 +1,9 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:taukeet/core/usecases/usecase.dart';
 import 'package:taukeet/features/prayer_times/domain/entities/prayer_time.dart';
+import 'package:taukeet/features/prayer_times/domain/usecases/get_calculation_methods.dart';
 import 'package:taukeet/features/prayer_times/domain/usecases/get_current_prayer.dart';
+import 'package:taukeet/features/prayer_times/domain/usecases/get_higher_latitudes.dart';
 import 'package:taukeet/features/prayer_times/domain/usecases/get_prayer_times.dart';
 import 'package:taukeet/src/providers/settings_provider.dart';
 
@@ -20,6 +23,19 @@ final getPrayerTimesUseCaseProvider = Provider<GetPrayerTimes>((ref) {
 final getCurrentPrayerUseCaseProvider = Provider<GetCurrentPrayer>((ref) {
   throw UnimplementedError(
       'getCurrentPrayerUseCaseProvider must be overridden with dependency injection');
+});
+
+// Provider for calculation methods use case
+final getCalculationMethodsUseCaseProvider =
+    Provider<GetCalculationMethods>((ref) {
+  throw UnimplementedError(
+      'getCalculationMethodsUseCaseProvider must be overridden with dependency injection');
+});
+
+// Provider for higher latitudes use case
+final getHigherLatitudesUseCaseProvider = Provider<GetHigherLatitudes>((ref) {
+  throw UnimplementedError(
+      'getHigherLatitudesUseCaseProvider must be overriden with DI');
 });
 
 // Provider for prayer times
@@ -64,5 +80,24 @@ final currentPrayerProvider =
   return result.fold(
     (failure) => null, // Return null on failure
     (prayer) => prayer,
+  );
+});
+
+final calculationMethodsProvider = FutureProvider<List<String>>((ref) async {
+  final useCase = ref.watch(getCalculationMethodsUseCaseProvider);
+  final result = await useCase(NoParams());
+
+  return result.fold(
+    (failure) => [], // Return empty list on failure
+    (methods) => methods,
+  );
+});
+
+final higherLatitudesProvider = FutureProvider<List<String>>((ref) async {
+  final useCase = ref.watch(getHigherLatitudesUseCaseProvider);
+  final result = await useCase(NoParams());
+  return result.fold(
+    (failure) => [],
+    (latitudes) => latitudes,
   );
 });
