@@ -3,8 +3,10 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:taukeet/features/location/data/repositories/location_repository_impl.dart';
+import 'package:taukeet/core/di/injection.dart';
+import 'package:taukeet/features/location/domain/repositories/location_repository.dart';
 import 'package:taukeet/features/location/domain/usecases/get_address_from_coordinates.dart';
 import 'package:taukeet/features/location/domain/usecases/get_current_location.dart';
 import 'package:taukeet/features/prayer_times/data/repositories/prayer_repository_impl.dart';
@@ -27,6 +29,8 @@ void main() async {
   String prayerJsonStr = await rootBundle.loadString('assets/data/prayer.json');
   Map<String, dynamic> prayerData = json.decode(prayerJsonStr);
 
+  configureDependencies();
+
   await LocaleHelper.loadLocales();
 
   final prayerRepo = PrayerRepositoryImpl(data: prayerData);
@@ -41,7 +45,7 @@ void main() async {
   final updateSettingsUseCase = UpdateSettings(settingsRepo);
   final resetSettingsUseCase = ResetSettings(settingsRepo);
 
-  final locationRepo = LocationRepositoryImpl();
+  final locationRepo = GetIt.instance<LocationRepository>();
   final getCurrentLocationUseCase = GetCurrentLocation(locationRepo);
   final getAddressFromCoordinatesUseCase =
       GetAddressFromCoordinates(locationRepo);

@@ -1,41 +1,51 @@
-import 'package:geocoding/geocoding.dart';
-import 'package:location/location.dart' as geo_location;
+import 'package:injectable/injectable.dart';
 import 'package:taukeet/core/errors/location_disabled_exception.dart';
 import 'package:taukeet/core/errors/location_permission_denied.dart';
 import 'package:taukeet/features/location/domain/entities/address.dart';
+import 'package:taukeet/features/location/domain/entities/coordinates.dart';
 import 'package:taukeet/features/location/domain/repositories/location_repository.dart';
+import 'package:taukeet/features/location/domain/services/location_service.dart';
+import 'package:taukeet/features/location/domain/enums/location_permission_status.dart';
 
+@LazySingleton(as: LocationRepository)
 class LocationRepositoryImpl implements LocationRepository {
+  final LocationService _locationService;
+
+  LocationRepositoryImpl(this._locationService);
+
   @override
   Future<Address> getCurrentLocation(String locale) async {
-    final location = geo_location.Location();
-
     // Check if location service is enabled
-    bool serviceEnabled = await location.serviceEnabled();
+    bool serviceEnabled = await _locationService.isServiceEnabled();
     if (!serviceEnabled) {
-      serviceEnabled = await location.requestService();
+      serviceEnabled = await _locationService.requestService();
       if (!serviceEnabled) {
         throw LocationDisabledException();
       }
     }
 
-    // Check if permission is granted
-    geo_location.PermissionStatus permissionGranted =
-        await location.hasPermission();
-    if (permissionGranted == geo_location.PermissionStatus.denied) {
-      permissionGranted = await location.requestPermission();
-      if (permissionGranted != geo_location.PermissionStatus.granted) {
+    // Check and request permission if needed
+    LocationPermissionStatus permissionStatus =
+        await _locationService.checkPermission();
+    if (permissionStatus == LocationPermissionStatus.denied ||
+        permissionStatus == LocationPermissionStatus.deniedForever) {
+      permissionStatus = await _locationService.requestPermission();
+      if (permissionStatus != LocationPermissionStatus.granted &&
+          permissionStatus != LocationPermissionStatus.grantedLimited) {
         throw LocationPermissionDenied();
       }
     }
 
-    final locationData = await location.getLocation();
+    // Get current location
+    final location = await _locationService.getCurrentLocation();
 
-    return getAddressFromCoordinates(
-      locationData.latitude!,
-      locationData.longitude!,
-      locale,
+    // Get address for the current location
+    final address = await _locationService.getAddressFromCoordinates(
+      coordinates: location.coordinates,
+      locale: locale,
     );
+
+    return address;
   }
 
   @override
@@ -44,27 +54,11 @@ class LocationRepositoryImpl implements LocationRepository {
     double longitude,
     String locale,
   ) async {
-    await _setLocaleIdentifier(locale);
+    final coordinates = Coordinates(latitude: latitude, longitude: longitude);
 
-    final placemarks = await placemarkFromCoordinates(latitude, longitude);
-    final addressStr = _makeAddress(placemarks.first);
-
-    return Address(
-      latitude: latitude,
-      longitude: longitude,
-      address: addressStr.isEmpty ? "$latitude, $longitude" : addressStr,
+    return await _locationService.getAddressFromCoordinates(
+      coordinates: coordinates,
+      locale: locale,
     );
-  }
-
-  Future<void> _setLocaleIdentifier(String locale) async {
-    // geocoding package allows locale via `placemarkFromCoordinates` optional param
-    // If needed, you can wrap platform-specific locale settings here
-  }
-
-  String _makeAddress(Placemark placemark) {
-    final components = [placemark.locality, placemark.country];
-    final filteredComponents =
-        components.where((component) => component?.isNotEmpty == true);
-    return filteredComponents.join(', ');
   }
 }
