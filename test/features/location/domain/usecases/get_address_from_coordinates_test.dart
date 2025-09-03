@@ -62,7 +62,7 @@ void main() {
             tLatitude,
             tLongitude,
             tLocale,
-          )).thenThrow(Exception('Something went wrong'));
+          )).thenThrow(LocationPermissionDenied('Permission denied'));
 
       // act
       final result = await usecase(tParams);
