@@ -1,6 +1,8 @@
 import 'dart:convert';
 
-class Address {
+import 'package:equatable/equatable.dart';
+
+class Address extends Equatable {
   final double latitude;
   final double longitude;
   final String address;
@@ -37,4 +39,7 @@ class Address {
         "longitude": longitude,
         "address": address,
       };
+
+  @override
+  List<Object> get props => [latitude, longitude, address];
 }

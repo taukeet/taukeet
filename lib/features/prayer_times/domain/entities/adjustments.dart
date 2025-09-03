@@ -1,6 +1,8 @@
 import 'dart:convert';
 
-class Adjustments {
+import 'package:equatable/equatable.dart';
+
+class Adjustments extends Equatable {
   final int fajr;
   final int sunrise;
   final int dhuhr;
@@ -56,4 +58,7 @@ class Adjustments {
         "maghrib": maghrib,
         "isha": isha,
       };
+
+  @override
+  List<Object> get props => [fajr, sunrise, dhuhr, asr, maghrib, isha];
 }
