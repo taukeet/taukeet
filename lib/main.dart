@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get_it/get_it.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:taukeet/core/di/injection.dart';
 import 'package:taukeet/features/location/domain/repositories/location_repository.dart';
 import 'package:taukeet/features/location/domain/usecases/get_address_from_coordinates.dart';
@@ -15,7 +14,7 @@ import 'package:taukeet/features/prayer_times/domain/usecases/get_current_prayer
 import 'package:taukeet/features/prayer_times/domain/usecases/get_higher_latitudes.dart';
 import 'package:taukeet/features/prayer_times/domain/usecases/get_prayer_times.dart';
 import 'package:taukeet/features/prayer_times/presentation/providers/prayer_times_provider.dart';
-import 'package:taukeet/features/settings/data/repositories/settings_repository_impl.dart';
+import 'package:taukeet/features/settings/domain/repositories/settings_repository.dart';
 import 'package:taukeet/features/settings/domain/usecases/get_settings.dart';
 import 'package:taukeet/features/settings/domain/usecases/update_settings.dart';
 import 'package:taukeet/features/settings/domain/usecases/reset_settings.dart';
@@ -29,7 +28,7 @@ void main() async {
   String prayerJsonStr = await rootBundle.loadString('assets/data/prayer.json');
   Map<String, dynamic> prayerData = json.decode(prayerJsonStr);
 
-  configureDependencies();
+  await configureDependencies();
 
   await LocaleHelper.loadLocales();
 
@@ -39,8 +38,7 @@ void main() async {
   final getCalculationMethodsUseCase = GetCalculationMethods(prayerRepo);
   final getHigherLatitudesUseCase = GetHigherLatitudes(prayerRepo);
 
-  final prefs = await SharedPreferences.getInstance();
-  final settingsRepo = SettingsRepositoryImpl(prefs);
+  final settingsRepo = GetIt.instance<SettingsRepository>();
   final getSettingsUseCase = GetSettings(settingsRepo);
   final updateSettingsUseCase = UpdateSettings(settingsRepo);
   final resetSettingsUseCase = ResetSettings(settingsRepo);
