@@ -45,7 +45,7 @@ void main() {
         () async {
       // arrange
       when(() => mockRepository.getCurrentLocation(tLocale))
-          .thenThrow(Exception('Something went wrong'));
+          .thenThrow(LocationDisabledException('Location services disabled'));
 
       // act
       final result = await usecase(tParams);
