@@ -10,8 +10,9 @@ void main() {
     test('should have correct props', () {
       expect(LocationFailure().props, isEmpty);
     });
+
+    test('should have correct string representation', () {
+      expect(LocationFailure().toString(), 'LocationFailure()');
+    });
   });
 }
-    test('should have correct string representation', () {
-      expect(LocationFailure().toString(), 'LocationFailure');
-    });

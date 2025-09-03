@@ -6,7 +6,7 @@ void main() {
     test('should have default message', () {
       expect(
         LocationPermissionDenied().toString(),
-        'LocationPermissionDenied: Location permissions are denied',
+        'LocationPermissionDenied: Location permission denied',
       );
     });
 

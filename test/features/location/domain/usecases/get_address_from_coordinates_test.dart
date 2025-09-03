@@ -2,6 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:taukeet/core/errors/failures.dart';
+import 'package:taukeet/core/errors/location_permission_denied.dart';
 import 'package:taukeet/features/location/domain/entities/address.dart';
 import 'package:taukeet/features/location/domain/repositories/location_repository.dart';
 import 'package:taukeet/features/location/domain/usecases/get_address_from_coordinates.dart';
