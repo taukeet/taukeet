@@ -270,4 +270,7 @@ class SEn extends S {
 
   @override
   String get home => 'Home';
+
+  @override
+  String get qiblah => 'Qiblah';
 }

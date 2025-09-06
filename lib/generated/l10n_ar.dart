@@ -266,4 +266,7 @@ class SAr extends S {
 
   @override
   String get home => 'الرئيسية';
+
+  @override
+  String get qiblah => 'القبلة';
 }

@@ -586,6 +586,12 @@ abstract class S {
   /// In en, this message translates to:
   /// **'Home'**
   String get home;
+
+  /// No description provided for @qiblah.
+  ///
+  /// In en, this message translates to:
+  /// **'Qiblah'**
+  String get qiblah;
 }
 
 class _SDelegate extends LocalizationsDelegate<S> {

@@ -273,4 +273,7 @@ class SHi extends S {
 
   @override
   String get home => 'होम';
+
+  @override
+  String get qiblah => 'क़िबला';
 }
