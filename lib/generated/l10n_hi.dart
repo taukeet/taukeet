@@ -270,4 +270,7 @@ class SHi extends S {
 
   @override
   String get done => 'पूर्ण';
+
+  @override
+  String get home => 'होम';
 }

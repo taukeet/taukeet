@@ -110,5 +110,6 @@
 
     "previous": "Previous",
     "next": "Next", 
-    "done": "Done"
+    "done": "Done",
+    "home": "Home"
 }
