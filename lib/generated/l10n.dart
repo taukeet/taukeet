@@ -580,6 +580,12 @@ abstract class S {
   /// In en, this message translates to:
   /// **'Done'**
   String get done;
+
+  /// No description provided for @home.
+  ///
+  /// In en, this message translates to:
+  /// **'Home'**
+  String get home;
 }
 
 class _SDelegate extends LocalizationsDelegate<S> {

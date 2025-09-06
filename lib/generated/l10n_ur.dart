@@ -268,4 +268,7 @@ class SUr extends S {
 
   @override
   String get done => 'مکمل';
+
+  @override
+  String get home => 'ہوم';
 }

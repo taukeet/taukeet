@@ -267,4 +267,7 @@ class SEn extends S {
 
   @override
   String get done => 'Done';
+
+  @override
+  String get home => 'Home';
 }

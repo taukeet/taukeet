@@ -7,9 +7,9 @@ import 'package:taukeet/features/onboarding/presentation/pages/splash_page.dart'
 import 'package:taukeet/features/prayer_times/presentation/pages/home_page.dart';
 import 'package:taukeet/features/settings/presentation/pages/adjustments_page.dart';
 import 'package:taukeet/features/settings/presentation/pages/settings_page.dart';
-import 'package:taukeet/features/settings/presentation/providers/settings_provider.dart';
 import 'package:taukeet/generated/l10n.dart';
 import 'package:taukeet/features/settings/presentation/providers/locale_provider.dart';
+import 'package:taukeet/app/scaffold_with_nested_navigation.dart';
 
 class AppColors {
   static const primary = Color(0xFF4A6CF7); // Blue highlight
@@ -18,10 +18,13 @@ class AppColors {
   static const surface = Color(0xFF2A2A2A); // Card/dark surface
 }
 
+final _rootNavigatorKey = GlobalKey<NavigatorState>();
+final _shellNavigatorHomeKey = GlobalKey<NavigatorState>(debugLabel: 'homeShell');
+final _shellNavigatorSettingsKey = GlobalKey<NavigatorState>(debugLabel: 'settingsShell');
+
 final _router = GoRouter(
-  redirect: (context, state) {
-    return null;
-  },
+  initialLocation: '/', // Changed to '/'
+  navigatorKey: _rootNavigatorKey,
   routes: [
     GoRoute(
       name: 'splash',
@@ -33,33 +36,38 @@ final _router = GoRouter(
       path: '/intro',
       builder: (context, state) => const OnboardingPage(),
     ),
-    GoRoute(
-      name: 'home',
-      path: '/home',
-      redirect: (context, state) {
-        final container = ProviderContainer(
-          parent: ProviderScope.containerOf(context),
-        );
-        final isTutorialCompleted = container.read(
-            settingsProvider.select((s) => s.settings.isTutorialCompleted));
-
-        if (!isTutorialCompleted) {
-          return '/intro';
-        }
-
-        return null;
+    StatefulShellRoute.indexedStack(
+      builder: (context, state, navigationShell) {
+        return ScaffoldWithNestedNavigation(navigationShell: navigationShell);
       },
-      builder: (context, state) => const HomePage(),
-    ),
-    GoRoute(
-      name: 'settings',
-      path: '/settings',
-      builder: (context, state) => const SettingsPage(),
-      routes: [
-        GoRoute(
-          name: 'settings.adjustments',
-          path: 'adjustments',
-          builder: (context, state) => const AdjustmentsPage(),
+      branches: [
+        StatefulShellBranch(
+          navigatorKey: _shellNavigatorHomeKey,
+          routes: [
+            GoRoute(
+              name: 'home',
+              path: '/home',
+              // Removed redirect from here
+              builder: (context, state) => const HomePage(),
+            ),
+          ],
+        ),
+        StatefulShellBranch(
+          navigatorKey: _shellNavigatorSettingsKey,
+          routes: [
+            GoRoute(
+              name: 'settings',
+              path: '/settings',
+              builder: (context, state) => const SettingsPage(),
+              routes: [
+                GoRoute(
+                  name: 'settings.adjustments',
+                  path: 'adjustments',
+                  builder: (context, state) => const AdjustmentsPage(),
+                ),
+              ],
+            ),
+          ],
         ),
       ],
     ),

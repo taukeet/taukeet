@@ -263,4 +263,7 @@ class SAr extends S {
 
   @override
   String get done => 'تم';
+
+  @override
+  String get home => 'الرئيسية';
 }

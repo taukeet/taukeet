@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:taukeet/features/prayer_times/presentation/providers/home_page_provider.dart';
 import 'package:taukeet/generated/l10n.dart';
@@ -23,7 +22,7 @@ class HomePage extends ConsumerWidget {
     return Scaffold(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: SafeArea(
-        child: Padding(
+        child: SingleChildScrollView(
           padding: const EdgeInsets.all(20.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -60,7 +59,6 @@ class HomePage extends ConsumerWidget {
                           ),
                         ],
                       ),
-                      const SizedBox(height: 8),
                       Text(
                         DateFormat('hh:mm a').format(DateTime.now()),
                         style: TextStyle(
@@ -71,20 +69,9 @@ class HomePage extends ConsumerWidget {
                       ),
                     ],
                   ),
-                  InkWell(
-                    onTap: () => context.pushNamed('settings'),
-                    child: Icon(
-                      Icons.settings,
-                      color: colorScheme.onSurface.withValues(alpha: 0.6),
-                      size: 28,
-                    ),
-                  ),
                 ],
               ),
-
-              const SizedBox(height: 30),
-
-              // Date Selector
+              const SizedBox(height: 20),
               Container(
                 height: 50,
                 decoration: BoxDecoration(
@@ -120,65 +107,63 @@ class HomePage extends ConsumerWidget {
                   ],
                 ),
               ),
-
-              const SizedBox(height: 30),
-
-              Expanded(
-                child: homeState.prayers.when(
-                  data: (prayers) {
-                    if (prayers.isEmpty) {
-                      return Center(
-                        child: Text(
-                          S.of(context)!.loading, // or "No prayers found"
-                          style: TextStyle(
-                            color: colorScheme.onSurface.withValues(alpha: 0.8),
-                            fontSize: 18,
-                          ),
+              const SizedBox(height: 20),
+              homeState.prayers.when(
+                data: (prayers) {
+                  if (prayers.isEmpty) {
+                    return Center(
+                      child: Text(
+                        S.of(context)!.loading, // or "No prayers found"
+                        style: TextStyle(
+                          color: colorScheme.onSurface.withValues(alpha: 0.8),
+                          fontSize: 18,
                         ),
-                      );
-                    }
-
-                    return GridView.builder(
-                      gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2,
-                        crossAxisSpacing: 15,
-                        mainAxisSpacing: 15,
-                        childAspectRatio: 1.1,
                       ),
-                      itemCount: prayers.length,
-                      itemBuilder: (context, index) {
-                        final prayer = prayers[index];
-                        return _buildPrayerCard(
-                          context,
-                          S.of(context)!.parseL10n(
-                                prayer.name.english.lowercaseFirstChar(),
-                              ),
-                          DateFormat('hh:mm').format(prayer.startTime),
-                          DateFormat('a').format(prayer.startTime),
-                          _getIconForPrayer(prayer.name.english),
-                          prayer.isCurrentPrayer
-                              ? AppColors.primary
-                              : colorScheme.surface,
-                          isHighlighted: prayer.isCurrentPrayer,
-                        );
-                      },
                     );
-                  },
-                  loading: () => Center(
-                    child: Text(
-                      S.of(context)!.loading,
-                      style: TextStyle(
-                        color: colorScheme.onSurface.withValues(alpha: 0.8),
-                        fontSize: 18,
-                      ),
+                  }
+
+                  return GridView.builder(
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      crossAxisSpacing: 15,
+                      mainAxisSpacing: 15,
+                      childAspectRatio: 1.1,
+                    ),
+                    itemCount: prayers.length,
+                    shrinkWrap: true, // Added this
+                    physics: const NeverScrollableScrollPhysics(), // Added this
+                    itemBuilder: (context, index) {
+                      final prayer = prayers[index];
+                      return _buildPrayerCard(
+                        context,
+                        S.of(context)!.parseL10n(
+                              prayer.name.english.lowercaseFirstChar(),
+                            ),
+                        DateFormat('hh:mm').format(prayer.startTime),
+                        DateFormat('a').format(prayer.startTime),
+                        _getIconForPrayer(prayer.name.english),
+                        prayer.isCurrentPrayer
+                            ? AppColors.primary
+                            : colorScheme.surface,
+                        isHighlighted: prayer.isCurrentPrayer,
+                      );
+                    },
+                  );
+                },
+                loading: () => Center(
+                  child: Text(
+                    S.of(context)!.loading,
+                    style: TextStyle(
+                      color: colorScheme.onSurface.withValues(alpha: 0.8),
+                      fontSize: 18,
                     ),
                   ),
-                  error: (err, stack) => Center(
-                    child: Text(
-                      'Error: $err',
-                      style: TextStyle(color: colorScheme.error),
-                    ),
+                ),
+                error: (err, stack) => Center(
+                  child: Text(
+                    'Error: $err',
+                    style: TextStyle(color: colorScheme.error),
                   ),
                 ),
               )
