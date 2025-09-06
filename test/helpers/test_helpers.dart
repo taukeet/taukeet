@@ -1,16 +1,11 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:taukeet/src/entities/address.dart';
-import 'package:taukeet/src/entities/adjustments.dart';
-import 'package:taukeet/src/entities/prayer_name.dart';
-import 'package:taukeet/src/entities/prayer_time.dart';
-import 'package:taukeet/src/services/geo_location_service.dart';
-import 'package:taukeet/src/services/prayer_time_service.dart';
+import 'package:taukeet/features/location/domain/entities/address.dart';
+import 'package:taukeet/features/prayer_times/domain/entities/adjustments.dart';
+import 'package:taukeet/features/prayer_times/domain/entities/prayer_name.dart';
+import 'package:taukeet/features/prayer_times/domain/entities/prayer_time.dart';
 
-// Mock classes
-class MockGeoLocationService extends Mock implements GeoLocationService {}
-class MockPrayerTimeService extends Mock implements PrayerTimeService {}
 class MockSharedPreferences extends Mock implements SharedPreferences {}
 
 // Test data factories
@@ -18,7 +13,7 @@ class TestDataFactory {
   static Address createTestAddress({
     double latitude = 24.8607,
     double longitude = 67.0011,
-    String address = "Karachi, Pakistan",
+    String address = "Hyderabad, India",
   }) {
     return Address(
       latitude: latitude,
@@ -73,17 +68,20 @@ class TestDataFactory {
       ),
       PrayerTime(
         name: PrayerName(english: "Dhuhr", arabic: "ظهر"),
-        startTime: DateTime(testDate.year, testDate.month, testDate.day, 12, 15),
+        startTime:
+            DateTime(testDate.year, testDate.month, testDate.day, 12, 15),
         isCurrentPrayer: true,
       ),
       PrayerTime(
         name: PrayerName(english: "Asr", arabic: "عصر"),
-        startTime: DateTime(testDate.year, testDate.month, testDate.day, 15, 45),
+        startTime:
+            DateTime(testDate.year, testDate.month, testDate.day, 15, 45),
         isCurrentPrayer: false,
       ),
       PrayerTime(
         name: PrayerName(english: "Maghrib", arabic: "مغرب"),
-        startTime: DateTime(testDate.year, testDate.month, testDate.day, 18, 30),
+        startTime:
+            DateTime(testDate.year, testDate.month, testDate.day, 18, 30),
         isCurrentPrayer: false,
       ),
       PrayerTime(
@@ -155,7 +153,8 @@ class TestUtils {
   }) {
     return {
       'address': (address ?? TestDataFactory.createTestAddress()).toMap(),
-      'adjustments': (adjustments ?? TestDataFactory.createTestAdjustments()).toMap(),
+      'adjustments':
+          (adjustments ?? TestDataFactory.createTestAdjustments()).toMap(),
       'madhab': madhab,
       'calculation_method': calculationMethod,
       'higher_latitude': higherLatitude,
