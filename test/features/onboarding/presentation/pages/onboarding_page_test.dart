@@ -1,4 +1,3 @@
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -12,11 +11,11 @@ import 'package:taukeet/generated/l10n.dart';
 import 'package:taukeet/shared/widgets/primary_button.dart';
 import 'package:taukeet/features/settings/domain/entities/settings.dart';
 
-import '../../../../helpers/test_helpers.dart';
-
 class MockGoRouter extends Mock implements GoRouter {}
 
-class MockOnboardingPageNotifier extends StateNotifier<OnboardingPageState> with Mock implements OnboardingPageNotifier {
+class MockOnboardingPageNotifier extends StateNotifier<OnboardingPageState>
+    with Mock
+    implements OnboardingPageNotifier {
   MockOnboardingPageNotifier(super.state);
 
   final CarouselController carouselController = CarouselController();
@@ -32,7 +31,9 @@ class MockOnboardingPageNotifier extends StateNotifier<OnboardingPageState> with
   }
 }
 
-class MockSettingsNotifier extends StateNotifier<SettingsState> with Mock implements SettingsNotifier {
+class MockSettingsNotifier extends StateNotifier<SettingsState>
+    with Mock
+    implements SettingsNotifier {
   MockSettingsNotifier(super.state);
 }
 
@@ -46,8 +47,10 @@ void main() {
     setUp(() async {
       goRouter = MockGoRouter();
       strings = await S.delegate.load(const Locale('en'));
-      onboardingPageNotifier = MockOnboardingPageNotifier(OnboardingPageState());
-      settingsNotifier = MockSettingsNotifier(SettingsState(settings: Settings()));
+      onboardingPageNotifier =
+          MockOnboardingPageNotifier(OnboardingPageState());
+      settingsNotifier =
+          MockSettingsNotifier(SettingsState(settings: Settings()));
     });
 
     Widget createWidgetUnderTest() {
@@ -72,14 +75,16 @@ void main() {
       );
     }
 
-    testWidgets('should show the first slide initially', (WidgetTester tester) async {
+    testWidgets('should show the first slide initially',
+        (WidgetTester tester) async {
       await tester.pumpWidget(createWidgetUnderTest());
 
       expect(find.byType(SplashContainer), findsOneWidget);
       expect(find.text(strings.chooseLanguage), findsOneWidget);
     });
 
-    testWidgets('should have the next button disabled initially', (WidgetTester tester) async {
+    testWidgets('should have the next button disabled initially',
+        (WidgetTester tester) async {
       onboardingPageNotifier.state = OnboardingPageState(showNextButton: false);
 
       await tester.pumpWidget(createWidgetUnderTest());
@@ -88,7 +93,8 @@ void main() {
       expect(tester.widget<PrimaryButton>(nextButton).onPressed, isNull);
     });
 
-    testWidgets('should enable the next button when a language is selected', (WidgetTester tester) async {
+    testWidgets('should enable the next button when a language is selected',
+        (WidgetTester tester) async {
       onboardingPageNotifier.state = OnboardingPageState(showNextButton: true);
 
       await tester.pumpWidget(createWidgetUnderTest());
@@ -97,7 +103,9 @@ void main() {
       expect(tester.widget<PrimaryButton>(nextButton).onPressed, isNotNull);
     });
 
-    testWidgets('should navigate to the next slide when the next button is tapped', (WidgetTester tester) async {
+    testWidgets(
+        'should navigate to the next slide when the next button is tapped',
+        (WidgetTester tester) async {
       onboardingPageNotifier.state = OnboardingPageState(showNextButton: true);
 
       await tester.pumpWidget(createWidgetUnderTest());
