@@ -7,6 +7,7 @@ import 'package:taukeet/shared/widgets/primary_button.dart';
 import 'package:taukeet/shared/widgets/secondary_button.dart';
 import 'package:taukeet/shared/widgets/dialoges/warning_dialog.dart';
 import 'package:taukeet/features/qiblah/presentation/providers/qiblah_provider.dart';
+import 'package:taukeet/features/qiblah/presentation/widgets/qiblah_compass.dart';
 
 class QiblahPage extends ConsumerWidget {
   const QiblahPage({super.key});
@@ -31,7 +32,7 @@ class QiblahPage extends ConsumerWidget {
               style: Theme.of(context).textTheme.headlineSmall,
             ),
             Text(
-              '${qiblahState.address!.latitude.toStringAsFixed(4)}, ${qiblahState.address!.longitude.toStringAsFixed(4)}',
+              'Lat: ${qiblahState.address?.latitude?.toStringAsFixed(4) ?? 'N/A'}, Long: ${qiblahState.address?.longitude?.toStringAsFixed(4) ?? 'N/A'}',
               style: Theme.of(context).textTheme.bodySmall,
             ),
             const SizedBox(height: 16),
@@ -74,23 +75,12 @@ class QiblahPage extends ConsumerWidget {
                   : S.of(context)!.locationIntroBtn,
             ),
             const SizedBox(height: 30),
-            Text(
-              'Qiblah Direction will be displayed here',
-              style: Theme.of(context).textTheme.headlineSmall,
-            ),
-            const SizedBox(height: 20),
-            Container(
-              width: 200,
-              height: 200,
-              color: Colors.grey[800],
-              child: const Center(
-                child: Icon(
-                  Icons.navigation,
-                  size: 100,
-                  color: Colors.white,
-                ),
-              ),
-            ),
+            qiblahState.qiblahDirection != null
+                ? QiblahCompass(qiblahDirection: qiblahState.qiblahDirection!)
+                : Text(
+                    'Qiblah Direction will be displayed here',
+                    style: Theme.of(context).textTheme.headlineSmall,
+                  ),
           ],
         ),
       ),

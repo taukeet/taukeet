@@ -6,6 +6,7 @@ import 'package:taukeet/features/location/domain/entities/address.dart';
 import 'package:taukeet/features/location/domain/usecases/get_current_location.dart';
 import 'package:taukeet/features/settings/domain/usecases/get_settings.dart';
 import 'package:taukeet/core/usecases/usecase.dart';
+import 'package:taukeet/features/qiblah/domain/usecases/get_qiblah_direction.dart';
 import 'package:taukeet/features/settings/presentation/providers/settings_provider.dart';
 
 class QiblahState {
@@ -13,12 +14,14 @@ class QiblahState {
   final bool hasLocationPermission;
   final bool isLocationEnabled;
   final Address? address;
+  final double? qiblahDirection;
 
   QiblahState({
     this.isFetchingLocation = false,
     this.hasLocationPermission = true,
     this.isLocationEnabled = true,
     this.address,
+    this.qiblahDirection,
   });
 
   QiblahState copyWith({
@@ -26,12 +29,14 @@ class QiblahState {
     bool? hasLocationPermission,
     bool? isLocationEnabled,
     Address? address,
+    double? qiblahDirection,
   }) {
     return QiblahState(
       isFetchingLocation: isFetchingLocation ?? this.isFetchingLocation,
       hasLocationPermission: hasLocationPermission ?? this.hasLocationPermission,
       isLocationEnabled: isLocationEnabled ?? this.isLocationEnabled,
       address: address ?? this.address,
+      qiblahDirection: qiblahDirection ?? this.qiblahDirection,
     );
   }
 }
@@ -39,10 +44,12 @@ class QiblahState {
 class QiblahNotifier extends StateNotifier<QiblahState> {
   final GetCurrentLocation _getCurrentLocation;
   final GetSettings _getSettings;
+  final GetQiblahDirection _getQiblahDirection;
 
   QiblahNotifier(
     this._getCurrentLocation,
     this._getSettings,
+    this._getQiblahDirection,
   ) : super(QiblahState());
 
   Future<void> init() async {
@@ -70,12 +77,31 @@ class QiblahNotifier extends StateNotifier<QiblahState> {
         }
         return false;
       },
-      (address) {
-        state = state.copyWith(
-          isFetchingLocation: false,
-          hasLocationPermission: true,
-          isLocationEnabled: true,
-          address: address,
+      (address) async {
+        final qiblahResult = await _getQiblahDirection(GetQiblahDirectionParams(
+          latitude: address.latitude,
+          longitude: address.longitude,
+        ));
+        qiblahResult.fold(
+          (failure) {
+            // Handle Qiblah calculation error, maybe log it
+            state = state.copyWith(
+              isFetchingLocation: false,
+              hasLocationPermission: true,
+              isLocationEnabled: true,
+              address: address,
+              qiblahDirection: null, // Set to null on error
+            );
+          },
+          (qiblahDirection) {
+            state = state.copyWith(
+              isFetchingLocation: false,
+              hasLocationPermission: true,
+              isLocationEnabled: true,
+              address: address,
+              qiblahDirection: qiblahDirection,
+            );
+          },
         );
         return true;
       },
@@ -83,12 +109,18 @@ class QiblahNotifier extends StateNotifier<QiblahState> {
   }
 }
 
+final getQiblahDirectionUseCaseProvider = Provider<GetQiblahDirection>((ref) {
+  return GetQiblahDirection();
+});
+
 final qiblahProvider = StateNotifierProvider<QiblahNotifier, QiblahState>((ref) {
   final getCurrentLocationUseCase = ref.read(getCurrentLocationUseCaseProvider);
   final getSettingsUseCase = ref.read(getSettingsUseCaseProvider);
+  final getQiblahDirectionUseCase = ref.read(getQiblahDirectionUseCaseProvider);
   final notifier = QiblahNotifier(
     getCurrentLocationUseCase,
     getSettingsUseCase,
+    getQiblahDirectionUseCase,
   );
   notifier.init(); // Call init here
   return notifier;
