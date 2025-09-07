@@ -1,4 +1,3 @@
-
 import 'package:flutter_test/flutter_test.dart';
 import 'package:taukeet/features/location/domain/entities/coordinates.dart';
 import 'package:taukeet/features/location/domain/entities/location.dart';

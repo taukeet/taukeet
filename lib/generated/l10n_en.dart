@@ -273,4 +273,88 @@ class SEn extends S {
 
   @override
   String get qiblah => 'Qiblah';
+
+  @override
+  String get qiblahCurrentLocation => 'Current Location';
+
+  @override
+  String qiblahLatLong(Object lat, Object long) {
+    return 'Lat: $lat, Long: $long';
+  }
+
+  @override
+  String get qiblahLocationNotSet => 'Location not set';
+
+  @override
+  String get qiblahUpdateLocation => 'Update Location';
+
+  @override
+  String get qiblahCalculating => 'Calculating Qiblah direction...';
+
+  @override
+  String get qiblahDirectionHere => 'Qiblah Direction will be displayed here';
+
+  @override
+  String get qiblahCompassCalibration => 'Compass Calibration';
+
+  @override
+  String get qiblahCompassCalibrationMessage =>
+      'Your compass needs calibration for accurate Qiblah direction.';
+
+  @override
+  String get qiblahCompassHowToCalibrate => 'How to Calibrate:';
+
+  @override
+  String get qiblahCompassCalibrationStep1 => '1. Hold your phone firmly';
+
+  @override
+  String get qiblahCompassCalibrationStep2 =>
+      '2. Move it in a figure-8 pattern in the air';
+
+  @override
+  String get qiblahCompassCalibrationStep3 => '3. Repeat for 10-15 seconds';
+
+  @override
+  String get qiblahCompassCalibrationStep4 => '4. Try different orientations';
+
+  @override
+  String get qiblahCompassCalibrationTip =>
+      'Move away from metal objects and electronic devices for better accuracy.';
+
+  @override
+  String get qiblahCompassCalibrationLater => 'I\'ll Try Later';
+
+  @override
+  String get qiblahCompassCalibrationGotIt => 'Got It!';
+
+  @override
+  String qiblahCompassDirection(Object direction) {
+    return 'Qiblah Direction: $direction°';
+  }
+
+  @override
+  String get qiblahCompassFacingQiblah => 'Facing Qiblah';
+
+  @override
+  String get qiblahCompassTurnToFindQiblah => 'Turn to find Qiblah';
+
+  @override
+  String qiblahCompassCurrentHeading(Object heading) {
+    return 'Current heading: $heading°';
+  }
+
+  @override
+  String qiblahCompassQiblahDirection(Object direction) {
+    return 'Qiblah direction: $direction°';
+  }
+
+  @override
+  String qiblahCompassDifference(Object difference) {
+    return 'Difference: $difference°';
+  }
+
+  @override
+  String qiblahCompassAccuracy(Object accuracy) {
+    return 'Compass accuracy: $accuracy';
+  }
 }

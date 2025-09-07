@@ -1,6 +1,7 @@
 import 'dart:math' show pi;
 import 'package:flutter/material.dart';
 import 'package:flutter_compass/flutter_compass.dart';
+import 'package:taukeet/generated/l10n.dart';
 
 class QiblahCompass extends StatefulWidget {
   final double qiblahDirection;
@@ -62,7 +63,7 @@ class _QiblahCompassState extends State<QiblahCompass> {
                   Icon(Icons.warning_amber, color: Colors.amber, size: 28),
                   SizedBox(width: 10),
                   Text(
-                    'Compass Calibration',
+                    S.of(context)!.qiblahCompassCalibration,
                     style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
@@ -74,7 +75,7 @@ class _QiblahCompassState extends State<QiblahCompass> {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Text(
-                    'Your compass needs calibration for accurate Qiblah direction.',
+                    S.of(context)!.qiblahCompassCalibrationMessage,
                     style: TextStyle(fontSize: 16),
                   ),
                   SizedBox(height: 20),
@@ -87,7 +88,7 @@ class _QiblahCompassState extends State<QiblahCompass> {
                     child: Column(
                       children: [
                         Text(
-                          'How to Calibrate:',
+                          S.of(context)!.qiblahCompassHowToCalibrate,
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 16,
@@ -99,7 +100,10 @@ class _QiblahCompassState extends State<QiblahCompass> {
                           children: [
                             Text('1. ',
                                 style: TextStyle(fontWeight: FontWeight.bold)),
-                            Expanded(child: Text('Hold your phone firmly')),
+                            Expanded(
+                                child: Text(S
+                                    .of(context)!
+                                    .qiblahCompassCalibrationStep1)),
                           ],
                         ),
                         SizedBox(height: 8),
@@ -108,8 +112,9 @@ class _QiblahCompassState extends State<QiblahCompass> {
                             Text('2. ',
                                 style: TextStyle(fontWeight: FontWeight.bold)),
                             Expanded(
-                                child: Text(
-                                    'Move it in a figure-8 pattern in the air')),
+                                child: Text(S
+                                    .of(context)!
+                                    .qiblahCompassCalibrationStep2)),
                           ],
                         ),
                         SizedBox(height: 8),
@@ -117,7 +122,10 @@ class _QiblahCompassState extends State<QiblahCompass> {
                           children: [
                             Text('3. ',
                                 style: TextStyle(fontWeight: FontWeight.bold)),
-                            Expanded(child: Text('Repeat for 10-15 seconds')),
+                            Expanded(
+                                child: Text(S
+                                    .of(context)!
+                                    .qiblahCompassCalibrationStep3)),
                           ],
                         ),
                         SizedBox(height: 8),
@@ -125,7 +133,10 @@ class _QiblahCompassState extends State<QiblahCompass> {
                           children: [
                             Text('4. ',
                                 style: TextStyle(fontWeight: FontWeight.bold)),
-                            Expanded(child: Text('Try different orientations')),
+                            Expanded(
+                                child: Text(S
+                                    .of(context)!
+                                    .qiblahCompassCalibrationStep4)),
                           ],
                         ),
                       ],
@@ -146,7 +157,7 @@ class _QiblahCompassState extends State<QiblahCompass> {
                         SizedBox(width: 8),
                         Expanded(
                           child: Text(
-                            'Move away from metal objects and electronic devices for better accuracy.',
+                            S.of(context)!.qiblahCompassCalibrationTip,
                             style: TextStyle(
                               fontSize: 12,
                               color: Colors.amber.shade700,
@@ -164,7 +175,7 @@ class _QiblahCompassState extends State<QiblahCompass> {
                     Navigator.of(context).pop();
                   },
                   child: Text(
-                    'I\'ll Try Later',
+                    S.of(context)!.qiblahCompassCalibrationLater,
                     style: TextStyle(color: Colors.grey),
                   ),
                 ),
@@ -183,7 +194,7 @@ class _QiblahCompassState extends State<QiblahCompass> {
                       borderRadius: BorderRadius.circular(8),
                     ),
                   ),
-                  child: Text('Got It!'),
+                  child: Text(S.of(context)!.qiblahCompassCalibrationGotIt),
                 ),
               ],
             );
@@ -255,7 +266,8 @@ class _QiblahCompassState extends State<QiblahCompass> {
     return Column(
       children: [
         Text(
-          'Qiblah Direction: ${widget.qiblahDirection.toStringAsFixed(2)}°',
+          S.of(context)!.qiblahCompassDirection(
+              widget.qiblahDirection.toStringAsFixed(2)),
           style: Theme.of(context).textTheme.headlineSmall,
         ),
 
@@ -278,7 +290,9 @@ class _QiblahCompassState extends State<QiblahCompass> {
               ),
               const SizedBox(width: 8),
               Text(
-                isFacingQiblah ? 'Facing Qiblah' : 'Turn to find Qiblah',
+                isFacingQiblah
+                    ? S.of(context)!.qiblahCompassFacingQiblah
+                    : S.of(context)!.qiblahCompassTurnToFindQiblah,
                 style: const TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.bold,
@@ -379,15 +393,19 @@ class _QiblahCompassState extends State<QiblahCompass> {
           Column(
             children: [
               Text(
-                'Current heading: ${_heading!.toStringAsFixed(1)}°',
+                S
+                    .of(context)!
+                    .qiblahCompassCurrentHeading(_heading!.toStringAsFixed(1)),
                 style: Theme.of(context).textTheme.bodyMedium,
               ),
               Text(
-                'Qiblah direction: ${widget.qiblahDirection.toStringAsFixed(1)}°',
+                S.of(context)!.qiblahCompassQiblahDirection(
+                    widget.qiblahDirection.toStringAsFixed(1)),
                 style: Theme.of(context).textTheme.bodyMedium,
               ),
               Text(
-                'Difference: ${_calculateDifference().toStringAsFixed(1)}°',
+                S.of(context)!.qiblahCompassDifference(
+                    _calculateDifference().toStringAsFixed(1)),
                 style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                       color: isFacingQiblah ? Colors.green : Colors.orange,
                       fontWeight: FontWeight.bold,
@@ -395,7 +413,9 @@ class _QiblahCompassState extends State<QiblahCompass> {
               ),
               if (_accuracy != null)
                 Text(
-                  'Compass accuracy: ${_accuracy!.toStringAsFixed(1)}',
+                  S
+                      .of(context)!
+                      .qiblahCompassAccuracy(_accuracy!.toStringAsFixed(1)),
                   style: Theme.of(context).textTheme.bodySmall?.copyWith(
                         color: isCompassReliable ? Colors.green : Colors.red,
                       ),

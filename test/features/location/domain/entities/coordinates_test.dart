@@ -4,7 +4,7 @@ import 'package:taukeet/features/location/domain/entities/coordinates.dart';
 void main() {
   group('Coordinates', () {
     const coords = Coordinates(latitude: 24.8607, longitude: 67.0011);
-    
+
     test('should have correct property values', () {
       expect(coords.latitude, 24.8607);
       expect(coords.longitude, 67.0011);
@@ -22,8 +22,10 @@ void main() {
     });
 
     test('should implement Equatable properly', () {
-      expect(coords, equals(const Coordinates(latitude: 24.8607, longitude: 67.0011)));
-      expect(coords, isNot(equals(const Coordinates(latitude: 25.0, longitude: 67.0011))));
+      expect(coords,
+          equals(const Coordinates(latitude: 24.8607, longitude: 67.0011)));
+      expect(coords,
+          isNot(equals(const Coordinates(latitude: 25.0, longitude: 67.0011))));
     });
   });
 }

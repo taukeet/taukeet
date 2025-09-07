@@ -5,13 +5,15 @@ import 'package:taukeet/core/usecases/usecase.dart';
 import 'package:taukeet/features/location/domain/entities/address.dart';
 import 'package:taukeet/features/location/domain/repositories/location_repository.dart';
 
-class GetAddressFromCoordinates extends UseCase<Address, GetAddressFromCoordinatesParams> {
+class GetAddressFromCoordinates
+    extends UseCase<Address, GetAddressFromCoordinatesParams> {
   final LocationRepository repository;
 
   GetAddressFromCoordinates(this.repository);
 
   @override
-  Future<Either<Failure, Address>> call(GetAddressFromCoordinatesParams params) async {
+  Future<Either<Failure, Address>> call(
+      GetAddressFromCoordinatesParams params) async {
     try {
       final address = await repository.getAddressFromCoordinates(
         params.latitude,

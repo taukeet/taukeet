@@ -274,4 +274,88 @@ class SUr extends S {
 
   @override
   String get qiblah => 'قبلہ';
+
+  @override
+  String get qiblahCurrentLocation => 'موجودہ مقام';
+
+  @override
+  String qiblahLatLong(Object lat, Object long) {
+    return 'عرض البلد: $lat، طول البلد: $long';
+  }
+
+  @override
+  String get qiblahLocationNotSet => 'مقام متعین نہیں ہے۔';
+
+  @override
+  String get qiblahUpdateLocation => 'مقام اپ ڈیٹ کریں';
+
+  @override
+  String get qiblahCalculating => 'قبلہ کی سمت کا حساب लगाया जा रहा ہے...';
+
+  @override
+  String get qiblahDirectionHere => 'قبلہ کی سمت یہاں دکھائی جائے گی';
+
+  @override
+  String get qiblahCompassCalibration => 'کمپاس کیلیبریشن';
+
+  @override
+  String get qiblahCompassCalibrationMessage =>
+      'درست قبلہ کی سمت کے لیے آپ کے کمپاس کو کیلیبریشن کی ضرورت ہے۔';
+
+  @override
+  String get qiblahCompassHowToCalibrate => 'کیلیبریٹ کیسے کریں:';
+
+  @override
+  String get qiblahCompassCalibrationStep1 => '١. اپنے فون کو مضبوطی سے پکڑیں';
+
+  @override
+  String get qiblahCompassCalibrationStep2 =>
+      '٢. اسے ہوا میں 8 کی شکل میں گھمائیں';
+
+  @override
+  String get qiblahCompassCalibrationStep3 => '٣. 10-15 سیکنڈ تک دہرائیں';
+
+  @override
+  String get qiblahCompassCalibrationStep4 => '٤. مختلف سمتوں کو آزمائیں';
+
+  @override
+  String get qiblahCompassCalibrationTip =>
+      'بہتر درستگی کے لیے دھاتی اشیاء اور الیکٹرانک آلات سے دور رہیں۔';
+
+  @override
+  String get qiblahCompassCalibrationLater => 'میں بعد میں کوشش کروں گا';
+
+  @override
+  String get qiblahCompassCalibrationGotIt => 'سمجھ گیا!';
+
+  @override
+  String qiblahCompassDirection(Object direction) {
+    return 'قبلہ کی سمت: $direction°';
+  }
+
+  @override
+  String get qiblahCompassFacingQiblah => 'قبلہ کی طرف';
+
+  @override
+  String get qiblahCompassTurnToFindQiblah => 'قبلہ تلاش کرنے کے لیے مڑیں';
+
+  @override
+  String qiblahCompassCurrentHeading(Object heading) {
+    return 'موجودہ سرخی: $heading°';
+  }
+
+  @override
+  String qiblahCompassQiblahDirection(Object direction) {
+    return 'قبلہ کی سمت: $direction°';
+  }
+
+  @override
+  String qiblahCompassDifference(Object difference) {
+    return 'فرق: $difference°';
+  }
+
+  @override
+  String qiblahCompassAccuracy(Object accuracy) {
+    return 'کمپاس کی درستگی: $accuracy';
+  }
 }

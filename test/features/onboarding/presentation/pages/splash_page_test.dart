@@ -92,8 +92,7 @@ void main() {
       expect(find.byKey(const Key('splash_error')), findsOneWidget);
     });
 
-    testWidgets(
-        'should navigate to intro page when tutorial is not completed',
+    testWidgets('should navigate to intro page when tutorial is not completed',
         (WidgetTester tester) async {
       final settings = Settings.fromMap(
         TestUtils.createTestSettingsJson(isTutorialCompleted: false),

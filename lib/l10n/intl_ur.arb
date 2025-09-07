@@ -112,5 +112,30 @@
     "next": "آگے", 
     "done": "مکمل",
     "home": "ہوم",
-    "qiblah": "قبلہ"
+    "qiblah": "قبلہ",
+
+    "qiblahCurrentLocation": "موجودہ مقام",
+    "qiblahLatLong": "عرض البلد: {lat}، طول البلد: {long}",
+    "qiblahLocationNotSet": "مقام متعین نہیں ہے۔",
+    "qiblahUpdateLocation": "مقام اپ ڈیٹ کریں",
+    "qiblahCalculating": "قبلہ کی سمت کا حساب लगाया जा रहा ہے...",
+    "qiblahDirectionHere": "قبلہ کی سمت یہاں دکھائی جائے گی",
+
+    "qiblahCompassCalibration": "کمپاس کیلیبریشن",
+    "qiblahCompassCalibrationMessage": "درست قبلہ کی سمت کے لیے آپ کے کمپاس کو کیلیبریشن کی ضرورت ہے۔",
+    "qiblahCompassHowToCalibrate": "کیلیبریٹ کیسے کریں:",
+    "qiblahCompassCalibrationStep1": "١. اپنے فون کو مضبوطی سے پکڑیں",
+    "qiblahCompassCalibrationStep2": "٢. اسے ہوا میں 8 کی شکل میں گھمائیں",
+    "qiblahCompassCalibrationStep3": "٣. 10-15 سیکنڈ تک دہرائیں",
+    "qiblahCompassCalibrationStep4": "٤. مختلف سمتوں کو آزمائیں",
+    "qiblahCompassCalibrationTip": "بہتر درستگی کے لیے دھاتی اشیاء اور الیکٹرانک آلات سے دور رہیں۔",
+    "qiblahCompassCalibrationLater": "میں بعد میں کوشش کروں گا",
+    "qiblahCompassCalibrationGotIt": "سمجھ گیا!",
+    "qiblahCompassDirection": "قبلہ کی سمت: {direction}°",
+    "qiblahCompassFacingQiblah": "قبلہ کی طرف",
+    "qiblahCompassTurnToFindQiblah": "قبلہ تلاش کرنے کے لیے مڑیں",
+    "qiblahCompassCurrentHeading": "موجودہ سرخی: {heading}°",
+    "qiblahCompassQiblahDirection": "قبلہ کی سمت: {direction}°",
+    "qiblahCompassDifference": "فرق: {difference}°",
+    "qiblahCompassAccuracy": "کمپاس کی درستگی: {accuracy}"
 }

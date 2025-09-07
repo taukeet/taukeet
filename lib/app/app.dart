@@ -20,9 +20,12 @@ class AppColors {
 }
 
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
-final _shellNavigatorHomeKey = GlobalKey<NavigatorState>(debugLabel: 'homeShell');
-final _shellNavigatorQiblahKey = GlobalKey<NavigatorState>(debugLabel: 'qiblahShell'); // New key
-final _shellNavigatorSettingsKey = GlobalKey<NavigatorState>(debugLabel: 'settingsShell');
+final _shellNavigatorHomeKey =
+    GlobalKey<NavigatorState>(debugLabel: 'homeShell');
+final _shellNavigatorQiblahKey =
+    GlobalKey<NavigatorState>(debugLabel: 'qiblahShell'); // New key
+final _shellNavigatorSettingsKey =
+    GlobalKey<NavigatorState>(debugLabel: 'settingsShell');
 
 final _router = GoRouter(
   initialLocation: '/', // Changed to '/'

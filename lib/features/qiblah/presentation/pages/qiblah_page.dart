@@ -34,26 +34,30 @@ class QiblahPage extends ConsumerWidget {
               // Location info
               if (hasValidLocation) ...[
                 Text(
-                  qiblahState.address?.address ?? 'Current Location',
+                  qiblahState.address?.address ??
+                      S.of(context)!.qiblahCurrentLocation,
                   textAlign: TextAlign.center,
                   style: Theme.of(context).textTheme.headlineSmall,
                 ),
                 const SizedBox(height: 8),
                 Text(
-                  'Lat: ${qiblahState.address!.latitude.toStringAsFixed(4)}, Long: ${qiblahState.address!.longitude.toStringAsFixed(4)}',
+                  S.of(context)!.qiblahLatLong(
+                        qiblahState.address!.latitude.toStringAsFixed(4),
+                        qiblahState.address!.longitude.toStringAsFixed(4),
+                      ),
                   style: Theme.of(context).textTheme.bodySmall,
                 ),
-                const SizedBox(height: 16),
+                const SizedBox(height: 8),
               ],
 
               // Location buttons
               if (!hasValidLocation) ...[
                 Text(
-                  'Location not set',
+                  S.of(context)!.qiblahLocationNotSet,
                   textAlign: TextAlign.center,
                   style: Theme.of(context).textTheme.headlineSmall,
                 ),
-                const SizedBox(height: 16),
+                const SizedBox(height: 10),
                 PrimaryButton(
                   onPressed: qiblahState.isFetchingLocation
                       ? null
@@ -69,7 +73,7 @@ class QiblahPage extends ConsumerWidget {
                       ? S.of(context)!.locationIntroBtnLoading
                       : S.of(context)!.locationIntroBtn,
                 ),
-                const SizedBox(height: 30),
+                const SizedBox(height: 12),
               ] else ...[
                 SecondaryButton(
                   onPressed: qiblahState.isFetchingLocation
@@ -84,9 +88,9 @@ class QiblahPage extends ConsumerWidget {
                         },
                   text: qiblahState.isFetchingLocation
                       ? S.of(context)!.locationIntroBtnLoading
-                      : 'Update Location',
+                      : S.of(context)!.qiblahUpdateLocation,
                 ),
-                const SizedBox(height: 20),
+                const SizedBox(height: 10),
               ],
 
               // Compass or loader
@@ -100,14 +104,14 @@ class QiblahPage extends ConsumerWidget {
                               const CircularProgressIndicator(),
                               const SizedBox(height: 16),
                               Text(
-                                'Calculating Qiblah direction...',
+                                S.of(context)!.qiblahCalculating,
                                 style: Theme.of(context).textTheme.bodyMedium,
                               ),
                             ],
                           ),
                         )
                       : Text(
-                          'Qiblah Direction will be displayed here',
+                          S.of(context)!.qiblahDirectionHere,
                           style: Theme.of(context).textTheme.headlineSmall,
                         ),
             ],
