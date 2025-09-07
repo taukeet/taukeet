@@ -1,4 +1,3 @@
-
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:taukeet/core/errors/location_disabled_exception.dart';
 import 'package:taukeet/core/errors/location_permission_denied.dart';
@@ -33,7 +32,8 @@ class QiblahState {
   }) {
     return QiblahState(
       isFetchingLocation: isFetchingLocation ?? this.isFetchingLocation,
-      hasLocationPermission: hasLocationPermission ?? this.hasLocationPermission,
+      hasLocationPermission:
+          hasLocationPermission ?? this.hasLocationPermission,
       isLocationEnabled: isLocationEnabled ?? this.isLocationEnabled,
       address: address ?? this.address,
       qiblahDirection: qiblahDirection ?? this.qiblahDirection,
@@ -54,19 +54,40 @@ class QiblahNotifier extends StateNotifier<QiblahState> {
 
   Future<void> init() async {
     final settingsResult = await _getSettings(NoParams());
-    settingsResult.fold(
-      (failure) {
-        // Handle error, maybe log it or set a default state
+    await settingsResult.fold(
+      (failure) async {
+        // Handle error if needed
       },
-      (settings) {
-        state = state.copyWith(address: settings.address);
+      (settings) async {
+        final address = settings.address;
+        if (address != null) {
+          // Update address first
+          state = state.copyWith(address: address);
+
+          // Calculate Qiblah direction
+          final qiblahResult =
+              await _getQiblahDirection(GetQiblahDirectionParams(
+            latitude: address.latitude,
+            longitude: address.longitude,
+          ));
+
+          qiblahResult.fold(
+            (failure) {
+              state = state.copyWith(qiblahDirection: null);
+            },
+            (qiblahDirection) {
+              state = state.copyWith(qiblahDirection: qiblahDirection);
+            },
+          );
+        }
       },
     );
   }
 
   Future<bool> fetchLocation(String locale) async {
     state = state.copyWith(isFetchingLocation: true);
-    final result = await _getCurrentLocation(GetCurrentLocationParams(locale: locale));
+    final result =
+        await _getCurrentLocation(GetCurrentLocationParams(locale: locale));
     return result.fold(
       (failure) {
         state = state.copyWith(isFetchingLocation: false);
@@ -113,7 +134,8 @@ final getQiblahDirectionUseCaseProvider = Provider<GetQiblahDirection>((ref) {
   return GetQiblahDirection();
 });
 
-final qiblahProvider = StateNotifierProvider<QiblahNotifier, QiblahState>((ref) {
+final qiblahProvider =
+    StateNotifierProvider<QiblahNotifier, QiblahState>((ref) {
   final getCurrentLocationUseCase = ref.read(getCurrentLocationUseCaseProvider);
   final getSettingsUseCase = ref.read(getSettingsUseCaseProvider);
   final getQiblahDirectionUseCase = ref.read(getQiblahDirectionUseCaseProvider);

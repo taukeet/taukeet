@@ -218,7 +218,7 @@ class _QiblahCompassState extends State<QiblahCompass> {
     if (_heading == null) return false;
 
     double difference = _calculateDifference();
-    return difference <= 15; // Within 15 degrees tolerance
+    return difference <= 5;
   }
 
   // FIXED: Proper relative angle calculation for the external indicator
