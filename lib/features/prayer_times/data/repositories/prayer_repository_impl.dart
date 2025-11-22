@@ -155,11 +155,13 @@ class PrayerRepositoryImpl implements PrayerRepository {
     }
 
     return _prayerTimeMap.keys.map((prayer) {
+      final time = prayerTimes.timeForPrayer(prayer);
+      if (time == null) return null;
       return PrayerTime(
         name: _prayerTimeMap[prayer]!,
-        startTime: prayerTimes.timeForPrayer(prayer)!.toLocal(),
+        startTime: time.toLocal(),
         isCurrentPrayer: currentPrayer == prayer && dateTime.isToday(),
       );
-    }).toList();
+    }).where((prayer) => prayer != null).cast<PrayerTime>().toList();
   }
 }
