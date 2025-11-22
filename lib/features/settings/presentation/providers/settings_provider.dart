@@ -171,7 +171,6 @@ class SettingsNotifier extends StateNotifier<SettingsState> {
   }
 
   Future<void> translateAddress(String locale) async {
-    print('SettingsNotifier: translateAddress called');
     // Only translate if we have valid coordinates
     if (state.settings.address.latitude == 0.0 &&
         state.settings.address.longitude == 0.0) {

@@ -35,7 +35,6 @@ class HomePageState {
 
 class HomePageNotifier extends StateNotifier<HomePageState> {
   final Ref ref;
-  late final void Function() _settingsListener;
 
   HomePageNotifier(this.ref) : super(HomePageState(dateTime: DateTime.now())) {
     // Listen to settings changes
@@ -97,7 +96,6 @@ class HomePageNotifier extends StateNotifier<HomePageState> {
 
   @override
   void dispose() {
-    _settingsListener(); // Remove listener when disposed
     super.dispose();
   }
 }

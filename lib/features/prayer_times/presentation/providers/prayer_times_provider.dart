@@ -44,9 +44,6 @@ final prayerTimesProvider =
   final useCase = ref.watch(getPrayerTimesUseCaseProvider);
   final settings = ref.watch(settingsProvider).settings;
 
-  print(settings.calculationMethod);
-  print(settings.madhab);
-
   final params = GetPrayerTimesParams(
     date: dateTime,
     location: settings.address,
