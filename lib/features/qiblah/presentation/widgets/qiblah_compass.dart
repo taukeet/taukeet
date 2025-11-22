@@ -302,7 +302,7 @@ class _QiblahCompassState extends State<QiblahCompass> {
           ),
         ),
 
-        const SizedBox(height: 20),
+        const SizedBox(height: 30),
 
         // Outer ring with Qiblah indicator
         SizedBox(
@@ -318,7 +318,7 @@ class _QiblahCompassState extends State<QiblahCompass> {
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   border: Border.all(
-                    color: Colors.grey.withOpacity(0.3),
+                    color: Colors.grey.withValues(alpha: 0.3),
                     width: 2,
                   ),
                 ),
@@ -328,7 +328,7 @@ class _QiblahCompassState extends State<QiblahCompass> {
               Transform.rotate(
                 angle: qiblahRelativeAngle,
                 child: Transform.translate(
-                  offset: const Offset(0, -140), // Position outside the compass
+                  offset: const Offset(0, -150), // Position outside the compass
                   child: Container(
                     padding: const EdgeInsets.all(8),
                     decoration: BoxDecoration(
@@ -336,7 +336,7 @@ class _QiblahCompassState extends State<QiblahCompass> {
                       shape: BoxShape.circle,
                       boxShadow: [
                         BoxShadow(
-                          color: Colors.black.withOpacity(0.3),
+                          color: Colors.black.withValues(alpha: 0.3),
                           blurRadius: 4,
                           offset: const Offset(0, 2),
                         ),
