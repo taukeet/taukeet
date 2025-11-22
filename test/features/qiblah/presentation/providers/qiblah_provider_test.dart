@@ -25,9 +25,9 @@ void main() {
 
   // Test data
   const testAddress = Address(
-    latitude: 24.8607,
-    longitude: 67.0011,
-    address: 'Karachi, Pakistan',
+    latitude: 28.7041,
+    longitude: 77.1025,
+    address: 'Delhi, India',
   );
 
   const testQiblahDirection = 255.5;

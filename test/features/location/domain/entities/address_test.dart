@@ -5,8 +5,8 @@ void main() {
   group('Address Entity Tests', () {
     test('should create Address with all properties', () {
       // Arrange
-      const latitude = 24.8607;
-      const longitude = 67.0011;
+      const latitude = 28.7041;
+      const longitude = 77.1025;
       const addressText = "Hyderabad, India";
 
       // Act
@@ -39,8 +39,8 @@ void main() {
     test('should serialize to JSON correctly', () {
       // Arrange
       const address = Address(
-        latitude: 24.8607,
-        longitude: 67.0011,
+         latitude: 28.7041,
+         longitude: 77.1025,
         address: "Hyderabad, India",
       );
 
@@ -57,8 +57,8 @@ void main() {
     test('should create from Map correctly', () {
       // Arrange
       final map = {
-        'latitude': 24.8607,
-        'longitude': 67.0011,
+        'latitude': 28.7041,
+        'longitude': 77.1025,
         'address': 'Hyderabad, India',
       };
 
@@ -66,16 +66,16 @@ void main() {
       final address = Address.fromMap(map);
 
       // Assert
-      expect(address.latitude, equals(24.8607));
-      expect(address.longitude, equals(67.0011));
+      expect(address.latitude, equals(28.7041));
+      expect(address.longitude, equals(77.1025));
       expect(address.address, equals('Hyderabad, India'));
     });
 
     test('should convert to Map correctly', () {
       // Arrange
       const address = Address(
-        latitude: 24.8607,
-        longitude: 67.0011,
+         latitude: 28.7041,
+         longitude: 77.1025,
         address: "Hyderabad, India",
       );
 
@@ -83,16 +83,16 @@ void main() {
       final map = address.toMap();
 
       // Assert
-      expect(map['latitude'], equals(24.8607));
-      expect(map['longitude'], equals(67.0011));
+      expect(map['latitude'], equals(28.7041));
+      expect(map['longitude'], equals(77.1025));
       expect(map['address'], equals('Hyderabad, India'));
     });
 
     test('should handle copyWith correctly', () {
       // Arrange
       const originalAddress = Address(
-        latitude: 24.8607,
-        longitude: 67.0011,
+         latitude: 28.7041,
+         longitude: 77.1025,
         address: "Hyderabad, India",
       );
 
@@ -110,8 +110,8 @@ void main() {
     test('should handle copyWith with no changes', () {
       // Arrange
       const originalAddress = Address(
-        latitude: 24.8607,
-        longitude: 67.0011,
+         latitude: 28.7041,
+         longitude: 77.1025,
         address: "Hyderabad, India",
       );
 
@@ -127,14 +127,14 @@ void main() {
     test('should handle equality correctly', () {
       // Arrange
       const address1 = Address(
-        latitude: 24.8607,
-        longitude: 67.0011,
+         latitude: 28.7041,
+         longitude: 77.1025,
         address: "Hyderabad, India",
       );
 
       const address2 = Address(
-        latitude: 24.8607,
-        longitude: 67.0011,
+         latitude: 28.7041,
+         longitude: 77.1025,
         address: "Hyderabad, India",
       );
 

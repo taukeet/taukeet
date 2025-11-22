@@ -16,8 +16,8 @@ void main() {
     const meccaLongitude = 39.8262;
 
     // Test coordinates from different locations
-    const karachiLatitude = 24.8607;
-    const karachiLongitude = 67.0011;
+    const delhiLatitude = 28.7041;
+    const delhiLongitude = 77.1025;
 
     const londonLatitude = 51.5074;
     const londonLongitude = -0.1278;
@@ -26,8 +26,8 @@ void main() {
         () async {
       // arrange
       const params = GetQiblahDirectionParams(
-        latitude: karachiLatitude,
-        longitude: karachiLongitude,
+        latitude: delhiLatitude,
+        longitude: delhiLongitude,
       );
 
       // act
@@ -310,8 +310,8 @@ void main() {
     test('should return consistent results for same coordinates', () async {
       // arrange
       const params = GetQiblahDirectionParams(
-        latitude: karachiLatitude,
-        longitude: karachiLongitude,
+        latitude: delhiLatitude,
+        longitude: delhiLongitude,
       );
 
       // act
@@ -340,8 +340,8 @@ void main() {
     test('should return different results for different coordinates', () async {
       // arrange
       const params1 = GetQiblahDirectionParams(
-        latitude: karachiLatitude,
-        longitude: karachiLongitude,
+        latitude: delhiLatitude,
+        longitude: delhiLongitude,
       );
       const params2 = GetQiblahDirectionParams(
         latitude: londonLatitude,

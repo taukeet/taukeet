@@ -112,9 +112,9 @@ void main() {
           (WidgetTester tester) async {
         // Arrange
         const testAddress = Address(
-          latitude: 24.8607,
-          longitude: 67.0011,
-          address: 'Karachi, Pakistan',
+          latitude: 28.7041,
+          longitude: 77.1025,
+          address: 'Delhi, India',
         );
         mockQiblahNotifier.state = QiblahState(
           address: testAddress,
@@ -125,9 +125,9 @@ void main() {
         await tester.pumpWidget(createWidgetUnderTest());
 
         // Assert
-        expect(find.text('Karachi, Pakistan'), findsOneWidget);
-        expect(find.textContaining('24.8607'), findsOneWidget);
-        expect(find.textContaining('67.0011'), findsOneWidget);
+        expect(find.text('Delhi, India'), findsOneWidget);
+        expect(find.textContaining('28.7041'), findsOneWidget);
+        expect(find.textContaining('77.1025'), findsOneWidget);
       });
 
       testWidgets('should show compass when Qiblah direction available',
@@ -137,7 +137,7 @@ void main() {
           address: Address(
             latitude: 24.8607,
             longitude: 67.0011,
-            address: 'Karachi, Pakistan',
+            address: 'Delhi, India',
           ),
           qiblahDirection: 255.5,
         );
@@ -156,7 +156,7 @@ void main() {
           address: Address(
             latitude: 24.8607,
             longitude: 67.0011,
-            address: 'Karachi, Pakistan',
+            address: 'Delhi, India',
           ),
           qiblahDirection: null, // No direction yet = calculating
         );
@@ -191,9 +191,9 @@ void main() {
           (WidgetTester tester) async {
         // Arrange
         const testAddress = Address(
-          latitude: 24.8607,
-          longitude: 67.0011,
-          address: 'Karachi, Pakistan',
+          latitude: 28.7041,
+          longitude: 77.1025,
+          address: 'Delhi, India',
         );
         mockQiblahNotifier.state = QiblahState(
           address: testAddress,
@@ -230,9 +230,9 @@ void main() {
           (WidgetTester tester) async {
         // Arrange
         const testAddress = Address(
-          latitude: 24.8607,
-          longitude: 67.0011,
-          address: 'Karachi, Pakistan',
+          latitude: 28.7041,
+          longitude: 77.1025,
+          address: 'Delhi, India',
         );
         mockQiblahNotifier.state = QiblahState(
           isFetchingLocation: true,
@@ -262,9 +262,9 @@ void main() {
 
         // Act - Change state
         const newAddress = Address(
-          latitude: 24.8607,
-          longitude: 67.0011,
-          address: 'Karachi, Pakistan',
+          latitude: 28.7041,
+          longitude: 77.1025,
+          address: 'Delhi, India',
         );
         mockQiblahNotifier.state = QiblahState(
           address: newAddress,
@@ -274,7 +274,7 @@ void main() {
         await tester.pumpWidget(createWidgetUnderTest());
 
         // Assert
-        expect(find.text('Karachi, Pakistan'), findsOneWidget);
+        expect(find.text('Delhi, India'), findsOneWidget);
         expect(find.byType(QiblahCompass), findsOneWidget);
       });
     });
@@ -330,9 +330,9 @@ void main() {
 
         // Act - Simulate successful location fetch
         const testAddress = Address(
-          latitude: 24.8607,
-          longitude: 67.0011,
-          address: 'Karachi, Pakistan',
+          latitude: 28.7041,
+          longitude: 77.1025,
+          address: 'Delhi, India',
         );
         mockQiblahNotifier.state = QiblahState(
           address: testAddress,
