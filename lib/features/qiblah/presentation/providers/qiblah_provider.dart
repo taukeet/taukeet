@@ -60,26 +60,23 @@ class QiblahNotifier extends StateNotifier<QiblahState> {
       },
       (settings) async {
         final address = settings.address;
-        if (address != null) {
-          // Update address first
-          state = state.copyWith(address: address);
+        // Update address first
+        state = state.copyWith(address: address);
 
-          // Calculate Qiblah direction
-          final qiblahResult =
-              await _getQiblahDirection(GetQiblahDirectionParams(
-            latitude: address.latitude,
-            longitude: address.longitude,
-          ));
+        // Calculate Qiblah direction
+        final qiblahResult = await _getQiblahDirection(GetQiblahDirectionParams(
+          latitude: address.latitude,
+          longitude: address.longitude,
+        ));
 
-          qiblahResult.fold(
-            (failure) {
-              state = state.copyWith(qiblahDirection: null);
-            },
-            (qiblahDirection) {
-              state = state.copyWith(qiblahDirection: qiblahDirection);
-            },
-          );
-        }
+        qiblahResult.fold(
+          (failure) {
+            state = state.copyWith(qiblahDirection: null);
+          },
+          (qiblahDirection) {
+            state = state.copyWith(qiblahDirection: qiblahDirection);
+          },
+        );
       },
     );
   }
