@@ -111,5 +111,31 @@
     "previous": "Previous",
     "next": "Next", 
     "done": "Done",
-    "home": "Home"
+    "home": "Home",
+    "qiblah": "Qiblah",
+
+    "qiblahCurrentLocation": "Current Location",
+    "qiblahLatLong": "Lat: {lat}, Long: {long}",
+    "qiblahLocationNotSet": "Location not set",
+    "qiblahUpdateLocation": "Update Location",
+    "qiblahCalculating": "Calculating Qiblah direction...",
+    "qiblahDirectionHere": "Qiblah Direction will be displayed here",
+
+    "qiblahCompassCalibration": "Compass Calibration",
+    "qiblahCompassCalibrationMessage": "Your compass needs calibration for accurate Qiblah direction.",
+    "qiblahCompassHowToCalibrate": "How to Calibrate:",
+    "qiblahCompassCalibrationStep1": "1. Hold your phone firmly",
+    "qiblahCompassCalibrationStep2": "2. Move it in a figure-8 pattern in the air",
+    "qiblahCompassCalibrationStep3": "3. Repeat for 10-15 seconds",
+    "qiblahCompassCalibrationStep4": "4. Try different orientations",
+    "qiblahCompassCalibrationTip": "Move away from metal objects and electronic devices for better accuracy.",
+    "qiblahCompassCalibrationLater": "I'll Try Later",
+    "qiblahCompassCalibrationGotIt": "Got It!",
+    "qiblahCompassDirection": "Qiblah Direction: {direction}°",
+    "qiblahCompassFacingQiblah": "Facing Qiblah",
+    "qiblahCompassTurnToFindQiblah": "Turn to find Qiblah",
+    "qiblahCompassCurrentHeading": "Current heading: {heading}°",
+    "qiblahCompassQiblahDirection": "Qiblah direction: {direction}°",
+    "qiblahCompassDifference": "Difference: {difference}°",
+    "qiblahCompassAccuracy": "Compass accuracy: {accuracy}"
 }

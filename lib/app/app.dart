@@ -10,6 +10,7 @@ import 'package:taukeet/features/settings/presentation/pages/settings_page.dart'
 import 'package:taukeet/generated/l10n.dart';
 import 'package:taukeet/features/settings/presentation/providers/locale_provider.dart';
 import 'package:taukeet/app/scaffold_with_nested_navigation.dart';
+import 'package:taukeet/features/qiblah/presentation/pages/qiblah_page.dart';
 
 class AppColors {
   static const primary = Color(0xFF4A6CF7); // Blue highlight
@@ -19,8 +20,12 @@ class AppColors {
 }
 
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
-final _shellNavigatorHomeKey = GlobalKey<NavigatorState>(debugLabel: 'homeShell');
-final _shellNavigatorSettingsKey = GlobalKey<NavigatorState>(debugLabel: 'settingsShell');
+final _shellNavigatorHomeKey =
+    GlobalKey<NavigatorState>(debugLabel: 'homeShell');
+final _shellNavigatorQiblahKey =
+    GlobalKey<NavigatorState>(debugLabel: 'qiblahShell'); // New key
+final _shellNavigatorSettingsKey =
+    GlobalKey<NavigatorState>(debugLabel: 'settingsShell');
 
 final _router = GoRouter(
   initialLocation: '/', // Changed to '/'
@@ -49,6 +54,16 @@ final _router = GoRouter(
               path: '/home',
               // Removed redirect from here
               builder: (context, state) => const HomePage(),
+            ),
+          ],
+        ),
+        StatefulShellBranch(
+          navigatorKey: _shellNavigatorQiblahKey, // New branch
+          routes: [
+            GoRoute(
+              name: 'qiblah',
+              path: '/qiblah',
+              builder: (context, state) => const QiblahPage(),
             ),
           ],
         ),

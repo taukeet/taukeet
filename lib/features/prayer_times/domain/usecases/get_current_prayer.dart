@@ -13,7 +13,8 @@ class GetCurrentPrayer extends UseCase<PrayerTime, GetCurrentPrayerParams> {
   GetCurrentPrayer(this.repository);
 
   @override
-  Future<Either<Failure, PrayerTime>> call(GetCurrentPrayerParams params) async {
+  Future<Either<Failure, PrayerTime>> call(
+      GetCurrentPrayerParams params) async {
     try {
       // Initialize the repository with the required parameters
       repository.init(
@@ -23,10 +24,10 @@ class GetCurrentPrayer extends UseCase<PrayerTime, GetCurrentPrayerParams> {
         params.madhab,
         params.higherLatitude,
       );
-      
+
       // Get the current prayer
       final currentPrayer = repository.currentPrayer();
-      
+
       return Right(currentPrayer);
     } catch (e) {
       return Left(ServerFailure());

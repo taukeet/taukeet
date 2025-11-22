@@ -22,9 +22,9 @@ void main() {
   const tLocale = 'en';
   final tParams = GetCurrentLocationParams(locale: tLocale);
   final tAddress = Address(
-    latitude: 24.8607,
-    longitude: 67.0011,
-    address: "Hyderabad, India",
+    latitude: 28.7041,
+    longitude: 77.1025,
+    address: "Delhi, India",
   );
 
   group('GetCurrentLocation', () {

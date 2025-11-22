@@ -100,5 +100,31 @@
     "previous": "पिछला",
     "next": "आगे", 
     "done": "पूर्ण",
-    "home": "होम"
+    "home": "होम",
+    "qiblah": "क़िबला",
+
+    "qiblahCurrentLocation": "वर्तमान स्थान",
+    "qiblahLatLong": "अक्षांश: {lat}, देशांतर: {long}",
+    "qiblahLocationNotSet": "स्थान निर्धारित नहीं है",
+    "qiblahUpdateLocation": "स्थान अपडेट करें",
+    "qiblahCalculating": "क़िबला दिशा की गणना की जा रही है...",
+    "qiblahDirectionHere": "क़िबला दिशा यहाँ प्रदर्शित की जाएगी",
+
+    "qiblahCompassCalibration": "कम्पास अंशांकन",
+    "qiblahCompassCalibrationMessage": "सटीक क़िबला दिशा के लिए आपके कंपास को अंशांकन की आवश्यकता है।",
+    "qiblahCompassHowToCalibrate": "कैसे अंशशोधन करें:",
+    "qiblahCompassCalibrationStep1": "१. अपने फोन को मजबूती से पकड़ें",
+    "qiblahCompassCalibrationStep2": "२. इसे हवा में 8 के आकार में घुमाएँ",
+    "qiblahCompassCalibrationStep3": "३. 10-15 सेकंड के लिए दोहराएं",
+    "qiblahCompassCalibrationStep4": "४. विभिन्न झुकावों का प्रयास करें",
+    "qiblahCompassCalibrationTip": "बेहतर सटीकता के लिए धातु की वस्तुओं और इलेक्ट्रॉनिक उपकरणों से दूर रहें।",
+    "qiblahCompassCalibrationLater": "मैं बाद में कोशिश करूँगा",
+    "qiblahCompassCalibrationGotIt": "समझ गया!",
+    "qiblahCompassDirection": "क़िबला दिशा: {direction}°",
+    "qiblahCompassFacingQiblah": "किबले की तरफ है",
+    "qiblahCompassTurnToFindQiblah": "क़िबला खोजने के लिए मुड़ें",
+    "qiblahCompassCurrentHeading": "वर्तमान शीर्षक: {heading}°",
+    "qiblahCompassQiblahDirection": "क़िबला दिशा: {direction}°",
+    "qiblahCompassDifference": "अंतर: {difference}°",
+    "qiblahCompassAccuracy": "कम्पास सटीकता: {accuracy}"
 }

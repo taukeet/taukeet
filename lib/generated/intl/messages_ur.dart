@@ -20,6 +20,18 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'ur';
 
+  static String m0(accuracy) => "کمپاس کی درستگی: ${accuracy}";
+
+  static String m1(heading) => "موجودہ سرخی: ${heading}°";
+
+  static String m2(difference) => "فرق: ${difference}°";
+
+  static String m3(direction) => "قبلہ کی سمت: ${direction}°";
+
+  static String m4(direction) => "قبلہ کی سمت: ${direction}°";
+
+  static String m5(lat, long) => "عرض البلد: ${lat}، طول البلد: ${long}";
+
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
     "adjustmentsResetSuccess": MessageLookupByLibrary.simpleMessage(
@@ -75,6 +87,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "hanafi": MessageLookupByLibrary.simpleMessage("حنفی"),
     "hanafiDesc": MessageLookupByLibrary.simpleMessage("بعد میں عصر کا وقت"),
+    "home": MessageLookupByLibrary.simpleMessage("ہوم"),
     "isha": MessageLookupByLibrary.simpleMessage("عشاء"),
     "karachi": MessageLookupByLibrary.simpleMessage("کراچی"),
     "karachiDesc": MessageLookupByLibrary.simpleMessage(
@@ -145,6 +158,64 @@ class MessageLookup extends MessageLookupByLibrary {
     "qatar": MessageLookupByLibrary.simpleMessage("قطر"),
     "qatarDesc": MessageLookupByLibrary.simpleMessage(
       "قطر طریقہ، قطر کے لیے مخصوص۔",
+    ),
+    "qiblah": MessageLookupByLibrary.simpleMessage("قبلہ"),
+    "qiblahCalculating": MessageLookupByLibrary.simpleMessage(
+      "قبلہ کی سمت کا حساب लगाया जा रहा ہے...",
+    ),
+    "qiblahCompassAccuracy": m0,
+    "qiblahCompassCalibration": MessageLookupByLibrary.simpleMessage(
+      "کمپاس کیلیبریشن",
+    ),
+    "qiblahCompassCalibrationGotIt": MessageLookupByLibrary.simpleMessage(
+      "سمجھ گیا!",
+    ),
+    "qiblahCompassCalibrationLater": MessageLookupByLibrary.simpleMessage(
+      "میں بعد میں کوشش کروں گا",
+    ),
+    "qiblahCompassCalibrationMessage": MessageLookupByLibrary.simpleMessage(
+      "درست قبلہ کی سمت کے لیے آپ کے کمپاس کو کیلیبریشن کی ضرورت ہے۔",
+    ),
+    "qiblahCompassCalibrationStep1": MessageLookupByLibrary.simpleMessage(
+      "١. اپنے فون کو مضبوطی سے پکڑیں",
+    ),
+    "qiblahCompassCalibrationStep2": MessageLookupByLibrary.simpleMessage(
+      "٢. اسے ہوا میں 8 کی شکل میں گھمائیں",
+    ),
+    "qiblahCompassCalibrationStep3": MessageLookupByLibrary.simpleMessage(
+      "٣. 10-15 سیکنڈ تک دہرائیں",
+    ),
+    "qiblahCompassCalibrationStep4": MessageLookupByLibrary.simpleMessage(
+      "٤. مختلف سمتوں کو آزمائیں",
+    ),
+    "qiblahCompassCalibrationTip": MessageLookupByLibrary.simpleMessage(
+      "بہتر درستگی کے لیے دھاتی اشیاء اور الیکٹرانک آلات سے دور رہیں۔",
+    ),
+    "qiblahCompassCurrentHeading": m1,
+    "qiblahCompassDifference": m2,
+    "qiblahCompassDirection": m3,
+    "qiblahCompassFacingQiblah": MessageLookupByLibrary.simpleMessage(
+      "قبلہ کی طرف",
+    ),
+    "qiblahCompassHowToCalibrate": MessageLookupByLibrary.simpleMessage(
+      "کیلیبریٹ کیسے کریں:",
+    ),
+    "qiblahCompassQiblahDirection": m4,
+    "qiblahCompassTurnToFindQiblah": MessageLookupByLibrary.simpleMessage(
+      "قبلہ تلاش کرنے کے لیے مڑیں",
+    ),
+    "qiblahCurrentLocation": MessageLookupByLibrary.simpleMessage(
+      "موجودہ مقام",
+    ),
+    "qiblahDirectionHere": MessageLookupByLibrary.simpleMessage(
+      "قبلہ کی سمت یہاں دکھائی جائے گی",
+    ),
+    "qiblahLatLong": m5,
+    "qiblahLocationNotSet": MessageLookupByLibrary.simpleMessage(
+      "مقام متعین نہیں ہے۔",
+    ),
+    "qiblahUpdateLocation": MessageLookupByLibrary.simpleMessage(
+      "مقام اپ ڈیٹ کریں",
     ),
     "reset": MessageLookupByLibrary.simpleMessage("ری سیٹ کریں"),
     "saveAdjustments": MessageLookupByLibrary.simpleMessage(

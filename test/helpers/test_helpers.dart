@@ -11,9 +11,9 @@ class MockSharedPreferences extends Mock implements SharedPreferences {}
 // Test data factories
 class TestDataFactory {
   static Address createTestAddress({
-    double latitude = 24.8607,
-    double longitude = 67.0011,
-    String address = "Hyderabad, India",
+    double latitude = 28.7041,
+    double longitude = 77.1025,
+    String address = "Delhi, India",
   }) {
     return Address(
       latitude: latitude,

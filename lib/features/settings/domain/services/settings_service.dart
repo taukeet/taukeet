@@ -1,4 +1,3 @@
-
 import 'package:taukeet/features/settings/domain/entities/settings.dart';
 
 abstract class SettingsService {

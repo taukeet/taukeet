@@ -586,6 +586,150 @@ abstract class S {
   /// In en, this message translates to:
   /// **'Home'**
   String get home;
+
+  /// No description provided for @qiblah.
+  ///
+  /// In en, this message translates to:
+  /// **'Qiblah'**
+  String get qiblah;
+
+  /// No description provided for @qiblahCurrentLocation.
+  ///
+  /// In en, this message translates to:
+  /// **'Current Location'**
+  String get qiblahCurrentLocation;
+
+  /// No description provided for @qiblahLatLong.
+  ///
+  /// In en, this message translates to:
+  /// **'Lat: {lat}, Long: {long}'**
+  String qiblahLatLong(Object lat, Object long);
+
+  /// No description provided for @qiblahLocationNotSet.
+  ///
+  /// In en, this message translates to:
+  /// **'Location not set'**
+  String get qiblahLocationNotSet;
+
+  /// No description provided for @qiblahUpdateLocation.
+  ///
+  /// In en, this message translates to:
+  /// **'Update Location'**
+  String get qiblahUpdateLocation;
+
+  /// No description provided for @qiblahCalculating.
+  ///
+  /// In en, this message translates to:
+  /// **'Calculating Qiblah direction...'**
+  String get qiblahCalculating;
+
+  /// No description provided for @qiblahDirectionHere.
+  ///
+  /// In en, this message translates to:
+  /// **'Qiblah Direction will be displayed here'**
+  String get qiblahDirectionHere;
+
+  /// No description provided for @qiblahCompassCalibration.
+  ///
+  /// In en, this message translates to:
+  /// **'Compass Calibration'**
+  String get qiblahCompassCalibration;
+
+  /// No description provided for @qiblahCompassCalibrationMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Your compass needs calibration for accurate Qiblah direction.'**
+  String get qiblahCompassCalibrationMessage;
+
+  /// No description provided for @qiblahCompassHowToCalibrate.
+  ///
+  /// In en, this message translates to:
+  /// **'How to Calibrate:'**
+  String get qiblahCompassHowToCalibrate;
+
+  /// No description provided for @qiblahCompassCalibrationStep1.
+  ///
+  /// In en, this message translates to:
+  /// **'1. Hold your phone firmly'**
+  String get qiblahCompassCalibrationStep1;
+
+  /// No description provided for @qiblahCompassCalibrationStep2.
+  ///
+  /// In en, this message translates to:
+  /// **'2. Move it in a figure-8 pattern in the air'**
+  String get qiblahCompassCalibrationStep2;
+
+  /// No description provided for @qiblahCompassCalibrationStep3.
+  ///
+  /// In en, this message translates to:
+  /// **'3. Repeat for 10-15 seconds'**
+  String get qiblahCompassCalibrationStep3;
+
+  /// No description provided for @qiblahCompassCalibrationStep4.
+  ///
+  /// In en, this message translates to:
+  /// **'4. Try different orientations'**
+  String get qiblahCompassCalibrationStep4;
+
+  /// No description provided for @qiblahCompassCalibrationTip.
+  ///
+  /// In en, this message translates to:
+  /// **'Move away from metal objects and electronic devices for better accuracy.'**
+  String get qiblahCompassCalibrationTip;
+
+  /// No description provided for @qiblahCompassCalibrationLater.
+  ///
+  /// In en, this message translates to:
+  /// **'I\'ll Try Later'**
+  String get qiblahCompassCalibrationLater;
+
+  /// No description provided for @qiblahCompassCalibrationGotIt.
+  ///
+  /// In en, this message translates to:
+  /// **'Got It!'**
+  String get qiblahCompassCalibrationGotIt;
+
+  /// No description provided for @qiblahCompassDirection.
+  ///
+  /// In en, this message translates to:
+  /// **'Qiblah Direction: {direction}°'**
+  String qiblahCompassDirection(Object direction);
+
+  /// No description provided for @qiblahCompassFacingQiblah.
+  ///
+  /// In en, this message translates to:
+  /// **'Facing Qiblah'**
+  String get qiblahCompassFacingQiblah;
+
+  /// No description provided for @qiblahCompassTurnToFindQiblah.
+  ///
+  /// In en, this message translates to:
+  /// **'Turn to find Qiblah'**
+  String get qiblahCompassTurnToFindQiblah;
+
+  /// No description provided for @qiblahCompassCurrentHeading.
+  ///
+  /// In en, this message translates to:
+  /// **'Current heading: {heading}°'**
+  String qiblahCompassCurrentHeading(Object heading);
+
+  /// No description provided for @qiblahCompassQiblahDirection.
+  ///
+  /// In en, this message translates to:
+  /// **'Qiblah direction: {direction}°'**
+  String qiblahCompassQiblahDirection(Object direction);
+
+  /// No description provided for @qiblahCompassDifference.
+  ///
+  /// In en, this message translates to:
+  /// **'Difference: {difference}°'**
+  String qiblahCompassDifference(Object difference);
+
+  /// No description provided for @qiblahCompassAccuracy.
+  ///
+  /// In en, this message translates to:
+  /// **'Compass accuracy: {accuracy}'**
+  String qiblahCompassAccuracy(Object accuracy);
 }
 
 class _SDelegate extends LocalizationsDelegate<S> {

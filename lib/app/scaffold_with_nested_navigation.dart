@@ -45,6 +45,11 @@ class ScaffoldWithNestedNavigation extends StatelessWidget {
                 selectedIcon: const Icon(Icons.home, size: 30.0),
               ),
               NavigationDestination(
+                label: S.of(context)!.qiblah, // New Qiblah tab
+                icon: const Icon(Icons.explore_outlined, size: 30.0),
+                selectedIcon: const Icon(Icons.explore, size: 30.0),
+              ),
+              NavigationDestination(
                 label: S.of(context)!.settings,
                 icon: const Icon(Icons.settings_outlined, size: 30.0),
                 selectedIcon: const Icon(Icons.settings, size: 30.0),

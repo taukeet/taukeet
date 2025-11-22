@@ -49,7 +49,7 @@ void main(List<String> args) async {
 
   // Build flutter test command
   final List<String> command = ['flutter', 'test'];
-  
+
   if (coverage) {
     command.addAll(['--coverage']);
   }
@@ -77,7 +77,7 @@ void main(List<String> args) async {
   if (exitCode == 0) {
     print('');
     print('✅ All tests passed!');
-    
+
     if (coverage) {
       print('📊 Coverage report generated in coverage/');
       print('   Run: genhtml coverage/lcov.info -o coverage/html');

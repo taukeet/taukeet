@@ -111,5 +111,31 @@
   "previous": "السابق",
   "next": "التالي", 
   "done": "تم",
-  "home": "الرئيسية"
+  "home": "الرئيسية",
+  "qiblah": "القبلة",
+
+  "qiblahCurrentLocation": "الموقع الحالي",
+  "qiblahLatLong": "خط العرض: {lat}، خط الطول: {long}",
+  "qiblahLocationNotSet": "الموقع غير محدد",
+  "qiblahUpdateLocation": "تحديث الموقع",
+  "qiblahCalculating": "جاري حساب اتجاه القبلة ...",
+  "qiblahDirectionHere": "سيتم عرض اتجاه القبلة هنا",
+
+  "qiblahCompassCalibration": "معايرة البوصلة",
+  "qiblahCompassCalibrationMessage": "تحتاج بوصلتك إلى المعايرة للحصول على اتجاه القبلة الدقيق.",
+  "qiblahCompassHowToCalibrate": "كيفية المعايرة:",
+  "qiblahCompassCalibrationStep1": "١. امسك هاتفك بقوة",
+  "qiblahCompassCalibrationStep2": "٢. حركه في الهواء على شكل رقم 8",
+  "qiblahCompassCalibrationStep3": "٣. كرر لمدة 10-15 ثانية",
+  "qiblahCompassCalibrationStep4": "٤. جرب اتجاهات مختلفة",
+  "qiblahCompassCalibrationTip": "للحصول على دقة أفضل ، ابتعد عن الأجسام المعدنية والأجهزة الإلكترونية.",
+  "qiblahCompassCalibrationLater": "سأحاول لاحقًا",
+  "qiblahCompassCalibrationGotIt": "فهمت!",
+  "qiblahCompassDirection": "اتجاه القبلة: {direction}°",
+  "qiblahCompassFacingQiblah": "مواجه القبلة",
+  "qiblahCompassTurnToFindQiblah": "استدر للعثور على القبلة",
+  "qiblahCompassCurrentHeading": "الاتجاه الحالي: {heading}°",
+  "qiblahCompassQiblahDirection": "اتجاه القبلة: {direction}°",
+  "qiblahCompassDifference": "الفرق: {difference}°",
+  "qiblahCompassAccuracy": "دقة البوصلة: {accuracy}"
 }
