@@ -1,6 +1,5 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mocktail/mocktail.dart';
 import 'package:taukeet/core/errors/failures.dart';
 import 'package:taukeet/features/qiblah/domain/usecases/get_qiblah_direction.dart';
 
@@ -15,15 +14,16 @@ void main() {
     // Test data - Mecca coordinates for reference
     const meccaLatitude = 21.4225;
     const meccaLongitude = 39.8262;
-    
+
     // Test coordinates from different locations
     const karachiLatitude = 24.8607;
     const karachiLongitude = 67.0011;
-    
+
     const londonLatitude = 51.5074;
     const londonLongitude = -0.1278;
 
-    test('should return Qiblah direction for valid coordinates (Karachi)', () async {
+    test('should return Qiblah direction for valid coordinates (Karachi)',
+        () async {
       // arrange
       const params = GetQiblahDirectionParams(
         latitude: karachiLatitude,
@@ -46,7 +46,8 @@ void main() {
       );
     });
 
-    test('should return Qiblah direction for valid coordinates (London)', () async {
+    test('should return Qiblah direction for valid coordinates (London)',
+        () async {
       // arrange
       const params = GetQiblahDirectionParams(
         latitude: londonLatitude,
@@ -92,7 +93,8 @@ void main() {
       );
     });
 
-    test('should return Qiblah direction for coordinates near North Pole', () async {
+    test('should return Qiblah direction for coordinates near North Pole',
+        () async {
       // arrange
       const params = GetQiblahDirectionParams(
         latitude: 89.0,
@@ -113,7 +115,8 @@ void main() {
       );
     });
 
-    test('should return Qiblah direction for coordinates near South Pole', () async {
+    test('should return Qiblah direction for coordinates near South Pole',
+        () async {
       // arrange
       const params = GetQiblahDirectionParams(
         latitude: -89.0,
@@ -152,7 +155,8 @@ void main() {
       );
     });
 
-    test('should return LocationFailure for invalid latitude (< -90)', () async {
+    test('should return LocationFailure for invalid latitude (< -90)',
+        () async {
       // arrange
       const params = GetQiblahDirectionParams(
         latitude: -91.0,
@@ -170,7 +174,8 @@ void main() {
       );
     });
 
-    test('should return LocationFailure for invalid longitude (> 180)', () async {
+    test('should return LocationFailure for invalid longitude (> 180)',
+        () async {
       // arrange
       const params = GetQiblahDirectionParams(
         latitude: 0.0,
@@ -188,7 +193,8 @@ void main() {
       );
     });
 
-    test('should return LocationFailure for invalid longitude (< -180)', () async {
+    test('should return LocationFailure for invalid longitude (< -180)',
+        () async {
       // arrange
       const params = GetQiblahDirectionParams(
         latitude: 0.0,
@@ -278,7 +284,8 @@ void main() {
       );
     });
 
-    test('should handle Mecca coordinates (should return 0 or undefined)', () async {
+    test('should handle Mecca coordinates (should return 0 or undefined)',
+        () async {
       // arrange
       const params = GetQiblahDirectionParams(
         latitude: meccaLatitude,
@@ -314,12 +321,14 @@ void main() {
       // assert
       expect(result1, isA<Right<Failure, double>>());
       expect(result2, isA<Right<Failure, double>>());
-      
+
       result1.fold(
-        (failure) => fail('Expected success for first call but got failure: $failure'),
+        (failure) =>
+            fail('Expected success for first call but got failure: $failure'),
         (direction1) {
           result2.fold(
-            (failure) => fail('Expected success for second call but got failure: $failure'),
+            (failure) => fail(
+                'Expected success for second call but got failure: $failure'),
             (direction2) {
               expect(direction1, equals(direction2));
             },
@@ -346,12 +355,14 @@ void main() {
       // assert
       expect(result1, isA<Right<Failure, double>>());
       expect(result2, isA<Right<Failure, double>>());
-      
+
       result1.fold(
-        (failure) => fail('Expected success for first call but got failure: $failure'),
+        (failure) =>
+            fail('Expected success for first call but got failure: $failure'),
         (direction1) {
           result2.fold(
-            (failure) => fail('Expected success for second call but got failure: $failure'),
+            (failure) => fail(
+                'Expected success for second call but got failure: $failure'),
             (direction2) {
               expect(direction1, isNot(equals(direction2)));
             },

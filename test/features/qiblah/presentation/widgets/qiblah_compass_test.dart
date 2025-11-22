@@ -1,4 +1,3 @@
-import 'dart:math' show pi;
 import 'package:flutter/material.dart';
 import 'package:flutter_compass/flutter_compass.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -47,7 +46,8 @@ void main() {
       );
     }
 
-    testWidgets('should render compass with all components', (WidgetTester tester) async {
+    testWidgets('should render compass with all components',
+        (WidgetTester tester) async {
       // Arrange & Act
       await tester.pumpWidget(createWidgetUnderTest(testQiblahDirection));
 
@@ -58,7 +58,8 @@ void main() {
       expect(find.byType(Container), findsWidgets); // Multiple containers
     });
 
-    testWidgets('should display Qiblah direction text correctly', (WidgetTester tester) async {
+    testWidgets('should display Qiblah direction text correctly',
+        (WidgetTester tester) async {
       // Arrange & Act
       await tester.pumpWidget(createWidgetUnderTest(testQiblahDirection));
 
@@ -66,7 +67,8 @@ void main() {
       expect(find.text('Qiblah Direction: 255.50°'), findsOneWidget);
     });
 
-    testWidgets('should show "turn to find Qiblah" status when no heading', (WidgetTester tester) async {
+    testWidgets('should show "turn to find Qiblah" status when no heading',
+        (WidgetTester tester) async {
       // Arrange & Act
       await tester.pumpWidget(createWidgetUnderTest(testQiblahDirection));
 
@@ -80,10 +82,12 @@ void main() {
       await tester.pumpWidget(createWidgetUnderTest(testQiblahDirection));
 
       // Assert
-      expect(find.byType(Image), findsNWidgets(2)); // compass_background and compass_needle
+      expect(find.byType(Image),
+          findsNWidgets(2)); // compass_background and compass_needle
     });
 
-    testWidgets('should render external Qiblah indicator', (WidgetTester tester) async {
+    testWidgets('should render external Qiblah indicator',
+        (WidgetTester tester) async {
       // Arrange & Act
       await tester.pumpWidget(createWidgetUnderTest(testQiblahDirection));
 
@@ -99,14 +103,15 @@ void main() {
       expect(find.byType(Container), findsWidgets);
     });
 
-    testWidgets('should have correct compass dimensions', (WidgetTester tester) async {
+    testWidgets('should have correct compass dimensions',
+        (WidgetTester tester) async {
       // Arrange & Act
       await tester.pumpWidget(createWidgetUnderTest(testQiblahDirection));
 
       // Assert - Check for the main compass container (300x300)
       final compassContainers = find.byType(SizedBox);
       expect(compassContainers, findsWidgets);
-      
+
       // Find the specific 300x300 container
       bool foundCorrectSize = false;
       for (final sizedBoxFinder in compassContainers.evaluate()) {
@@ -120,7 +125,8 @@ void main() {
     });
 
     group('Edge Cases', () {
-      testWidgets('should handle Qiblah direction of 0 degrees', (WidgetTester tester) async {
+      testWidgets('should handle Qiblah direction of 0 degrees',
+          (WidgetTester tester) async {
         // Arrange & Act
         await tester.pumpWidget(createWidgetUnderTest(0.0));
 
@@ -129,7 +135,8 @@ void main() {
         expect(find.byType(QiblahCompass), findsOneWidget);
       });
 
-      testWidgets('should handle Qiblah direction of 360 degrees', (WidgetTester tester) async {
+      testWidgets('should handle Qiblah direction of 360 degrees',
+          (WidgetTester tester) async {
         // Arrange & Act
         await tester.pumpWidget(createWidgetUnderTest(360.0));
 
@@ -138,7 +145,8 @@ void main() {
         expect(find.byType(QiblahCompass), findsOneWidget);
       });
 
-      testWidgets('should handle negative Qiblah direction', (WidgetTester tester) async {
+      testWidgets('should handle negative Qiblah direction',
+          (WidgetTester tester) async {
         // Arrange & Act
         await tester.pumpWidget(createWidgetUnderTest(-10.0));
 
@@ -147,7 +155,8 @@ void main() {
         expect(find.byType(QiblahCompass), findsOneWidget);
       });
 
-      testWidgets('should handle very large Qiblah direction', (WidgetTester tester) async {
+      testWidgets('should handle very large Qiblah direction',
+          (WidgetTester tester) async {
         // Arrange & Act
         await tester.pumpWidget(createWidgetUnderTest(1000.0));
 
@@ -156,7 +165,8 @@ void main() {
         expect(find.byType(QiblahCompass), findsOneWidget);
       });
 
-      testWidgets('should handle decimal Qiblah direction precision', (WidgetTester tester) async {
+      testWidgets('should handle decimal Qiblah direction precision',
+          (WidgetTester tester) async {
         // Arrange & Act
         await tester.pumpWidget(createWidgetUnderTest(255.56789));
 
@@ -167,7 +177,8 @@ void main() {
     });
 
     group('Status Indicator Tests', () {
-      testWidgets('should show orange status when not facing Qiblah', (WidgetTester tester) async {
+      testWidgets('should show orange status when not facing Qiblah',
+          (WidgetTester tester) async {
         // Arrange & Act
         await tester.pumpWidget(createWidgetUnderTest(testQiblahDirection));
 
@@ -178,7 +189,9 @@ void main() {
     });
 
     group('Direction Info Tests', () {
-      testWidgets('should not show direction info when heading is not available', (WidgetTester tester) async {
+      testWidgets(
+          'should not show direction info when heading is not available',
+          (WidgetTester tester) async {
         // Arrange & Act
         await tester.pumpWidget(createWidgetUnderTest(testQiblahDirection));
 
@@ -191,20 +204,23 @@ void main() {
     });
 
     group('Widget Structure Tests', () {
-    testWidgets('should have correct widget hierarchy', (WidgetTester tester) async {
-      // Arrange & Act
-      await tester.pumpWidget(createWidgetUnderTest(testQiblahDirection));
+      testWidgets('should have correct widget hierarchy',
+          (WidgetTester tester) async {
+        // Arrange & Act
+        await tester.pumpWidget(createWidgetUnderTest(testQiblahDirection));
 
-      // Assert
-      expect(find.byType(Column), findsOneWidget); // Main layout
-      expect(find.byType(Text), findsAtLeastNWidgets(1)); // Direction text
-      expect(find.byType(Stack), findsAtLeastNWidgets(2)); // Multiple stacks (compass + outer ring)
-      expect(find.byType(Container), findsWidgets); // Multiple containers
-    });
+        // Assert
+        expect(find.byType(Column), findsOneWidget); // Main layout
+        expect(find.byType(Text), findsAtLeastNWidgets(1)); // Direction text
+        expect(find.byType(Stack),
+            findsAtLeastNWidgets(2)); // Multiple stacks (compass + outer ring)
+        expect(find.byType(Container), findsWidgets); // Multiple containers
+      });
     });
 
     group('Compass Logic Tests', () {
-      testWidgets('should handle circular nature of compass calculations', (WidgetTester tester) async {
+      testWidgets('should handle circular nature of compass calculations',
+          (WidgetTester tester) async {
         // Arrange & Act
         await tester.pumpWidget(createWidgetUnderTest(1.0));
 
@@ -213,7 +229,8 @@ void main() {
         // The widget should handle circular nature internally
       });
 
-      testWidgets('should handle extreme Qiblah directions', (WidgetTester tester) async {
+      testWidgets('should handle extreme Qiblah directions',
+          (WidgetTester tester) async {
         // Arrange & Act
         await tester.pumpWidget(createWidgetUnderTest(720.0)); // 2 * 360
 
@@ -224,7 +241,8 @@ void main() {
     });
 
     group('Localization Tests', () {
-      testWidgets('should display localized text correctly', (WidgetTester tester) async {
+      testWidgets('should display localized text correctly',
+          (WidgetTester tester) async {
         // Arrange & Act
         await tester.pumpWidget(createWidgetUnderTest(testQiblahDirection));
 
@@ -235,7 +253,8 @@ void main() {
     });
 
     group('Error Handling Tests', () {
-      testWidgets('should handle zero Qiblah direction gracefully', (WidgetTester tester) async {
+      testWidgets('should handle zero Qiblah direction gracefully',
+          (WidgetTester tester) async {
         // Arrange & Act
         await tester.pumpWidget(createWidgetUnderTest(0.0));
 
@@ -244,7 +263,8 @@ void main() {
         expect(find.byType(QiblahCompass), findsOneWidget);
       });
 
-      testWidgets('should handle very small Qiblah direction gracefully', (WidgetTester tester) async {
+      testWidgets('should handle very small Qiblah direction gracefully',
+          (WidgetTester tester) async {
         // Arrange & Act
         await tester.pumpWidget(createWidgetUnderTest(0.001));
 
@@ -253,7 +273,8 @@ void main() {
         expect(find.byType(QiblahCompass), findsOneWidget);
       });
 
-      testWidgets('should handle very large Qiblah direction gracefully', (WidgetTester tester) async {
+      testWidgets('should handle very large Qiblah direction gracefully',
+          (WidgetTester tester) async {
         // Arrange & Act
         await tester.pumpWidget(createWidgetUnderTest(9999.0));
 
@@ -264,18 +285,20 @@ void main() {
     });
 
     group('Visual Tests', () {
-      testWidgets('should render status indicator', (WidgetTester tester) async {
+      testWidgets('should render status indicator',
+          (WidgetTester tester) async {
         // Arrange & Act
         await tester.pumpWidget(createWidgetUnderTest(testQiblahDirection));
 
         // Assert - Should find status container
         expect(find.byType(Container), findsWidgets);
-        
+
         // Should have status icon
         expect(find.byIcon(Icons.explore), findsOneWidget);
       });
 
-      testWidgets('should render compass with proper layout', (WidgetTester tester) async {
+      testWidgets('should render compass with proper layout',
+          (WidgetTester tester) async {
         // Arrange & Act
         await tester.pumpWidget(createWidgetUnderTest(testQiblahDirection));
 
