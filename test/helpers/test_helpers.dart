@@ -63,31 +63,28 @@ class TestDataFactory {
       ),
       PrayerTime(
         name: PrayerName(english: "Sunrise", arabic: "شروق"),
-        startTime: DateTime(testDate.year, testDate.month, testDate.day, 7, 0),
+        startTime: DateTime(testDate.year, testDate.month, testDate.day, 6, 45),
         isCurrentPrayer: false,
       ),
       PrayerTime(
         name: PrayerName(english: "Dhuhr", arabic: "ظهر"),
-        startTime:
-            DateTime(testDate.year, testDate.month, testDate.day, 12, 15),
-        isCurrentPrayer: true,
+        startTime: DateTime(testDate.year, testDate.month, testDate.day, 12, 15),
+        isCurrentPrayer: testDate.hour == 12 && testDate.minute >= 15,
       ),
       PrayerTime(
         name: PrayerName(english: "Asr", arabic: "عصر"),
-        startTime:
-            DateTime(testDate.year, testDate.month, testDate.day, 15, 45),
-        isCurrentPrayer: false,
+        startTime: DateTime(testDate.year, testDate.month, testDate.day, 15, 45),
+        isCurrentPrayer: testDate.hour == 15 && testDate.minute >= 45,
       ),
       PrayerTime(
         name: PrayerName(english: "Maghrib", arabic: "مغرب"),
-        startTime:
-            DateTime(testDate.year, testDate.month, testDate.day, 18, 30),
-        isCurrentPrayer: false,
+        startTime: DateTime(testDate.year, testDate.month, testDate.day, 18, 30),
+        isCurrentPrayer: testDate.hour == 18 && testDate.minute >= 30,
       ),
       PrayerTime(
         name: PrayerName(english: "Isha", arabic: "عشاء"),
         startTime: DateTime(testDate.year, testDate.month, testDate.day, 20, 0),
-        isCurrentPrayer: false,
+        isCurrentPrayer: testDate.hour == 20 && testDate.minute >= 0,
       ),
     ];
   }
@@ -97,7 +94,7 @@ class TestDataFactory {
       'methods': [
         'Dubai',
         'Egyptian',
-        'Karachi',
+        'Delhi',
         'Kuwait',
         'MoonsightingCommittee',
         'MuslimWorldLeague',
