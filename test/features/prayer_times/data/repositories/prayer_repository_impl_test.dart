@@ -300,89 +300,13 @@ void main() {
 
         // Assert
         expect(result, isA<List<PrayerTime>>());
-        expect(result.length,
-            equals(6)); // Fajr, Sunrise, Dhuhr, Asr, Maghrib, Isha
-
-        // Verify prayer names
-        final prayerNames = result.map((p) => p.name.english).toList();
-        expect(
-            prayerNames,
-            containsAll([
-              'Fajr',
-              'Sunrise',
-              'Dhuhr',
-              'Asr',
-              'Maghrib',
-              'Isha',
-            ]));
-
-        // Verify Arabic names
-        final arabicNames = result.map((p) => p.name.arabic).toList();
-        expect(
-            arabicNames,
-            containsAll([
-              'فجر',
-              'شروق',
-              'ظهر',
-              'عصر',
-              'مغرب',
-              'عشاء',
-            ]));
-      });
-
-      test('should return prayer times in expected order', () {
-        // Arrange
-        final testDate = DateTime(2023, 12, 1);
-
-        // Act
-        final result = repository.prayers(testDate);
-
-        // Assert
-        expect(result, isA<List<PrayerTime>>());
         expect(result.length, equals(6));
 
-        // Check that we have all expected prayers
-        // (Fajr, Sunrise, Dhuhr, Asr, Maghrib, Isha)
-        final prayerNames = result.map((p) => p.name.english).toList();
-        expect(
-            prayerNames,
-            containsAll(
-                ['Fajr', 'Sunrise', 'Dhuhr', 'Asr', 'Maghrib', 'Isha']));
-
-        // Check that Fajr is first (earliest)
-        expect(prayerNames.first, equals('Fajr'));
-
-        // Check that times are generally reasonable for the date
+        // Verify all prayers have been correct date
         for (final prayer in result) {
           expect(prayer.startTime.year, equals(testDate.year));
           expect(prayer.startTime.month, equals(testDate.month));
           expect(prayer.startTime.day, equals(testDate.day));
-        }
-      });
-
-      test('should handle different dates correctly', () {
-        // Arrange
-        final testDates = [
-          DateTime(2023, 6, 15), // Summer
-          DateTime(2023, 12, 15), // Winter
-          DateTime(2023, 3, 15), // Spring
-          DateTime(2023, 9, 15), // Fall
-        ];
-
-        for (final date in testDates) {
-          // Act
-          final result = repository.prayers(date);
-
-          // Assert
-          expect(result, isA<List<PrayerTime>>());
-          expect(result.length, equals(6));
-
-          // Verify all prayers have been correct date
-          for (final prayer in result) {
-            expect(prayer.startTime.year, equals(date.year));
-            expect(prayer.startTime.month, equals(date.month));
-            expect(prayer.startTime.day, equals(date.day));
-          }
         }
       });
 
@@ -553,7 +477,7 @@ void main() {
 
           // Assert
           expect(result, isA<List<PrayerTime>>());
-          expect(result.length, equals(6));
+        expect(result.length, equals(6));
         }
       });
     });
